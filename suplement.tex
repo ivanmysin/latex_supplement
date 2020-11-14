@@ -10,12 +10,90 @@
 \begin{document}
 	\maketitle
 	Pyramidal neurons
-	
 	\newline
-
-	\begin{multline}
-C\frac{dV_s}{dt} = -I_l - I_{Kdr}-I_{Na} -I_A - I_M-I_H-I_{CaL} - I_{sAHP}-I_{mAHP} -I_{CaR}-I_{buff}-\\
+	Уравнение для сомы, радиатума и ориенса
+	\begin{eqnarray}
+C\frac{dV_s}{dt} = -I_l - I_{Kdr}-I_{Na} -I_A - I_M-I_H-I_{CaL} - I_{sAHP}-I_{mAHP} -I_{CaR}-I_{buff}-\nonumber \\
 -I_{syn}+I_{ext}
-	\end{multline}
+	\end{eqnarray}
+\newline
+
+Уравнение для аксона
+\newline
+	\begin{equation}
+	C\frac{dV_a}{dt} = -I_l - I_{Kdr}-I_{Na}- I_M - I_{syn}
+    \end{equation}
+\newline
+
+Уравнение для LM
+\newline
+\begin{equation}
+C\frac{dV_LM}{dt} = -I_l - I_{Kdr}-I_{Na}- I_A - I_{syn} + I_{ext}
+\end{equation}
+\newline
+
+Натриевый каналы
+\newline
+\begin{equation}
+I_{Na} = g_{max, Na} \cdot m^2 \cdot h\cdot s \cdot(V - E_{Na})
+\end{equation}
+\newline
+For dendiritic compartments
+\newline
+\begin{equation}
+m_{\infty} = \frac{1}{1 + exp(-\frac{V + 40}{3})}
+\end{equation}
+\newline
+\begin{equation}
+h_{\infty} = \frac{1}{1 + exp(-\frac{V + 45}{3})}
+\end{equation}
+\newline
+
+For soma/axon compartments
+\begin{equation}
+m_{\infty} = \frac{1}{1 + exp(-\frac{V + 44}{3})}
+\end{equation}
+\newline
+\begin{equation}
+h_{\infty} = \frac{1}{1 + exp(-\frac{V + 49}{3.5})}
+\end{equation}
+\newline
+
+
+For all compartments
+\begin{equation}
+s_{\infty} = \frac{1 + Na_{att} exp(0.5(V+60))}{1 + exp(0.5(V+60))}
+\end{equation}
+\newline
+
+\begin{equation}
+\tau_s = \frac{0.00333 exp(0.0024(V + 60)Q) }{1 + exp(0.0012(V + 60)Q)}
+\end{equation}
+\newline
+
+\begin{equation}
+Q = \frac{F}{RT}
+\end{equation}
+\newline
+
+
+The delayed rectifier current is given by:
+
+\begin{equation}
+I_{Kdr} = g_{max, Kdr} \cdot n^2 \cdot (V - E_{K})
+\end{equation}
+For dendiritic compartments
+\begin{equation}
+n_{\infty} = \frac{1}{1 + exp(-0.5(V + 42))}
+\end{equation}
+For soma/axon compartments
+\begin{equation}
+n_{\infty} = \frac{1}{1 + exp(-0.3333(V + 46.3))}
+\end{equation}
+\newline
+
+
 
 \end{document}
+
+
