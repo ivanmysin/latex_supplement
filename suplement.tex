@@ -41,21 +41,25 @@ I_{Na} = g_{max, Na} \cdot m^2 \cdot h\cdot s \cdot(V - E_{Na})
 For dendiritic compartments
 \newline
 \begin{equation}
-m_{\infty} = \frac{1}{1 + exp(-\frac{V + 40}{3})}
+m_{\infty} = \frac{1}{1 + exp(-\frac{V + 40}{3})} \ 
+\tau_m = 0.05 ms
 \end{equation}
 \newline
 \begin{equation}
-h_{\infty} = \frac{1}{1 + exp(-\frac{V + 45}{3})}
+h_{\infty} = \frac{1}{1 + exp(-\frac{V + 45}{3})} \ 
+\tau_h = 0.5 ms
 \end{equation}
 \newline
 
 For soma/axon compartments
 \begin{equation}
-m_{\infty} = \frac{1}{1 + exp(-\frac{V + 44}{3})}
+m_{\infty} = \frac{1}{1 + exp(-\frac{V + 44}{3})} \ 
+\tau_m = 0.05 ms
 \end{equation}
 \newline
 \begin{equation}
-h_{\infty} = \frac{1}{1 + exp(-\frac{V + 49}{3.5})}
+h_{\infty} = \frac{1}{1 + exp(-\frac{V + 49}{3.5})} \ 
+\tau_h = 1 ms
 \end{equation}
 \newline
 
@@ -84,13 +88,88 @@ I_{Kdr} = g_{max, Kdr} \cdot n^2 \cdot (V - E_{K})
 \end{equation}
 For dendiritic compartments
 \begin{equation}
-n_{\infty} = \frac{1}{1 + exp(-0.5(V + 42))}
+n_{\infty} = \frac{1}{1 + exp(-0.5(V + 42))} \ 
+\tau_n = 2.2 ms
 \end{equation}
 For soma/axon compartments
 \begin{equation}
-n_{\infty} = \frac{1}{1 + exp(-0.3333(V + 46.3))}
+n_{\infty} = \frac{1}{1 + exp(-0.3333(V + 46.3))} \ 
+\tau_n = 3.5 ms
 \end{equation}
 \newline
+
+The fast inactivating A-type K+ current is described by
+\begin{equation}
+I_{A} = g_{max, A} \cdot n_A \cdot l \cdot (V - E_{K})
+\end{equation}
+
+\begin{equation}
+\alpha_{n_A} = \frac{-0.01(V + 21.3)}{exp( \frac{V + 21.3}{-35}) - 1}
+\end{equation}
+\newline
+\begin{equation}
+\beta_{n_A} = \frac{0.01(V + 21.3)}{exp( \frac{V + 21.3}{35}) - 1}
+\end{equation}
+\newline
+
+\begin{equation}
+\alpha_{l} = \frac{-0.01(V + 58)}{exp( \frac{V + 58}{8.2}) - 1}
+\end{equation}
+\newline
+\begin{equation}
+\beta_{l} = \frac{0.01(V + 58)}{exp( \frac{V + 58}{-8.2}) - 1}
+\end{equation}
+\newline
+\begin{equation}
+	\begin{matrix}
+	\tau_{l} = & =
+	& \left\{
+	\begin{matrix}
+	 5 + 0.26(V + 20) & \mbox{if } V > 20 \\
+	 5 & \mbox{otherwise }
+	\end{matrix} \right.
+	\end{matrix}
+\end{equation}
+\newline
+The hyperpolarizing H-current is given by:
+\begin{equation}
+I_{H} = g_{max, H} \cdot H \cdot (V - E_{H})
+\end{equation}
+\begin{equation}
+H_{\infty} = \frac{1}{1 + exp(0.125(V + 75))} 
+\end{equation}
+
+\begin{equation}
+\tau_H = \frac{exp(0.033264 (V + 75))}{0.35(1 + exp(0.0083(V + 75)))}
+\end{equation}
+\newline
+
+The slowly activating voltage-dependent potassium current, IM, is  given by the equations:
+\begin{equation}
+I_M = g_{max, M} \cdot T_{adj} \cdot q \cdot (V - E_{K}) \ 
+T_{adj} = 10^{-4} \cdot 2.3^{0.1(T - 296)}
+\end{equation}
+\begin{equation}
+\alpha_{q} = \frac{10^{-3}(V+30)}{1-exp(\frac{V+30}{-9})}
+\end{equation}
+\begin{equation}
+\beta_{q} = \frac{-10^{-3}(V+30)}{1-exp(\frac{V+30}{9})}
+\end{equation}
+\newline
+
+The slow after-hyperpolarizing current, IsAHP
+\begin{equation}
+I_{sAHP} = g_{max, sAHP} \cdot p^3 \cdot (V - E_{K})
+\end{equation}
+\begin{equation}
+\frac{dp}{dt} = \frac{C_{Ca} - p(1 + C_{Ca})}{\tau_p(1 + C_{Ca})}
+\end{equation}
+\begin{equation}
+\tau_{p} = max( \frac{1}{0.003 \cdot (1 + C_{Ca}) 3^(0.1(T-295))}, \ 0.5)
+\end{equation}
+\begin{equation}
+C_{Ca} = \Bigl(\frac{[Ca^{2+}]_{in}}{0.025} \Bigl)^2
+\end{equation}
 
 
 
