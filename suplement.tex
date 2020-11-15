@@ -170,6 +170,88 @@ I_{sAHP} = g_{max, sAHP} \cdot p^3 \cdot (V - E_{K})
 \begin{equation}
 C_{Ca} = \Bigl(\frac{[Ca^{2+}]_{in}}{0.025} \Bigl)^2
 \end{equation}
+\newline
+The medium after-hyperpolarizing current, I mAHP (Moczydlowski and Latorre, 1983), is given by:
+\begin{equation}
+I_{mAHP} = g_{max, mAHP} \cdot a \cdot (V - E_{K})
+\end{equation}
+\begin{equation}
+\alpha_{a} = \frac{0.48}{1 + \frac{0.18 \cdot exp(-1.68 V Q)}{[Ca^{2+}]_{in}}}
+\end{equation}
+\begin{equation}
+\beta_{a} = \frac{0.28}{1 + \frac{[Ca^{2+}]_{in}}{0.011 \cdot exp(-2 V Q)}}
+\end{equation}
+\newline
+The somatic high-voltage activated (HVA) L-type Ca2+ current is given by
+\begin{equation}
+I_{CaL} = g_{max, soma CaL} \cdot b \cdot \frac{0.001}{0.001 + [Ca^{2+}]_{in}} \cdot (V - E_{Ca}) \ !!!???
+\end{equation}
+\begin{equation}
+\alpha_{b} = \frac{-5.055 \ (V + 27.01)}{exp( \frac{(V + 27.01}{-3.8})  - 1}
+\end{equation}
+\begin{equation}
+\beta_{b} = 4.7 \ exp \Bigl( \frac{V + 63.01}{-17} \Bigl)
+\end{equation}
+whereas the dendritic L-type calcium channels have different kinetics:
+\begin{equation}
+I_{CaL} = g_{max, dend CaL} \cdot b^3 \cdot c \cdot (V - E_{Ca})
+\end{equation}
+\begin{equation}
+\alpha_{b} = \frac{1}{1 + exp(-(V + 37)) }
+\end{equation}
+\begin{equation}
+\beta_{b} = \frac{1}{1 + exp(2(V + 41)) }
+\end{equation}
+\begin{equation}
+\alpha_{c} = ?
+\end{equation}
+\begin{equation}
+\beta_{c} = ?
+\end{equation}
+\begin{equation}
+\tau_{b} = 3.6
+\end{equation}
+\begin{equation}
+\tau_{c} = 29
+\end{equation}
+\newline
+The low-voltage activated (LVA) T-type Ca2+ channel kinetics are given by:
+\begin{equation}
+I_{CaT} = g_{max, soma CaT} \cdot d^2 \cdot r \cdot \frac{0.001}{0.001 + [Ca^{2+}]_{in}} \cdot (V - E_{Ca}) \ !!!???
+\end{equation}
+\begin{equation}
+\alpha_{d} = \frac{-0.196(V - 19.88)}{ exp(-0.1(V - 19.88)) - 1}
+\end{equation}
+\begin{equation}
+\beta_{d} = 0.46 exp( -V/22.73 ) 
+\end{equation}
+\begin{equation}
+\alpha_{r} = 0.00016 exp( \frac{V+57}{-19})
+\end{equation}
+\begin{equation}
+\beta_{r} = \frac{1}{1 + exp(-0.1(V-15)) }
+\end{equation}
+\newline
+The HVA R-type Ca2+ current is described by:
+\begin{equation}
+I_{CaR} = g_{max, CaR} \cdot w^3 \cdot j \cdot  \cdot (V - E_{Ca}) 
+\end{equation}
+equations for dendritic CaR channels are:
+\begin{equation}
+w_{\infty} = \frac{1}{ (1 + exp(-0.3333(V+48)) ) } \ \ \tau_{w} = 50 ms
+\end{equation}
+\begin{equation}
+j_{\infty} = \frac{1}{1 + exp(V + 53) } \ \ \tau_{j} = 5 ms
+\end{equation}
+while for the somatic CaR channels:
+\begin{equation}
+w_{\infty} = \frac{1}{ (1 + exp(-0.3333(V+60)) ) } \ \ \tau_{w} = 100 ms
+\end{equation}
+\begin{equation}
+j_{\infty} = \frac{1}{1 + exp(V + 62) } \ \ \tau_{j} = 5 ms
+\end{equation}
+\newline
+
 
 
 
