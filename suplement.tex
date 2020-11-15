@@ -251,7 +251,22 @@ w_{\infty} = \frac{1}{ (1 + exp(-0.3333(V+60)) ) } \ \ \tau_{w} = 100 ms
 j_{\infty} = \frac{1}{1 + exp(V + 62) } \ \ \tau_{j} = 5 ms
 \end{equation}
 \newline
-
+Dynamic of calcium concention
+\begin{equation}
+\frac{d[Ca^{2+}]_{in}}{dt} = \phi_{Ca} I_{sumCa} - \beta_{Ca} [Ca^{2+}]_{in}
+\end{equation}
+\newline
+\begin{table}[h]
+	\caption{Parameters of pyramidal neurons}
+	\begin{center}
+		\begin{tabular}{ |c|c|c|c|c|c|c|c|c| }
+			\hline
+\textbf{Parameter} & \textbf{Soma} & \textbf{Axon} & \textbf{OriProx} & \textbf{OriDist} & \textbf{RadProx} & \textbf{RadMed} & \textbf{RadDist} & \textbf{LM} \\ \hline 
+Cm, mF/cm2 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\ \hline  Rm, Ohm cm2 & 20000 & 20000 & 20000 & 20000 & 20000 & 20000 & 20000 & 20000 \\ \hline  Ra, Ωcm & 50 & 50 & 50 & 50 & 50 & 50 & 50 & 50 \\ \hline  Leak conductance [S/cm2] & 0.0002 & 0.000005 & 0.000005 & 0.000005 & 0.000005 & 0.000005 & 0.000005 & 0.000005 \\ \hline  Sodium conductance [S/cm2] & 0.007 & 0.1 & 0.007 & 0.007 & 0.007 & 0.007 & 0.007 & 0.007 \\ \hline  Delayed Rectifier K+ conductance [S/cm2] & 0.0014 & 0.02 & 0.000868 & 0.000868 & 0.000868 & 0.000868 & 0.000868 & 0.000868 \\ \hline  Proximal A-type K+ conductance [S/cm2] & 0.0025 & --- & 0.0075 & 0.0075 & 0.015 & 0 & 0 & --- \\ \hline  Distal A-type K+ conductance [S/cm2] & --- & --- & 0 & 0 & 0 & 0.03 & 0.045 & 0.049 \\ \hline  M-type K+ conductance [S/cm2] & 0.06 & 0.03 & 0.06 & 0.06 & 0.06 & 0.06 & 0.06 & --- \\ \hline  Ih conductance [S/cm2] & 0.00005 & --- & 0.00005 & 0.0001 & 0.0001 &  0.0002 & 0.00035 & --- \\ \hline  Vhalf,h (mV) & -73 & --- & -81 & -81 & -82 & -81 & -81 & --- \\ \hline  L-type Ca2+ conductance [S/cm2] & 0.0007 & --- & 0.000031635 & 0.000031635 & 0.000031635 & 0.0031635 & 0.0031635 & --- \\ \hline  T-type Ca2+ conductance [S/cm2] & 0.00005 & --- & 0.0001 & 0.0001 & 0.0001 & 0.0001 & 0.0001 & --- \\ \hline  R-type Ca2+ conductance [S/cm2] & 0.0003 & --- & 0.00003 & 0.00003 & 0.00003 & 0.00003 & 0.00003 & --- \\ \hline  Ca2+-dependent sAHP  K+ conductance [S/cm2] & 0.0005 & --- & 0.0005 & 0.0005 & 0.0005 & 0.0005 & 0.0005 & --- \\ \hline  Ca2+-dependent mAHP  K+ conductance [S/cm2] & 0.09075 & --- & 0.033 & 0.033 & 0.033 & 0.033 & 0.0041 & --- \\ \hline  EL (mV) & -70 & -70 & -70 & -70 & -70 & -70 & -70 & -70 \\ \hline  ENa (mV) & 50 & 50 & 50 & 50 & 50 & 50 & 50 & 50 \\ \hline  Eh, (mV) & -10 & --- & -10 & -10 & -10 & -10 & -10 & -10 \\ \hline  ECa, (mV) & 140 & --- & 140 & 140 & 140 & 140 & 140 & --- \\ \hline  EK (mV) & -80 & -80 & -80 & -80 & -80 & -80 & -80 & -80 \\ \hline  
+			
+ 		\end{tabular}
+	\end{center}
+\end{table}
 
 
 
