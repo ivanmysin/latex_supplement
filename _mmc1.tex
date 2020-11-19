@@ -1,5 +1,5 @@
 \documentclass[a4paper]{article}
-
+\usepackage{amsmath}
 \title{Supporting Online Material}
 \author{}
 \begin{document}
@@ -253,15 +253,15 @@ I_{mAHP}= g_{mAHP}\cdot m\cdot
 m_{t+dt}=m_t+(1+e^{-\frac{dt}{τ_m}})\cdot (\frac{α_m(V)}{τ_m}-m_t)
 \end{equation}
 
-%\begin{equation}
-%α_m(V)=\frac{0.48(1/\normalsubformula{\text{ms}})}{1+\frac{0.18(\normalsubformula{\text{mM}})}ca}_in}}}\cdot
-%e^{(-1.68\cdot V\cdot Q(\text{deg}C))}}
-%\end{equation}
+\begin{equation}
+α_m(V)=\frac{0.48}{1+\frac{0.18}{[Ca]_{in}}\cdot
+e^{-1.68\cdot V\cdot Q(degC)}}
+\end{equation}
 
-%\begin{equation}
-%β_m(V)=\frac{0.28(1}{1+\frac{[ca]_in}}}{0.011(\normalsubformula{\text{mM}})\cdot
-%e^{(-2\cdot V\cdot Q(\text{deg}C))}}}
-%\end{equation}
+\begin{equation}
+β_m(V)=\frac{0.28}{1+\frac{[ca]_{in}}{0.011\cdot
+e^{-2\cdot V\cdot Q(degC)}}}
+\end{equation}
 
 \begin{equation}
 τ_m=\frac {1}{α_m(V)+β_m(V)}
@@ -317,10 +317,10 @@ ghk(V, [ca]_{in}, [ca]_{out})=-x\cdot
 e^{\frac {V} {x})\cdot f(\frac {V}{x})}
 \end{equation}
 
-%\begin{equation}
-%x=\frac{0.0853\cdot (T+\text{deg}C)} 2,f(z)=?\begin{matrix}\left\{1-\frac z 2\text{     if
-%abs}(z)<10^{\text{-4}}?\right.\left\{\frac z{e^z-1}\text{      otherwise}?\right.\mathit{no}\end{matrix}\{?
-%\end{equation}
+\begin{equation}
+x=\frac{0.0853\cdot (T+degC)}{2}, \\
+f(z) = \begin{cases} 1-\frac {z}{2}, & if \ |z|<10^{-4} \\ \frac z{e^z-1}, & \  otherwise \ \end{cases}
+\end{equation}
 
 \begin{equation}
 m_{t+dt}=m_t+(1+e^{-\frac{dt}{τ_m}})\cdot
@@ -384,27 +384,20 @@ $Ca_{2+}$ entry was changed from
 \textit{f}\textit{\textsubscript{e}}\textit{ }=\textit{ }10,000~to \textit{f}\textit{\textsubscript{e}}\textit{
 }=\textit{ }10,000/18~and the rate of calcium removal was made 7 times faster. The kinetic equations are given by:
 
+\begin{equation}
+drivechannel = \begin{cases} -f_e \frac{I_{Ca}}{0.2 F}, & if \ drivechannel > 0  \\ 0, & \  otherwise \ \end{cases}
+\end{equation}
 
-%\normalsubformula{\text{drive}}_channel}}=?\begin{matrix}\left\{-f_e\cdot
-%\frac{I_{\text{Ca}}}{0.2\cdot \text{FARADAY}}\text{   if
-%}\normalsubformula{\text{drive}}_channel}}>0\normalsubformula{\text{mM}}/\normalsubformula{\text{ms}}?\right.\left\{0\text{
-%                      }\normalsubformula{\text{otherwise}}?\right.\mathit{no}\end{matrix}\{?
-
-%\begin{equation}
-%\frac{dca}{dt}=drive\_channel +\frac{(10^{-4}(\normalsubformula{\text{mM}})-\normalsubformula{\text{ca}})}{7\cdot
-%200 ms}
-%\end{equation}
+\begin{equation}
+\frac{dCa}{dt}=drivechannel +\frac{10^{-4}-Ca}{7\cdot 200 ms}
+\end{equation}
 
 
-\bigskip
 
 
 \bigskip
 
-
-\bigskip
-
-\subsubsection{CA3 and CA1 axo-axonic, basket and bistratified cells}
+\subsubsection{Bistratified cells}
 
 All compartments obey the following current balance equation, which was adapted from Cutsuridis et al. (2010):
 
@@ -492,12 +485,10 @@ I_{AHP} = g_{AHP} q^2 (V-E_K)
 β_q=\frac{0.006}{e^{(12\cdot log_{10}([Ca^{2+}])+60.4)/35}}
 \end{equation}
 
-%\begin{equation}
-% \frac{d[Ca^{2+}]_i}{dt}=B{\sum
-%}I_Ca}}-\frac{[\normalsubformula{\text{Ca}}^{2+}]_i-[\normalsubform%ula{\text{Ca}}^{2+}]_0}
-% τ
-%\end{equation}
-
+\begin{equation}
+ \frac{d[Ca^{2+}]_i}{dt}=B\sum_{T, N, L}
+I_{Ca}-\frac{[Ca^{2+}]_i-[Ca^{2+}]_0}{\tau}
+\end{equation}
 
 where
 \begin{equation}
@@ -544,13 +535,13 @@ I_{CaL}=g_{CaL}\cdot s_{\infty }^2\cdot V\cdot
 % \frac{1-\frac{[Ca^{2+}]_i}}{[Ca^{2+}]_0}}{e^{2FV/kT}(1-e^{2FV/kT})}
 \end{equation}
 
-\begin{equation}
+
 where \textit{g}\textit{\textsubscript{CaL}} is the maximal conductance, \textit{s}\textsf{\textit{\textsubscript{∞}}}
 is the steady-state activation variable, \textit{F} is Faraday’s constant, \textit{T} is the temperature, \textit{k} is
-Boltzmann’s constant, \textit{[Ca}\textit{\textsuperscript{2+}}\textit{]}\textit{\textsubscript{0}} \ is the
-equilibrium calcium concentration and \textit{[Ca}\textit{\textsuperscript{2+}}\textit{]}\textit{\textsubscript{i}} is
+Boltzmann’s constant, [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{0}} \ is the
+equilibrium calcium concentration and [\textit{Ca}\textit{\textsuperscript{2+}}]\textit{\textsubscript{i}} is
 described in equation 49. The activation variable, \textit{s}\textsf{\textit{\textsubscript{∞}}}\textit{,} is then
-\end{equation}
+
 
 \begin{equation}
 s_{\infty }=\frac{α_s}{α_s+β_s} ,  α_s=\frac{15.69(-V+81.5)}{e^{(\frac{-V+81.5}{10})}-1} ,  
@@ -561,10 +552,7 @@ s_{\infty }=\frac{α_s}{α_s+β_s} ,  α_s=\frac{15.69(-V+81.5)}{e^{(\frac{-V+81
 \bigskip
 
 
-\bigskip
 
-
-\bigskip
 
 
 
