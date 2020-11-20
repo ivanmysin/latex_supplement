@@ -8,14 +8,13 @@
 \author{Mysin I.E.}
 
 \begin{document}
-	\maketitle
-	Pyramidal neurons
-	\newline
-	Уравнение для сомы, радиатума и ориенса
-	\begin{eqnarray}
+\maketitle
+\subsection{Pyramidal neurons}	
+Уравнение для сомы, радиатума и ориенса
+\begin{eqnarray}
 C\frac{dV_s}{dt} = -I_l - I_{Kdr}-I_{Na} -I_A - I_M-I_H-I_{CaL} - I_{sAHP}-I_{mAHP} -I_{CaR}-I_{buff}-\nonumber \\
 -I_{syn}+I_{ext}
-	\end{eqnarray}
+\end{eqnarray}
 \newline
 
 Уравнение для аксона
@@ -268,6 +267,66 @@ Dynamic of calcium concention
 	\end{center}
 \end{table}
 
+\subsection{Интернейроны}
+\subsubsection{CavL}
+\begin{equation}
+I_{CavL} = g_{max, CavL} \cdot m^2 \cdot h \cdot ghk(V, [[Ca_{2+}]_{in}, Ca_{2+}]_{out} )
+\end{equation}
+
+\begin{equation}
+h = \frac{0.001}{0.001 +[[Ca_{2+}]_{in} }
+\end{equation}
+
+\begin{equation}
+\alpha_{m} = \frac{15.69 \cdot (81.5-V)}{exp(0.1(81.5-V)) - 1}
+\end{equation}
+
+\begin{equation}
+\beta_{m} = 0.29 \cdot exp \Big(\frac{-V}{10.86}\Big)
+\end{equation}
+
+\begin{equation}
+ghk = -f \cdot \Big(1 - \Big(\frac{[[Ca_{2+}]_{in}}{Ca_{2+}]_{out}} \Big) \cdot exp \Big(\frac{V}{f}\Big) \Big) \frac{V}{f \cdot exp(V/f) -1 }
+\end{equation}
+
+\subsubsection{CavN}
+\begin{equation}
+I_{CavN} = g_{max, CavN} \cdot c^2 \cdot c \cdot (V - E_{Ca})
+\end{equation}
+
+\begin{equation}
+\alpha_{c} = \frac{-0.19 \cdot (V - 19.88)}{exp(0.1(V - 19.88)) - 1}
+\end{equation}
+
+\begin{equation}
+\beta_{c} = 0.046 \cdot exp \Big(\frac{-V}{20.73}\Big)
+\end{equation}
+
+\begin{equation}
+\alpha_{d} = 0.00016 \cdot exp \Big(\frac{-V}{48.4}\Big)
+\end{equation}
+
+\begin{equation}
+\beta_{d} = \frac{1}{exp(0.1(39 - V)) + 1} exp \Big(\frac{-V}{20.73}\Big)
+\end{equation}
+
+
+\begin{equation}
+x_{t+\Delta t} = x_{t} + (1 - exp(\Delta t / \tau_x)  ) \cdot (x_{\infty} - x_t)
+\end{equation}
+
+\subsubsection{HCN}
+\begin{equation}
+I_{H} = g_{max, H} \cdot h^2 \cdot (V - E_{H})
+\end{equation}
+
+\begin{equation}
+\tau_{h} = \Bigg(120 + \frac{129.5}{1 + exp(1.2 \ (V + 59.3))} \Bigg)
+\end{equation}
+
+\begin{equation}
+h_{\infty} =  \frac{1}{1 + exp(0.1 \ (V + 91))}
+\end{equation}
 
 
 \end{document}
