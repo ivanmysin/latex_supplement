@@ -321,12 +321,115 @@ I_{H} = g_{max, H} \cdot h^2 \cdot (V - E_{H})
 \end{equation}
 
 \begin{equation}
-\tau_{h} = \Bigg(120 + \frac{129.5}{1 + exp(1.2 \ (V + 59.3))} \Bigg)
+\tau_{h} = \frac{1}{q_{10}} \cdot \Bigg(120 + \frac{129.5}{1 + exp(1.2 \ (V + 59.3))} \Bigg)
 \end{equation}
 
 \begin{equation}
 h_{\infty} =  \frac{1}{1 + exp(0.1 \ (V + 91))}
 \end{equation}
+
+\subsubsection{HCNolm}
+\begin{equation}
+I_{Holm} = g_{max, Holm} \cdot r \cdot (V - E_{H})
+\end{equation}
+
+\begin{equation}
+r_{\infty} =  \frac{1}{1 + exp(0.98 \ (V + 84.1))}
+\end{equation}
+
+\begin{equation}
+\tau_{r} = 100 + \frac{1}{exp(-(17.9+0.116V)) + exp(0.09V-1.84)   }
+\end{equation}
+
+\subsubsection{KCaS}
+\begin{equation}
+I_{KCaS} = g_{max, KCaS} \cdot q^2 \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+\alpha_q = q_{10} \cdot 15 \cdot ([Ca^{2+}]_{in})^2 \  \beta_q = q_{10} \cdot 0.00025
+\end{equation}
+
+\subsubsection{Kdrfast}
+\begin{equation}
+I_{Kdrfast} = g_{max, Kdrfast} \cdot n^4 \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+\alpha_n = \frac{-0.07(V + 18)}{exp(\frac{V + 18}{-6}) - 1}
+\end{equation}
+
+\begin{equation}
+\beta_n = 0.264 \cdot exp \Big( \frac{V + 43}{40} \Big)
+\end{equation}
+
+\subsubsection{Kdrfastngf}
+\begin{equation}
+I_{Kdrfastngf} = g_{max, Kdrfastngf} \cdot n^4 \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+\alpha_n = \frac{-0.07(V + 8)}{exp(\frac{V + 8}{-6}) - 1}
+\end{equation}
+
+\begin{equation}
+\beta_n = 0.264 \cdot exp \Big( \frac{V + 33}{40} \Big)
+\end{equation}
+
+\subsubsection{Kdrslow}
+\begin{equation}
+I_{Kdrslow} = g_{max, Kdrslow} \cdot n^4 \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+\alpha_n = \frac{-0.028(V + 30)}{exp(\frac{V + 30}{-6}) - 1}
+\end{equation}
+
+\begin{equation}
+\beta_n = 0.1056 \cdot exp \Big( \frac{V + 55}{40} \Big)
+\end{equation}
+
+\subsubsection{KvA}
+\begin{equation}
+I_{kvA} = g_{max, kvA} \cdot n \cdot l \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+n_{\infty} = \frac{1}{1 + exp(-21(V + 33.6)/T}
+\end{equation}
+\begin{equation}
+\tau_n = \frac{exp(-21(V + 33.6)/T) }
+{q_{10} \cdot 0.02 \cdot (1 + exp(-21(V + 33.6)/T))}
+\end{equation}
+
+\begin{equation}
+l_{\infty} = \frac{1}{1 + exp(46.41(V + 83)/T)}
+\end{equation}
+
+\begin{equation}
+\tau_l = \frac{exp(46.41(V + 83)/T) }
+{q_{10} \cdot 0.08 \cdot (1 + exp(46.41(V + 83)/T))}
+\end{equation}
+
+\subsubsection{KvAngf}
+\begin{equation}
+I_{KvAngf} = g_{max, KvAngf} \cdot n \cdot l \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+n_{\infty} = \frac{1}{1 + exp(-34.8(V + 23.6)/T}
+\end{equation}
+\begin{equation}
+\tau_n = \frac{exp(-34.8(V + 23.6)) }
+{q_{10} \cdot 0.02 \cdot (1 + exp(-34.8(V + 23.6)/T))}
+\end{equation}
+
+\begin{equation}
+l_{\infty} = \frac{1}{1 + exp(46.41(V + 83)/T)}
+\end{equation}
+
+\begin{equation}
+\tau_l = \frac{exp(46.41(V + 83)) }
+{q_{10} \cdot 0.08 \cdot (1 + exp(46.41(V + 83)/T))}
+\end{equation}
+\subsubsection{KvAolm}
+
+
+
 
 
 \end{document}
