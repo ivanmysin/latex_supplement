@@ -427,8 +427,105 @@ l_{\infty} = \frac{1}{1 + exp(46.41(V + 83)/T)}
 {q_{10} \cdot 0.08 \cdot (1 + exp(46.41(V + 83)/T))}
 \end{equation}
 \subsubsection{KvAolm}
+\begin{equation}
+I_{KvAolm} = g_{max, KvAolm} \cdot a \cdot b \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+a_{\infty} = \frac{1}{1 + exp(\frac{V + 14}{-16.6})  } \ \ \tau_a = 5
+\end{equation}
+\begin{equation}
+b_{\infty} = \frac{1}{1 + exp(\frac{V + 71}{7.3})  }
+\end{equation}
+\begin{equation}
+\tau_b = \frac{1}{\frac{0.000009}{exp(\frac{V - 26}{18.5})}  + \frac{0.014}{exp(\frac{V +70}{-11}) + 0.2} }
+\end{equation}
+
+\subsubsection{KvCaB}
+\begin{equation}
+I_{KvCaB} = g_{max, KvCaB} \cdot n \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+\alpha_n = \frac{0.28 \cdot [Ca_{2+}]_{in} }{ [Ca_{2+}]_{in} + 0.00048 \cdot exp(\frac{-1.68 \cdot F \cdot V}{RT})  } 
+\end{equation}
+\begin{equation}
+\beta_n = \frac{0.48}{1 + 130000 \cdot [Ca_{2+}]_{in} \cdot exp(\frac{2 \cdot F \cdot V}{RT})}
+\end{equation}
+\subsubsection{KvGroup}
+\begin{equation}
+I_{KvGroup} = g_{max, KvGroup} \cdot n \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+\alpha_n = \frac{-0.0189324 \cdot (V - 4.18371) }{exp(-0.15562\cdot (V - 4.18371)) - 1}
+\end{equation}
+
+\subsubsection{KvM}
+\begin{equation}
+I_{KvM} = g_{max, KvM} \cdot m \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+m_{\infty} = \frac{1}{1 + exp(-0.1(V + 40)) }
+\end{equation}
+\begin{equation}
+\tau_{m} = 120 + \frac{0.10584 \cdot (V + 42)}{0.009 \cdot exp(0.2646 \cdot (V + 42)) }
+\end{equation}
+
+\subsubsection{Nav}
+\begin{equation}
+I_{Nav} = g_{max, Nav} \cdot m^3 \cdot h \cdot (V - E_{Na})
+\end{equation}
+\begin{equation}
+\alpha_m = \frac{-0.3 \cdot (V + 43)}{exp(-0.2\cdot(V+43)) - 1}
+\end{equation}
+\begin{equation}
+\beta_m = \frac{0.3 \cdot (V + 15)}{exp(0.2\cdot(V+15)) - 1}
+\end{equation}
+\begin{equation}
+\alpha_h = \frac{0.23}{exp(0.05\cdot(V+65))}
+\end{equation}
+\begin{equation}
+\beta_h = \frac{3.33}{exp(-0.1\cdot(V+12.5)) + 1}
+\end{equation}
 
 
+\subsubsection{Navcck}
+\begin{equation}
+I_{Navcck} = g_{max, Navcck} \cdot m^3 \cdot h \cdot s \cdot (V - E_{Na})
+\end{equation}
+\begin{equation}
+\alpha_m = \frac{-0.5 \cdot (V + 42)}{exp(-0.2\cdot(V+42)) - 1}
+\end{equation}
+\begin{equation}
+\beta_m = \frac{0.3 \cdot (V + 13)}{exp(0.2\cdot(V+13)) - 1}
+\end{equation}
+\begin{equation}
+\alpha_h = \frac{0.6}{exp(0.05\cdot(V+65))}
+\end{equation}
+\begin{equation}
+\beta_h = \frac{1.31}{exp(-0.1\cdot(V+12.5)) + 1}
+\end{equation}
+\begin{equation}
+\alpha_s = \frac{0.003}{exp( \frac{V+45}{6})}
+\end{equation}
+\begin{equation}
+\beta_s = \frac{0.005}{exp(-0.05\cdot(V+35))}
+\end{equation}
+
+\subsubsection{Navngf}
+\begin{equation}
+I_{Navngf} = g_{max, Navngf} \cdot m^3 \cdot h \cdot (V - E_{Na})
+\end{equation}
+\begin{equation}
+\alpha_m = \frac{-0.34133 \cdot (V + 24)}{exp(-0.2\cdot(V+24)) - 1}
+\end{equation}
+\begin{equation}
+\beta_m = \frac{0.28483 \cdot (V -4)}{exp(0.2\cdot(V-4)) - 1}
+\end{equation}
+\begin{equation}
+\alpha_h = \frac{0.29648}{exp(0.05\cdot(V+64.4184))}
+\end{equation}
+\begin{equation}
+\beta_h = \frac{3.0931}{exp(-0.1\cdot(V+12.1463)) + 1}
+\end{equation}
 
 
 
