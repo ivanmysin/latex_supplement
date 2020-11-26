@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \title{Supplement materials}
 \author{Mysin I.E.}
+\date{}
 
 \begin{document}
 \maketitle
@@ -42,31 +43,19 @@ The sodium current is described by:
 \begin{equation}
 I_{Na}= g_{max, Na}\cdot m^2\cdot h\cdot s\cdot (V-E_{Na})
 \end{equation}
-where an additional variable \textit{s} is introduced to account for dendritic location‑dependent slow attenuation of
-the sodium current (Poirazzi et al., 2003a, b). Activation and inactivation kinetics for ${I_{Na}}$ are given by:
-
+an variable \textit{s} is introduced to account for dendritic location‑dependent slow attenuation of the sodium current (Poirazzi et al., 2003a, b). Activation and inactivation kinetics for ${I_{Na}}$ are given by:
 
 \begin{equation}
-m_{t + \Delta t} = m_t+(1+exp(-\frac{\Delta t}{\tau_m}))\cdot
-(m_{\infty}-m_t) \ , \ \ \  m_{\infty}=\frac {1}{1+exp(-\frac{V+40} {3})}
-\end{equation}
-
-
-\begin{equation}
-h_{t+dt}=h_t+(1-exp(-\frac{dt}{\tau_h}))\cdot
-(h_{\infty}-h_t) \ ,\\  h_{\infty}=\frac {1}{1+exp(\frac{V+45}{3})}
+m_{\infty}=\frac {1}{1+exp(-\frac{V+40} {3})} , \ \ \tau_m=0.05 \ ms
 \end{equation}
 
 \begin{equation}
-s_{t+dt}=s_t+(1+exp(-\frac{dt}{\tau_s}))\cdot
-(s_{\infty}-s_t) ,\ 
-s_{\infty}=\frac{1+Na_{att}\cdot exp(\frac{V+60}
-		2))}{1+exp(\frac{V+60}{2})}
+h_{\infty}=\frac {1}{1+exp(\frac{V+45}{3})},  \  \tau_h = 0.5 \ ms,
 \end{equation}
 
-
-with \textit{dt}= 0.1 ms and time constants $\tau$\textsubscript{m}= 0.05 ms, $\tau$\textsubscript{h} = 0.5
-ms, and
+\begin{equation}
+s_{\infty}=\frac{1+Na_{att}\cdot exp(\frac{V+60}{2})}{1+exp(\frac{V+60}{2})}
+\end{equation}
 
 
 \begin{equation}
@@ -74,27 +63,21 @@ ms, and
 		Q(degC))}{1+exp(0.0012 \cdot (V+60)\cdot Q(degC))}
 \end{equation}
 
-The function \textit{Q}(\textit{degC})~is given by:
-\bigskip
-
+The function \textit{Q}(\textit{degC}) is given by:
 \begin{equation}
 Q(degC)= \frac{F}{ R \cdot (T+degC) }
 \end{equation}
-\bigskip
-
-
 where \textit{R }=\textit{ }8.315\textit{ joule/degC}, \textit{F }=\textit{ }9.648\textit{ }\textsuperscript{4}Coul,
 \textit{T }=\textit{273.16}~in degrees Kelvin and \textit{degC}~is the temperature in degrees celsius.~variable represents the degree of sodium current
 attenuation and varies linearly from soma to distal trunk
-Na\textsubscript{att} $\eta$~[0, 1]: 1 -maximum 0 - zero attenuation). The delayed rectifier current is given by:
-
+Na\textsubscript{att} $\eta \in$~[0, 1]: 1 -maximum 0 - zero attenuation). The delayed rectifier current is given by:
 
 \begin{equation}
 I_{Kdr} = g_{Kdr} \cdot m^2 \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-m_{t+dt}=m_t+(1-exp(-dt/2.2) )\cdot m_{\infty}-m_t) ,\ m_{\infty}=\frac{1}{1+exp(-\frac{V+42}{2})}
+m_{\infty}=\frac{1}{1+exp(-\frac{V+42}{2})}, \tau_m = 2.2 \ ms
 \end{equation}
 
 The sodium and delayed rectifier channel properties are slightly different in the soma, axis and dendritic arbor. To fit
@@ -810,6 +793,22 @@ I_{Navngf} = g_{max, Navngf} \cdot m^3 \cdot h \cdot (V - E_{Na})
 \beta_h = \frac{3.0931}{exp(-0.1\cdot(V+12.1463)) + 1}
 \end{equation}
 
+
+\section{Description and numerical ingration of gate variables}
+All gate variables were described with classical equation: 
+\begin{equation}
+\frac{dx}{dt} = \frac{x_{\infty}(V) - x}{\tau_x(V)}
+\end{equation}
+The equations for $x_{\infty}(V)$ and $\tau_x(V)$ are given in the corresponding sections in in explicit form or they can be given in form of functions  $\alpha(V)$ and $\beta(V)$
+\begin{equation}
+\tau_x(V) =  \frac{1}{\alpha(V) + \beta(V)} \ \ \ 
+x_{\infty}(V) = \alpha(V) \cdot \tau_x(V)
+\end{equation}
+Numerical scheme:
+\begin{equation}
+x_{t + \Delta t} = x_t+\Big(1 + exp \Big(-\frac{\Delta t}{\tau_x} \Big) \Big)\cdot (x_{\infty}-x_t) 
+\end{equation}
+where $\Delta t = 0.1 ms$ is integration step.
 
 
 \end{document}
