@@ -210,7 +210,7 @@ I_{CaL}^s= g_{CaL}^s\cdot m\cdot \frac{0.001 }{0.001 + [ca]_{in}\cdot ghk(V, [ca
 \end{equation}
 
 \begin{equation}
- \beta_m(V)=0.94 \cdot \cdot 5 exp(-(V+63.01)/17)
+ \beta_m(V)=0.94 \cdot 5 \cdot exp(-(V+63.01)/17)
 \end{equation}
 
 
@@ -223,23 +223,20 @@ I_{CaL}^d= g_{CaL}^d \cdot m^3 \cdot h \cdot
 \end{equation}
 
 \begin{equation}
-\alpha(V)=\frac {1}{1+exp(-(v+37))},\beta(V)=\frac {1}{1+exp( (v+41)/0.5)}
+m_{\infty}(V)=\frac {1}{1+exp(-(V+37))}
+\end{equation}
+\begin{equation}
+h_{\infty}(V)=\frac {1}{1+exp( (V+41)/0.5)}
 \end{equation}
 
-Their time constants are equal to $\tau_m$ = 3.6\textit{ms} and $\tau_h$=29\textit{ms}.
-The low-voltage activated (LVA) T-type Ca\textsuperscript{2+} channel kinetics are given by:
-
-
+Their time constants are equal to $\tau_m$ = 3.6\textit{ms} and $\tau_h$=29\textit{ms}. The low-voltage activated (LVA) T-type Ca\textsuperscript{2+} channel kinetics are given by:
 \begin{equation}
-I_{CaT}= g_{CaT}\cdot m^2\cdot
-h\frac{0.001 }{0.001+[ca]_{in}\cdot
-	ghk(V,[ca]_{in},[ca]_{out})}
+I_{CaT} = g_{CaT}\cdot m^2\cdot h\frac{0.001}{0.001+[Ca^{2+}]_{in} \cdot ghk(V,[Ca^{2+}]_{in},[Ca^{2+}]_{out})}
 \end{equation}
 
 \begin{equation}
-ghk(V, [ca]_{in}, [ca]_{out})=-x\cdot
-(1 - [ca]_{out}^{[ca]_{in}})\cdot
-exp(\frac {V}{x})\cdot f(\frac {V}{x}))
+ghk(V, [Ca^{2+}]_{in}, [Ca^{2+}]_{out})=-x\cdot
+(1 - [Ca^{2+}]_{out}/[Ca^{2+}]_{in}) \cdot exp(\frac {V}{x})\cdot f(\frac {V}{x}))
 \end{equation}
 
 \begin{equation}
@@ -248,35 +245,22 @@ f(z) = \begin{cases} 1-\frac {z}{2}, & if \ |z|<10^{-4} \\ \frac z{e^z-1}, & \  
 \end{equation}
 
 \begin{equation}
-m_{t+dt}=m_t+(1+exp(-\frac{dt}{\tau_m}))\cdot
-(\frac{\alpha_{m(V)}}{\alpha_m(V)+\beta_m(V)}-m_t)
+\alpha_m(V)=-0.196\cdot \frac{(V-19.88)}{exp(-(V-19.88)/10)-1} 
 \end{equation}
 
 \begin{equation}
-h_{t+dt}=h_t+(1-exp(-\frac{dt}{\tau_h}))\cdot
-(\frac{\alpha_h(V)}{\alpha_h(V)+\beta_h(V)}-h_t)
+\beta_m(V) = 0.046\cdot exp(-(V/22.73))
 \end{equation}
 
 \begin{equation}
-\alpha_m(V)=-0.196\cdot \frac{(V-19.88)}{exp(-(V-19.88)/10)-1}, \ \beta_m(V) = 0.046\cdot exp(-(V/22.73))
+\alpha_h(V)=0.68 * 0.00016\cdot exp(-(V+57)/19)
 \end{equation}
-
 \begin{equation}
-\alpha_h(V)=0.00016\cdot exp(-(V+57)/19),\beta_h(V)=\frac 1{exp(-(V-15)/10)+1}
+\beta_h(V)=\frac {0.68}{exp(-(V-15)/10)+1}
 \end{equation}
-
+where $[Ca]_{in}$ and $[Ca]_{out}$ are the internal and external calcium concentrations. The HVA R-type Ca2+ current is described by:
 \begin{equation}
-tau_m=\frac {1}{\alpha_m(V)+\beta_m(V)}, \tau_h=\frac {1}{0.68\cdot (\alpha_h(V)+\beta_h(V)}
-\end{equation}
-
-where
-$[Ca]_{in}$ and $[Ca]_{out}$ are the
-internal and external calcium concentrations. The HVA R-type Ca2+ current is described by:
-
-
-\begin{equation}
-I_{CaR}=\bar g_{CaR}\cdot m^3\cdot h\cdot
-(V-E_{Ca})
+I_{CaR}=\bar g_{CaR}\cdot m^3\cdot h\cdot (V-E_{Ca})
 \end{equation}
 
 \begin{equation}
@@ -292,28 +276,30 @@ $\tau_h$ = 5\textit{ms} while for the dendritic current $\tau_m$ = 50\textit{ms}
 
 
 \begin{equation}
-\alpha(V)=\frac {1}{1+exp(-(V+48.5)/3)},\beta(V)=\frac {1}{1+exp(V+53)}
+m_{\infty}(V)=\frac {1}{1+exp(-(V+48.5)/3)}
 \end{equation}
-
-while for the somatic CaR channels:
-
-
 \begin{equation}
-\alpha(V)=\frac {1}{1+exp(-(V+60)/3)},\beta(V)=\frac {1}{1+exp(V+62)}
+h_{\infty}(V)=\frac {1}{1+exp(V+53)}
+\end{equation}
+while for the somatic CaR channels:
+\begin{equation}
+m_{\infty}(V)=\frac {1}{1+exp(-(V+60)/3)}
+\end{equation}
+\begin{equation}
+h_{\infty}(V)=\frac {1}{1+exp(V+62)}
 \end{equation}
 
 Finally, a calcium pump/buffering mechanism is inserted at the cell body and along the apical and basal trunk. The
 mechanism is taken from~(Destexhe, Mainen, \& Sejnowski, 1994). The factor for
 $Ca_{2+}$ entry was changed from
-\textit{f}\textit{\textsubscript{e}}\textit{ }=\textit{ }10,000~to \textit{f}\textit{\textsubscript{e}}\textit{
-}=\textit{ }10,000/18~and the rate of calcium removal was made 7 times faster. The kinetic equations are given by:
+\textit{f\textsubscript{e}} = 10,000~to \textit{f\textsubscript{e}} = 10,000/18~and the rate of calcium removal was made 7 times faster. The kinetic equations are given by:
 
 \begin{equation}
-drivechannel = \begin{cases} -f_e \frac{I_{Ca}}{0.2 F}, & if \ drivechannel > 0  \\ 0, & \  otherwise \ \end{cases}
+Ca_{input flow} = \begin{cases} \frac{-f_e \cdot I_{Ca, sum} }{0.2 \cdot F}, & if \ Ca_{input flow} > 0  \\ 0, & \  otherwise \ \end{cases}
 \end{equation}
 
 \begin{equation}
-\frac{dCa}{dt}=drivechannel +\frac{10^{-4}-Ca}{7\cdot 200 ms}
+\frac{d[Ca^{2+}]_{in}}{dt}=Ca_{input flow} +\frac{10^{-4}-[Ca^{2+}]_{in}}{1400}
 \end{equation}
 
 
@@ -321,138 +307,107 @@ drivechannel = \begin{cases} -f_e \frac{I_{Ca}}{0.2 F}, & if \ drivechannel > 0 
 
 \bigskip
 
-\subsubsection{Bistratified cells}
-
-All compartments obey the following current balance equation, which was adapted from Cutsuridis et al. (2010):
-
-
-\begin{equation}
-C\frac{dV}{dt}=I_{ext}-I_L-I_{Na}-I_{Kdr, fast}-I_A-I_{CaL}-I_{CaN}-I_{AHP}-I_C-I_{syn}
-\end{equation}
-
-
-where \textit{C} is the membrane capacitance, \textit{V} is the membrane potential, \textit{I}\textit{\textsubscript{L}}
-is the leak current, \textit{I}\textit{\textsubscript{Na}} is the sodium current,
-\textit{I}\textit{\textsubscript{Kdr,fast}} is the fast delayed rectifier K\textsuperscript{+} current,
-\textit{I}\textit{\textsubscript{A}} is the A-type K\textsuperscript{+} current, \textit{I}\textit{\textsubscript{CaL}}
+\subsection{Bistratified cells}
+Дендритные нейроны описывались с помомощью 13-ти компартметной модели. Балансовое уравнение для потенциала для всех компартментов:
+\begin{eqnarray}
+C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr,fast}-I_A-I_{CaL}-I_{CaN} - \nonumber \\ -I_{AHP}-I_C-I_{syn}+I_{ext}
+\end{eqnarray}
+where \textit{C} is the membrane capacitance, \textit{V} is the membrane potential, \textit{I\textsubscript{L}}
+is the leak current, \textit{I\textsubscript{Na}} is the sodium current, \textit{I\textsubscript{Kdr,fast}} is the fast delayed rectifier K\textsuperscript{+} current, \textit{I}\textit{\textsubscript{A}} is the A-type K\textsuperscript{+} current,\textit{I\textsubscript{CaL}}
 is the L-type Ca\textsuperscript{2+} current, \textit{I}\textit{\textsubscript{CaN}} is the N-type
 Ca\textsuperscript{2+} current, \textit{I}\textit{\textsubscript{AHP}} is the Ca\textsuperscript{2+}-dependent
 K\textsuperscript{+} (SK) current, \textit{I}\textit{\textsubscript{C}} is the Ca\textsuperscript{2+} and
 voltage-dependent K\textsuperscript{+} (BK) current and \textit{I}\textit{\textsubscript{syn}} is the synaptic current.
-The conductance and reversal potential values of all ionic currents are listed in Table 8. \ \ 
-
-
-
-The sodium current and its kinetics are described by,
-
-
+The conductance and reversal potential values of all ionic currents are listed in Table ... .
+The sodium current and its kinetics are described by:
 \begin{equation}
-I_{Na}=g_{Na} m^3 h (V-E_{Na})
+I_{Na}=g_{max, Na} \cdot m^3 \cdot h \cdot (V-E_{Na})
 \end{equation}
 
 \begin{equation}
-\frac{dm}{dt}=\alpha_m(1-m)-\beta_mm, \ 
-\alpha_m=\frac{-0.3(V-25)}{(1-exp((V-25)/-5))}, \ \  \beta_m=\frac{0.3(V-53)}{(1-exp((V-53)/5))} \ 
+\alpha_m(V)=\frac{-0.3(V-25)}{(1-exp((V-25)/-5))}, \ \  \beta_m(V)=\frac{0.3(V-53)}{(1-exp((V-53)/5))} \ 
 \end{equation}
 
 \begin{equation}
-\frac{dh}{dt}=\alpha_h(1-h)-\beta_hh, \ 
-\alpha_h=\frac{0.23}{exp((V-3)/20)}, \ \  \beta_h=\frac{3.33}{(1+exp((V-55.5)/-10))}\ \ \ 
+\alpha_h(V)=\frac{0.23}{exp((V-3)/20)}, \ \  \beta_h(V)=\frac{3.33}{(1+exp((V-55.5)/-10))}\ \ \ 
 \end{equation}
 
-
-The fast delayed rectifier K\textsuperscript{+} current, \textit{I}\textit{\textsubscript{Kdr,fast}} is given by\ \ 
-
-
+The fast delayed rectifier potassium current, \textit{I}\textit{\textsubscript{Kdr,fast}} is given by:
 \begin{equation}
-I_{Kdr, fast}=g_{Kdr, fast}n_f^4(V-E_K)
+I_{Kdr, fast} = g_{max, Kdr, fast} \cdot n_f^4 \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-\frac{dn_f}{dt}=\alpha_{n_f}(1-n_f)-\beta_{n_f}n_f , 
-\alpha_{n_f}=\frac{-0.07(V-47)}{(1-exp((V-47)/-6))}  \beta_{n_f}=0.264exp((v-22)/4)
+\alpha_{n_f}=\frac{-0.07(V-47)}{(1-exp((V-47)/-6))}, \ \  \beta_{n_f}=0.264exp((V-22)/4)
 \end{equation}
 
-
-The N-type Ca\textsuperscript{2+} current, \textit{I}\textit{\textsubscript{CaN}}, is given by
-
+The N-type calcium current, \textit{I}\textit{\textsubscript{CaN}}, is given by
 
 \begin{equation}
-I_{CaN}=g_{CaN}c^2d(V-E_Ca)
+I_{CaN}=g_{max, CaN} \cdot c^2 \cdot d \cdot (V-E_Ca)
 \end{equation}
 
 \begin{equation}
-\frac{dc}{dt}=\alpha_c(1-c)-\beta_cc , \ 
-\alpha_c=\frac{0.19(19.88-V)}{(exp(19.88-V)/10)-1)}, \  \beta_c=0.046 \cdot exp(-V/20.73)
+\alpha_c(V)=\frac{0.19\cdot(19.88-V)}{(exp(19.88-V)/10)-1)}, \  \beta_c(V)=0.046 \cdot exp(-V/20.73)
 \end{equation}
 
 \begin{equation}
-\frac{dd}{dt} = \alpha_d(1-d)-\beta_dd , \ \alpha_d=1.6\cdot
-10^{-4}exp(-V/48.4) , \  \beta_d=\frac 1{(1+exp(39-V)/10))}
+\alpha_d=1.6\cdot10^{-4}exp(-V/48.4) , \  \beta_d=\frac 1{(1+exp(39-V)/10))}
 \end{equation}
 
-
-The Ca\textsuperscript{2+}-dependent K\textsuperscript{+} (SK) current, \textit{I}\textit{\textsubscript{AHP}}, is
-described by
-
+The Ca\textsuperscript{2+}-dependent K\textsuperscript{+} (SK) current, \textit{I\textsubscript{AHP}}, is described by
 
 \begin{equation}
-I_{AHP} = g_{AHP} q^2 (V-E_K)
+I_{AHP} = g_{max, AHP} \cdot q^2 \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-\frac{dq}{dt}=\alpha_q(1-q)-\beta_qq
+\alpha_q(V)=\frac{0.00246}{exp(12\cdot log_{10}([Ca^{2+}])+28.48)/-4.5)}
+\end{equation} 
+\begin{equation}
+\beta_q(V)=\frac{0.006}{exp(12\cdot log_{10}([Ca^{2+}])+60.4)/35)}
 \end{equation}
 
 \begin{equation}
-\alpha_q=\frac{0.00246}{exp(12\cdot log_{10}([Ca^{2+}])+28.48)/-4.5)} \ \ ,\ \ 
-\beta_q=\frac{0.006}{exp(12\cdot log_{10}([Ca^{2+}])+60.4)/35)}
-\end{equation}
-
-\begin{equation}
-\frac{d[Ca^{2+}]_i}{dt}=B\sum_{T, N, L}
+\frac{d[Ca^{2+}]_{in}}{dt}=B\sum_{T, N, L}
 I_{Ca}-\frac{[Ca^{2+}]_i-[Ca^{2+}]_0}{\tau}
 \end{equation}
 
 where
 \begin{equation}
-B = 5.2\cdot 10^{-6}/Ad
+B = 5.2\cdot 10^{-6}/(A \cdot d)
 \end{equation}
 in units of mol/(C m\textsuperscript{3}) for a shell of
-surface area \textit{A} and thickness \textit{d} (0.2 $\mu $m) and  $\tau=10$;ms was the calcium removal rate. \textit{[Ca}\textit{\textsuperscript{2+}}\textit{]}\textit{\textsubscript{0}} = 5 $\mu$M was the resting calcium concentration. 
-
-
-The Ca\textsuperscript{2+} and voltage-dependent K\textsuperscript{+} (BK) current,
-\textit{I}\textit{\textsubscript{c}}, is 
-
-
+surface area \textit{A} and thickness \textit{d} (0.2 $\mu $m) and  $\tau=10$;ms was the calcium removal rate. [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{0}} = 5 $\mu$M was the resting calcium concentration. 
+The Ca\textsuperscript{2+} and voltage-dependent K\textsuperscript{+} (BK) current, \textit{I\textsubscript{c}}, is:
 \begin{equation}
-I_C=g_co(v-E_K)
+I_C=g_{max, c} \cdot o \cdot (V-E_K)
 \end{equation}
 
+\begin{equation}
+\alpha_{o} = \frac{0.28 \cdot[Ca^{2+}]_{in}}{[Ca^{2+}]_{in} + 0.00048	\cdot exp(-1.68 \cdot F \cdot V/ (R \cdot T)) }
+\end{equation}
+\begin{equation}
+\beta_{o} = \frac{0.48}{1 + [Ca^{2+}]_{in} / (0.13 \cdot 10^{-6} \cdot exp(-2 \cdot F \cdot V/ (R \cdot T))) )}
+\end{equation}
 
-where activation variable, \textit{o}, is described in Migliore et al., (1995). The A-type K\textsuperscript{+} current,
+The A-type K\textsuperscript{+} current,
 \textit{I}\textit{\textsubscript{A}}, is described by\ \ 
-
-
 \begin{equation}
-I_A=g_A ab (V-E_k)
+I_A=g_{max, A} \cdot a \cdot b  \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-\frac{da}{dt}=\alpha_a(1-a)-\beta_aa , 
 \alpha_a=\frac{0.02(13.1-V)}{exp(\frac{13.1-V}{10}))-1}, \ 
 \beta_a=\frac{0.0175(V-40.1)}{exp(\frac{V-40.1}{10}))-1}
 \end{equation}
 
 \begin{equation}
-\frac{db}{dt}=\alpha_b(1-b)-\beta_bb , \ 
 \alpha_b = 0.0016 \cdot exp(\frac{-13-V}{18})), \  \beta_b=\frac{0.05}{1+exp(\frac{10.1-V}{5}))}
 \end{equation}
 
-\begin{equation}
-The L-type Ca\textsuperscript{2+} current, \textit{I}\textit{\textsubscript{CaL}}, is described by
-\end{equation}
+The L-type Ca\textsuperscript{2+} current, \textit{I\textsubscript{CaL}}, is described by
+
 
 \begin{equation}
 I_{CaL}=g_{CaL}\cdot s_{\infty }^2\cdot V\cdot
