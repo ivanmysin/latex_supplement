@@ -385,7 +385,7 @@ I_C=g_{max, c} \cdot o \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-\alpha_{o} = \frac{0.28 \cdot[Ca^{2+}]_{in}}{[Ca^{2+}]_{in} + 0.00048	\cdot exp(-1.68 \cdot F \cdot V/ (R \cdot T)) }
+\alpha_{o} = \frac{0.28 \cdot[Ca^{2+}]_{in}}{[Ca^{2+}]_{in} + 0.00048	\cdot exp(-1.68 \cdot F \cdot V / (R \cdot T)) }
 \end{equation}
 \begin{equation}
 \beta_{o} = \frac{0.48}{1 + [Ca^{2+}]_{in} / (0.13 \cdot 10^{-6} \cdot exp(-2 \cdot F \cdot V/ (R \cdot T))) )}
@@ -410,20 +410,19 @@ The L-type Ca\textsuperscript{2+} current, \textit{I\textsubscript{CaL}}, is des
 
 
 \begin{equation}
-I_{CaL}=g_{CaL}\cdot s_{\infty }^2\cdot V\cdot
-% \frac{1-\frac{[Ca^{2+}]_i}}{[Ca^{2+}]_0}}{exp2FV/kT}(1-exp2FV/kT})}
+I_{CaL}=g_{CaL}\cdot s_{\infty }^2\cdot V \cdot
+\frac{1-\frac{exp(2 \cdot F \cdot V/ (k \cdot T)) \cdot [Ca^{2+}]_{in}}{[Ca^{2+}]_{out}}} {1-exp(2 \cdot F \cdot V/(k \cdot T))} 
 \end{equation}
 
 
 where \textit{g}\textit{\textsubscript{CaL}} is the maximal conductance, \textit{s}\textsf{\textit{\textsubscript{∞}}}
 is the steady-state activation variable, \textit{F} is Faraday’s constant, \textit{T} is the temperature, \textit{k} is
-Boltzmann’s constant, [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{0}} \ is the
-equilibrium calcium concentration and [\textit{Ca}\textit{\textsuperscript{2+}}]\textit{\textsubscript{i}} is
-described in equation 49. The activation variable, \textit{s}\textsf{\textit{\textsubscript{∞}}}\textit{,} is then
+Boltzmann’s constant, [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{out}} \ is the equilibrium calcium concentration and [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{in}} is
+described in equation 49. The activation variable, \textit{s\textsubscript{∞}}, is then
 
 
 \begin{equation}
-s_{\infty }=\frac{\alpha_s}{\alpha_s+\beta_s} ,  \alpha_s=\frac{15.69(-V+81.5)}{exp(\frac{-V+81.5}{10})-1} ,  
+\alpha_s=\frac{15.69(-V+81.5)}{exp(\frac{-V+81.5}{10})-1} , \ \  
 \beta_s=0.29\cdot exp(-V/10.86)
 \end{equation}
 
@@ -440,7 +439,22 @@ s_{\infty }=\frac{\alpha_s}{\alpha_s+\beta_s} ,  \alpha_s=\frac{15.69(-V+81.5)}{
 	\end{center}
 \end{table}
 
-\subsection{Интернейроны}
+\subsection{PV basket cells}
+
+Уравнение для соматического компартмента:
+
+\begin{eqnarray}
+C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CaN}I_{CaL}-I_{CaN} -I_{syn} + I_{ext}-I_A-I_M-I_h-I_{sAHP}-I_{mAHP}- \nonumber \\ -I_{CaT}-I_{CaR}-I_{buff}
+\end{eqnarray}
+
+Уравнение баланса для соматического компартмента:
+\begin{eqnarray}
+C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CavL}--I_{CavN} \nonumber \\ -I_{HCN}-I_{HCNolm}-I_{KCaS}-I_{Kdrfast}-I_{Kdrngf}-I_{Kdrslow}-I_{KvA}-I_{KvAngf}
+-I_{KvAolm}-I_{KvCaB}-I_{KvGroup}-I_{KvM}-I_{Navcck}-I_{Navngf}
+-I_{syn} + I_{ext}
+\end{eqnarray}
+
+
 \subsubsection{CavL}
 \begin{equation}
 I_{CavL} = g_{max, CavL} \cdot m^2 \cdot h \cdot ghk(V, [[Ca_{2+}]_{in}, Ca_{2+}]_{out} )
