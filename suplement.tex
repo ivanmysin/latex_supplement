@@ -444,16 +444,43 @@ described in equation 49. The activation variable, \textit{s\textsubscript{∞}}
 Уравнение для соматического компартмента:
 
 \begin{eqnarray}
-C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CaN}I_{CaL}-I_{CaN} -I_{syn} + I_{ext}-I_A-I_M-I_h-I_{sAHP}-I_{mAHP}- \nonumber \\ -I_{CaT}-I_{CaR}-I_{buff}
+C\frac{dV}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CaL}-I_{CaN}-I_{KvCaB}- \nonumber \\ 
+-I_{KCaS}-I_{KvA} -I_{syn} + I_{ext}
 \end{eqnarray}
 
+
+\subsection{CCK basket cells}
 Уравнение баланса для соматического компартмента:
 \begin{eqnarray}
-C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CavL}--I_{CavN} \nonumber \\ -I_{HCN}-I_{HCNolm}-I_{KCaS}-I_{Kdrfast}-I_{Kdrngf}-I_{Kdrslow}-I_{KvA}-I_{KvAngf}
--I_{KvAolm}-I_{KvCaB}-I_{KvGroup}-I_{KvM}-I_{Navcck}-I_{Navngf}
+C\frac{dV}{dt}=-I_L-I_{Navcck}-I_{kdr}-I_{CaL}-I_{CaN}-I_{HCN}-I_{KCaS}- \nonumber \\
+-I_{KvA}-I_{KvCaB}-I_{KvGroup}-I_{syn} + I_{ext}
+\end{eqnarray}
+
+
+\subsection{OLM cells}
+\begin{eqnarray}
+C\frac{dV}{dt} = -I_L - I_{Na}- I_{kdr} - I_{HCNolm}-I_{Kvolm}-
+ \nonumber \\
 -I_{syn} + I_{ext}
 \end{eqnarray}
 
+\subsection{Axo-axonic cells}
+\begin{eqnarray}
+C\frac{dV}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CaL}-I_{CaN}- \nonumber \\ 
+-I_{KCaS}-I_{KvA}-I_{KvCaB}-I_{syn} + I_{ext}
+\end{eqnarray}
+
+
+\subsection{Ivy and neurogiaform cells}
+\begin{eqnarray}
+C\frac{dV}{dt}=-I_L-I_{Navngf}-I_{Kdrngf} - I_{CaL}-I_{CaN}- \nonumber \\
+-I_{KCaS} -I_{KvAngf}-I_{KvCaB}-I_{syn} + I_{ext}
+\end{eqnarray}
+
+\subsection{Schaffer collateral associated cells}
+\begin{eqnarray}
+C\frac{dV_s}{dt}=-I_L-I_{Navcck}-I_{kdr}-I_{CaL}-I_{CaN}-I_{HCN}-I_{KCaS}- \nonumber \\ -I_{KvA}-I_{KvCaB}-I_{KvGroup}-I_{syn} + I_{ext}
+\end{eqnarray}
 
 \subsubsection{CavL}
 \begin{equation}
