@@ -440,22 +440,179 @@ described in equation 49. The activation variable, \textit{s\textsubscript{∞}}
 \end{table}
 
 \subsection{PV basket cells}
-
-Уравнение для соматического компартмента:
-
+PV basket cells were described with 17-compartment model, 1 - soma and 16 - dendrites. Balace equation for all compartments:
 \begin{eqnarray}
 C\frac{dV}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CaL}-I_{CaN}-I_{KvCaB}- \nonumber \\ 
 -I_{KCaS}-I_{KvA} -I_{syn} + I_{ext}
 \end{eqnarray}
 
+Sodium current for spike generation is:
+\begin{equation}
+\label{eq:Nav}
+I_{Na} = g_{max, Na} \cdot m^3 \cdot h \cdot (V - E_{Na})
+\end{equation}
+\begin{equation}
+\alpha_m = \frac{-0.3 \cdot (V + 43)}{exp(-0.2\cdot(V+43)) - 1}
+\end{equation}
+\begin{equation}
+\beta_m = \frac{0.3 \cdot (V + 15)}{exp(0.2\cdot(V+15)) - 1}
+\end{equation}
+\begin{equation}
+\alpha_h = \frac{0.23}{exp(0.05\cdot(V+65))}
+\end{equation}
+\begin{equation}
+\beta_h = \frac{3.33}{exp(-0.1\cdot(V+12.5)) + 1}
+\end{equation}
+
+Delayed rectification potassium current is
+\begin{equation}
+\label{eq:Kdrfast}
+I_{Kdr} = g_{max, Kdr} \cdot n^4 \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+\alpha_n = \frac{-0.07(V + 18)}{exp(\frac{V + 18}{-6}) - 1}
+\end{equation}
+
+\begin{equation}
+\beta_n = 0.264 \cdot exp \Big( \frac{V + 43}{40} \Big)
+\end{equation}
+
+L-type of calcium current is: 
+\begin{equation}
+\label{eq:CavL}
+I_{CavL} = g_{max, CavL} \cdot m^2 \cdot h \cdot ghk(V, [[Ca_{2+}]_{in}, Ca_{2+}]_{out} )
+\end{equation}
+
+\begin{equation}
+h = \frac{0.001}{0.001 +[[Ca_{2+}]_{in} }
+\end{equation}
+
+\begin{equation}
+\alpha_{m} = \frac{15.69 \cdot (81.5-V)}{exp(0.1(81.5-V)) - 1}
+\end{equation}
+
+\begin{equation}
+\beta_{m} = 0.29 \cdot exp \Big(\frac{-V}{10.86}\Big)
+\end{equation}
+
+\begin{equation}
+ghk = -f \cdot \Big(1 - \Big(\frac{[Ca_{2+}]_{in}}{[Ca_{2+}]_{out}} \Big) \cdot exp \Big(\frac{V}{f}\Big) \Big) \frac{V}{f \cdot exp(V/f) -1 }
+\end{equation}
+
+
+Calcium current N-type is given by following equation: 
+\begin{equation}
+\label{eq:CavN}
+I_{CavN} = g_{max, CavN} \cdot c^2 \cdot c \cdot (V - E_{Ca})
+\end{equation}
+
+\begin{equation}
+\alpha_{c} = \frac{-0.19 \cdot (V - 19.88)}{exp(0.1(V - 19.88)) - 1}
+\end{equation}
+
+\begin{equation}
+\beta_{c} = 0.046 \cdot exp \Big(\frac{-V}{20.73}\Big)
+\end{equation}
+
+\begin{equation}
+\alpha_{d} = 0.00016 \cdot exp \Big(\frac{-V}{48.4}\Big)
+\end{equation}
+
+\begin{equation}
+\beta_{d} = \frac{1}{exp(0.1(39 - V)) + 1} exp \Big(\frac{-V}{20.73}\Big)
+\end{equation}
+
+
+Calcium-dependent potassium current B:
+\begin{equation}
+I_{KCaB} = g_{max, KCaB} \cdot n \cdot (V - E_K)
+\label{eq:KvCaB}
+\end{equation}
+\begin{equation}
+\alpha_n = \frac{0.28 \cdot [Ca_{2+}]_{in} }{ [Ca_{2+}]_{in} + 0.00048 \cdot exp(\frac{-1.68 \cdot F \cdot V}{RT})  } 
+\end{equation}
+\begin{equation}
+\beta_n = \frac{0.48}{1 + 130000 \cdot [Ca_{2+}]_{in} \cdot exp(\frac{2 \cdot F \cdot V}{RT})}
+\end{equation}
+
+Calcium-dependent potassium current S:
+\begin{equation}
+\label{eq:KvCaS}
+I_{KCaS} = g_{max, KCaS} \cdot q^2 \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+\alpha_q = q_{10} \cdot 15 \cdot ([Ca^{2+}]_{in})^2 \  \beta_q = q_{10} \cdot 0.00025
+\end{equation}
+
+A-type of potassium current is:
+\begin{equation}
+\label{eq:KvA}
+I_{kvA} = g_{max, kvA} \cdot n \cdot l \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+n_{\infty} = \frac{1}{1 + exp(-21(V + 33.6)/T}
+\end{equation}
+\begin{equation}
+\tau_n = \frac{exp(-21(V + 33.6)/T) }
+{q_{10} \cdot 0.02 \cdot (1 + exp(-21(V + 33.6)/T))}
+\end{equation}
+
+\begin{equation}
+l_{\infty} = \frac{1}{1 + exp(46.41(V + 83)/T)}
+\end{equation}
+
+\begin{equation}
+\tau_l = \frac{exp(46.41(V + 83)/T) }
+{q_{10} \cdot 0.08 \cdot (1 + exp(46.41(V + 83)/T))}
+\end{equation}
 
 \subsection{CCK basket cells}
-Уравнение баланса для соматического компартмента:
+Холецистокенин-содержащие корзинчатые нейроны так же как и парвальбумин-содержащие описывались моделью из 17 компартментов, 1 - тело и 16 компартментов дендриты. Потенциал всех компарментов описывался следующим уравнением:
 \begin{eqnarray}
-C\frac{dV}{dt}=-I_L-I_{Navcck}-I_{kdr}-I_{CaL}-I_{CaN}-I_{HCN}-I_{KCaS}- \nonumber \\
+C\frac{dV}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CaL}-I_{CaN}-I_{HCN}-I_{KCaS}- \nonumber \\
 -I_{KvA}-I_{KvCaB}-I_{KvGroup}-I_{syn} + I_{ext}
 \end{eqnarray}
 
+Sodium current is:
+\begin{equation}
+\label{eq:Navcck}
+I_{Na} = g_{max, Na} \cdot m^3 \cdot h \cdot s \cdot (V - E_{Na})
+\end{equation}
+\begin{equation}
+\alpha_m = \frac{-0.5 \cdot (V + 42)}{exp(-0.2\cdot(V+42)) - 1}
+\end{equation}
+\begin{equation}
+\beta_m = \frac{0.3 \cdot (V + 13)}{exp(0.2\cdot(V+13)) - 1}
+\end{equation}
+\begin{equation}
+\alpha_h = \frac{0.6}{exp(0.05\cdot(V+65))}
+\end{equation}
+\begin{equation}
+\beta_h = \frac{1.31}{exp(-0.1\cdot(V+12.5)) + 1}
+\end{equation}
+\begin{equation}
+\alpha_s = \frac{0.003}{exp( \frac{V+45}{6})}
+\end{equation}
+\begin{equation}
+\beta_s = \frac{0.005}{exp(-0.05\cdot(V+35))}
+\end{equation}
+
+H-current is:
+\begin{equation}
+\label{eq:HCN}
+I_{H} = g_{max, H} \cdot h^2 \cdot (V - E_{H})
+\end{equation}
+
+\begin{equation}
+\tau_{h} = \frac{1}{q_{10}} \cdot \Bigg(120 + \frac{129.5}{1 + exp(1.2 \ (V + 59.3))} \Bigg)
+\end{equation}
+
+\begin{equation}
+h_{\infty} =  \frac{1}{1 + exp(0.1 \ (V + 91))}
+\end{equation}
+
+
+$ I_{Kdr}, I_{CaL}, I_{CaN},I_{KCaS}, I_{KCaB}, I_{KA}$ were same as PV basket cells and described equations (\ref{eq:Kdrfast}, \ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvCaB}, \ref{eq:KvA}) respectivly.
 
 \subsection{OLM cells}
 \begin{eqnarray}
@@ -500,7 +657,7 @@ h = \frac{0.001}{0.001 +[[Ca_{2+}]_{in} }
 \end{equation}
 
 \begin{equation}
-ghk = -f \cdot \Big(1 - \Big(\frac{[[Ca_{2+}]_{in}}{Ca_{2+}]_{out}} \Big) \cdot exp \Big(\frac{V}{f}\Big) \Big) \frac{V}{f \cdot exp(V/f) -1 }
+ghk = -f \cdot \Big(1 - \Big(\frac{[Ca_{2+}]_{in}}{[Ca_{2+}]_{out}} \Big) \cdot exp \Big(\frac{V}{f}\Big) \Big) \frac{V}{f \cdot exp(V/f) -1 }
 \end{equation}
 
 \subsubsection{CavN}
@@ -640,6 +797,8 @@ l_{\infty} = \frac{1}{1 + exp(46.41(V + 83)/T)}
 \tau_l = \frac{exp(46.41(V + 83)) }
 {q_{10} \cdot 0.08 \cdot (1 + exp(46.41(V + 83)/T))}
 \end{equation}
+
+
 \subsubsection{KvAolm}
 \begin{equation}
 I_{KvAolm} = g_{max, KvAolm} \cdot a \cdot b \cdot (V - E_K)
@@ -664,6 +823,8 @@ I_{KvCaB} = g_{max, KvCaB} \cdot n \cdot (V - E_K)
 \begin{equation}
 \beta_n = \frac{0.48}{1 + 130000 \cdot [Ca_{2+}]_{in} \cdot exp(\frac{2 \cdot F \cdot V}{RT})}
 \end{equation}
+
+
 \subsubsection{KvGroup}
 \begin{equation}
 I_{KvGroup} = g_{max, KvGroup} \cdot n \cdot (V - E_K)
