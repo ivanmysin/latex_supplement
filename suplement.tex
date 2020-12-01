@@ -615,24 +615,121 @@ h_{\infty} =  \frac{1}{1 + exp(0.1 \ (V + 91))}
 $ I_{Kdr}, I_{CaL}, I_{CaN},I_{KCaS}, I_{KCaB}, I_{KA}$ were same as PV basket cells and described equations (\ref{eq:Kdrfast}, \ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvCaB}, \ref{eq:KvA}) respectivly.
 
 \subsection{OLM cells}
+OLM нейроны моделировались с помощью 4 компартментов - 1 тело, 1 аксон и 2 дендритных компартмента. Уравнение потенциала для тела нейрона:
 \begin{eqnarray}
-C\frac{dV}{dt} = -I_L - I_{Na}- I_{kdr} - I_{HCNolm}-I_{Kvolm}-
+C\frac{dV_s}{dt} = -I_L - I_{Na} - I_{kdr} - I_{HCN} - I_{KA}-
  \nonumber \\
 -I_{syn} + I_{ext}
 \end{eqnarray}
+Уравнение для дендритов
+\begin{eqnarray}
+C\frac{dV_d}{dt} = -I_L - I_{Na} - I_{kdr} - I_{KA}-
+\nonumber \\
+-I_{syn} + I_{ext}
+\end{eqnarray}
+Уравнение для аксона
+\begin{eqnarray}
+C\frac{dV_a}{dt} = -I_L - I_{Na} - I_{kdr} - I_{syn}
+\end{eqnarray}
+Натриевые токи, калиевые токи выпрямления моделировались также как и у PV корзинчатых нейронов, уравнения (\ref{eq:Nav}) и (\ref{eq:Kdrfast}) соответственно.
+H-каналы:
+\begin{equation}
+\label{eq:HCNolm}
+I_{H} = g_{max, H} \cdot r \cdot (V - E_{H})
+\end{equation}
+
+\begin{equation}
+r_{\infty} =  \frac{1}{1 + exp(0.98 \ (V + 84.1))}
+\end{equation}
+
+\begin{equation}
+\tau_{r} = 100 + \frac{1}{exp(-(17.9+0.116V)) + exp(0.09V-1.84)   }
+\end{equation}
+
+Калиевый ток A-типа:
+\begin{equation}
+\label{eq:KvAolm}
+I_{KA} = g_{max, KA} \cdot a \cdot b \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+a_{\infty} = \frac{1}{1 + exp(\frac{V + 14}{-16.6})  } \ \ \tau_a = 5
+\end{equation}
+\begin{equation}
+b_{\infty} = \frac{1}{1 + exp(\frac{V + 71}{7.3})  }
+\end{equation}
+\begin{equation}
+\tau_b = \frac{1}{\frac{0.000009}{exp(\frac{V - 26}{18.5})}  + \frac{0.014}{exp(\frac{V +70}{-11}) + 0.2} }
+\end{equation}
+
 
 \subsection{Axo-axonic cells}
+Аксо-аксональные интернейроны моделировались с помощью 17 компартментной модели: 1 сома и 16 компартментов для дендритов. Все компартменты описывались одинаковым набором каналов:
 \begin{eqnarray}
 C\frac{dV}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CaL}-I_{CaN}- \nonumber \\ 
 -I_{KCaS}-I_{KvA}-I_{KvCaB}-I_{syn} + I_{ext}
 \end{eqnarray}
 
+Описание всех токов аналогично тем, что использовались выше для других нейронов, см. уравнения (\ref{eq:Nav}, \ref{eq:Kdrfast}, \ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvA})
 
 \subsection{Ivy and neurogiaform cells}
+Ivy и нейроглиаформные описывались с помощью 17 компартментов: 1 сома и 16 дендритных компартментов. Все компартметны в обоих типах нейронов имели одинаковый набор каналов:
 \begin{eqnarray}
-C\frac{dV}{dt}=-I_L-I_{Navngf}-I_{Kdrngf} - I_{CaL}-I_{CaN}- \nonumber \\
+C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr} - I_{CaL}-I_{CaN}- \nonumber \\
 -I_{KCaS} -I_{KvAngf}-I_{KvCaB}-I_{syn} + I_{ext}
 \end{eqnarray}
+Натриевые каналы:
+\begin{equation}
+\label{eq:Navngf}
+I_{Na} = g_{max, Na} \cdot m^3 \cdot h \cdot (V - E_{Na})
+\end{equation}
+\begin{equation}
+\alpha_m = \frac{-0.34133 \cdot (V + 24)}{exp(-0.2\cdot(V+24)) - 1}
+\end{equation}
+\begin{equation}
+\beta_m = \frac{0.28483 \cdot (V -4)}{exp(0.2\cdot(V-4)) - 1}
+\end{equation}
+\begin{equation}
+\alpha_h = \frac{0.29648}{exp(0.05\cdot(V+64.4184))}
+\end{equation}
+\begin{equation}
+\beta_h = \frac{3.0931}{exp(-0.1\cdot(V+12.1463)) + 1}
+\end{equation}
+
+Калиевые каналы выпрямления:
+\begin{equation}
+\label{eq:Kdrfastngf}
+I_{Kdrfastngf} = g_{max, Kdrfastngf} \cdot n^4 \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+\alpha_n = \frac{-0.07(V + 8)}{exp(\frac{V + 8}{-6}) - 1}
+\end{equation}
+
+\begin{equation}
+\beta_n = 0.264 \cdot exp \Big( \frac{V + 33}{40} \Big)
+\end{equation}
+
+Калиевые токи А-типа:
+\begin{equation}
+I_{KvAngf} = g_{max, KvAngf} \cdot n \cdot l \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+n_{\infty} = \frac{1}{1 + exp(-34.8(V + 23.6)/T}
+\end{equation}
+\begin{equation}
+\tau_n = \frac{exp(-34.8(V + 23.6)) }
+{q_{10} \cdot 0.02 \cdot (1 + exp(-34.8(V + 23.6)/T))}
+\end{equation}
+
+\begin{equation}
+l_{\infty} = \frac{1}{1 + exp(46.41(V + 83)/T)}
+\end{equation}
+
+\begin{equation}
+\tau_l = \frac{exp(46.41(V + 83)) }
+{q_{10} \cdot 0.08 \cdot (1 + exp(46.41(V + 83)/T))}
+\end{equation}
+
+Описание всех остальных токов аналогично тем, что использовались выше для других нейронов, см. уравнения (\ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvCaB})
 
 \subsection{Schaffer collateral associated cells}
 \begin{eqnarray}
@@ -700,17 +797,7 @@ h_{\infty} =  \frac{1}{1 + exp(0.1 \ (V + 91))}
 \end{equation}
 
 \subsubsection{HCNolm}
-\begin{equation}
-I_{Holm} = g_{max, Holm} \cdot r \cdot (V - E_{H})
-\end{equation}
 
-\begin{equation}
-r_{\infty} =  \frac{1}{1 + exp(0.98 \ (V + 84.1))}
-\end{equation}
-
-\begin{equation}
-\tau_{r} = 100 + \frac{1}{exp(-(17.9+0.116V)) + exp(0.09V-1.84)   }
-\end{equation}
 
 \subsubsection{KCaS}
 \begin{equation}
@@ -733,16 +820,7 @@ I_{Kdrfast} = g_{max, Kdrfast} \cdot n^4 \cdot (V - E_K)
 \end{equation}
 
 \subsubsection{Kdrfastngf}
-\begin{equation}
-I_{Kdrfastngf} = g_{max, Kdrfastngf} \cdot n^4 \cdot (V - E_K)
-\end{equation}
-\begin{equation}
-\alpha_n = \frac{-0.07(V + 8)}{exp(\frac{V + 8}{-6}) - 1}
-\end{equation}
 
-\begin{equation}
-\beta_n = 0.264 \cdot exp \Big( \frac{V + 33}{40} \Big)
-\end{equation}
 
 \subsubsection{Kdrslow}
 \begin{equation}
@@ -778,40 +856,11 @@ l_{\infty} = \frac{1}{1 + exp(46.41(V + 83)/T)}
 \end{equation}
 
 \subsubsection{KvAngf}
-\begin{equation}
-I_{KvAngf} = g_{max, KvAngf} \cdot n \cdot l \cdot (V - E_K)
-\end{equation}
-\begin{equation}
-n_{\infty} = \frac{1}{1 + exp(-34.8(V + 23.6)/T}
-\end{equation}
-\begin{equation}
-\tau_n = \frac{exp(-34.8(V + 23.6)) }
-{q_{10} \cdot 0.02 \cdot (1 + exp(-34.8(V + 23.6)/T))}
-\end{equation}
 
-\begin{equation}
-l_{\infty} = \frac{1}{1 + exp(46.41(V + 83)/T)}
-\end{equation}
-
-\begin{equation}
-\tau_l = \frac{exp(46.41(V + 83)) }
-{q_{10} \cdot 0.08 \cdot (1 + exp(46.41(V + 83)/T))}
-\end{equation}
 
 
 \subsubsection{KvAolm}
-\begin{equation}
-I_{KvAolm} = g_{max, KvAolm} \cdot a \cdot b \cdot (V - E_K)
-\end{equation}
-\begin{equation}
-a_{\infty} = \frac{1}{1 + exp(\frac{V + 14}{-16.6})  } \ \ \tau_a = 5
-\end{equation}
-\begin{equation}
-b_{\infty} = \frac{1}{1 + exp(\frac{V + 71}{7.3})  }
-\end{equation}
-\begin{equation}
-\tau_b = \frac{1}{\frac{0.000009}{exp(\frac{V - 26}{18.5})}  + \frac{0.014}{exp(\frac{V +70}{-11}) + 0.2} }
-\end{equation}
+
 
 \subsubsection{KvCaB}
 \begin{equation}
@@ -886,21 +935,7 @@ I_{Navcck} = g_{max, Navcck} \cdot m^3 \cdot h \cdot s \cdot (V - E_{Na})
 \end{equation}
 
 \subsubsection{Navngf}
-\begin{equation}
-I_{Navngf} = g_{max, Navngf} \cdot m^3 \cdot h \cdot (V - E_{Na})
-\end{equation}
-\begin{equation}
-\alpha_m = \frac{-0.34133 \cdot (V + 24)}{exp(-0.2\cdot(V+24)) - 1}
-\end{equation}
-\begin{equation}
-\beta_m = \frac{0.28483 \cdot (V -4)}{exp(0.2\cdot(V-4)) - 1}
-\end{equation}
-\begin{equation}
-\alpha_h = \frac{0.29648}{exp(0.05\cdot(V+64.4184))}
-\end{equation}
-\begin{equation}
-\beta_h = \frac{3.0931}{exp(-0.1\cdot(V+12.1463)) + 1}
-\end{equation}
+
 
 
 \section{Description and numerical ingration of gate variables}
