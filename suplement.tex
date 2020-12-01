@@ -611,6 +611,14 @@ I_{H} = g_{max, H} \cdot h^2 \cdot (V - E_{H})
 h_{\infty} =  \frac{1}{1 + exp(0.1 \ (V + 91))}
 \end{equation}
 
+Potassium current:
+\begin{equation}
+\label{eq:KvGroup}
+I_{KvGroup} = g_{max, KvGroup} \cdot n \cdot (V - E_K)
+\end{equation}
+\begin{equation}
+\alpha_n = \frac{-0.0189324 \cdot (V - 4.18371) }{exp(-0.15562\cdot (V - 4.18371)) - 1}
+\end{equation}
 
 $ I_{Kdr}, I_{CaL}, I_{CaN},I_{KCaS}, I_{KCaB}, I_{KA}$ were same as PV basket cells and described equations (\ref{eq:Kdrfast}, \ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvCaB}, \ref{eq:KvA}) respectivly.
 
@@ -732,9 +740,15 @@ l_{\infty} = \frac{1}{1 + exp(46.41(V + 83)/T)}
 Описание всех остальных токов аналогично тем, что использовались выше для других нейронов, см. уравнения (\ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvCaB})
 
 \subsection{Schaffer collateral associated cells}
+SCA cells описывались 17 компартмментами, 1 - сома и 16 дендриты. Все компарменты описывались с помощью следующего уравнения баланса:
 \begin{eqnarray}
 C\frac{dV_s}{dt}=-I_L-I_{Navcck}-I_{kdr}-I_{CaL}-I_{CaN}-I_{HCN}-I_{KCaS}- \nonumber \\ -I_{KvA}-I_{KvCaB}-I_{KvGroup}-I_{syn} + I_{ext}
 \end{eqnarray}
+
+Натриевый ток, $I_{KvGroup}$ and $I_{HCN}$ описывались также как и для CCK basket cells - equation  (\ref{eq:Navcck}, \ref{eq:KvGroup}, \ref{eq:HCN}), уравнения для других каналов были аналогичны PV basket cells  (\ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvA})
+
+
+
 
 \subsubsection{CavL}
 \begin{equation}
@@ -875,12 +889,7 @@ I_{KvCaB} = g_{max, KvCaB} \cdot n \cdot (V - E_K)
 
 
 \subsubsection{KvGroup}
-\begin{equation}
-I_{KvGroup} = g_{max, KvGroup} \cdot n \cdot (V - E_K)
-\end{equation}
-\begin{equation}
-\alpha_n = \frac{-0.0189324 \cdot (V - 4.18371) }{exp(-0.15562\cdot (V - 4.18371)) - 1}
-\end{equation}
+
 
 \subsubsection{KvM}
 \begin{equation}
