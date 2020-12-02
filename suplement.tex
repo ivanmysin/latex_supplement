@@ -67,10 +67,10 @@ The function \textit{Q}(\textit{degC}) is given by:
 \begin{equation}
 Q(degC)= \frac{F}{ R \cdot (T+degC) }
 \end{equation}
-where \textit{R }=\textit{ }8.315\textit{ joule/degC}, \textit{F }=\textit{ }9.648\textit{ }\textsuperscript{4}Coul,
+where \textit{R }=\textit{ }8.315\textit{ joule/degC}, \textit{F }=\textit{ }9.648 $\cdot 10^4 \ Coul$,
 \textit{T }=\textit{273.16}~in degrees Kelvin and \textit{degC}~is the temperature in degrees celsius.~variable represents the degree of sodium current
 attenuation and varies linearly from soma to distal trunk
-Na\textsubscript{att} $\eta \in$~[0, 1]: 1 -maximum 0 - zero attenuation). The delayed rectifier current is given by:
+Na\textsubscript{att} $\eta \in$~[0, 1]: 1 -maximum 0 - zero attenuation. The delayed rectifier current is given by:
 
 \begin{equation}
 I_{Kdr} = g_{Kdr} \cdot m^2 \cdot (V-E_K)
@@ -125,19 +125,19 @@ l_{\infty} = \frac{\frac{-0.01(V+58)}{exp( (V+58)/8.2)-1}}{\frac{-0.01(V+58)}{ex
 
 The hyperpolarizing h-current is given by
 \begin{equation}
-I_h=g_{max, h} \cdot H \cdot (V-E_h)
+I_H=g_{max, H} \cdot H \cdot (V-E_H)
 \end{equation}
 
 \begin{equation}
-\frac{dH}{dt}=\frac{H_{\infty}-H}{\tau_{H}}
+H_{\infty }=\frac {1}{1+exp(-(V-V_{half})/k_l)}  
 \end{equation}
 
 \begin{equation}
-H_{\infty }=\frac {1}{1+exp(-(V-V_{half})/k_l)} \ , \ 
 \tau_{H}=\frac{exp( 0.0378\cdot \zeta \cdot gmt\cdot
 	(V-V_{halft})}{qtl \cdot q10^{(T-33)/10}\cdot a0t \cdot
 	(1+a_{H})}
 \end{equation}
+
 
 \begin{equation}
 a_{H}=exp( 0.00378\cdot \zeta\cdot (V-V_{halft}))
@@ -169,7 +169,7 @@ T_{adj}(degC)=2.3^{(degC-23)/10}
 
 The slow after-hyperpolarizing current, is given by:
 \begin{equation}
-I_{sAHP}= g_{sAHP} \cdot m^3 \cdot (V-E_K)
+I_{sAHP}= g_{max, sAHP} \cdot m^3 \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
@@ -185,7 +185,7 @@ $Cac=([Ca^{2+}]_{in}/0.025)^2$.
 The medium after-hyperpolarizing current, I\textsubscript{mAHP} (Moczydlowski and Latorre, 1983), is given by:
 
 \begin{equation}
-I_{mAHP}= g_{mAHP}\cdot m\cdot (V-E_K)
+I_{mAHP}= g_{max, mAHP}\cdot m\cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
@@ -202,7 +202,7 @@ The somatic high-voltage activated (HVA) L-type Ca\textsuperscript{2+} current i
 
 
 \begin{equation}
-I_{CaL}^s= g_{CaL}^s\cdot m\cdot \frac{0.001 }{0.001 + [ca]_{in}\cdot ghk(V, [ca]_{in}, [Ca]_{out})}
+I_{CaL}^s= g_{max, CaL}^s\cdot m\cdot \frac{0.001 \cdot ghk(V, [Ca^{2+}]_{in}, [Ca^{2+}]_{out}) }{0.001 + [Ca^{2+}]_{in}}
 \end{equation}
 
 \begin{equation}
@@ -218,7 +218,7 @@ whereas the dendritic L-type calcium channels have different kinetics:
 
 
 \begin{equation}
-I_{CaL}^d= g_{CaL}^d \cdot m^3 \cdot h \cdot
+I_{CaL}^d= g_{max, CaL}^d \cdot m^3 \cdot h \cdot
 (V-E_{Ca})
 \end{equation}
 
@@ -231,13 +231,13 @@ h_{\infty}(V)=\frac {1}{1+exp( (V+41)/0.5)}
 
 Their time constants are equal to $\tau_m$ = 3.6\textit{ms} and $\tau_h$=29\textit{ms}. The low-voltage activated (LVA) T-type Ca\textsuperscript{2+} channel kinetics are given by:
 \begin{equation}
-I_{CaT} = g_{CaT}\cdot m^2\cdot h\frac{0.001}{0.001+[Ca^{2+}]_{in} \cdot ghk(V,[Ca^{2+}]_{in},[Ca^{2+}]_{out})}
+I_{CaT} = g_{max, CaT}\cdot m^2\cdot h \cdot \frac{0.001 \cdot ghk(V,[Ca^{2+}]_{in},[Ca^{2+}]_{out})}{0.001+[Ca^{2+}]_{in} }
 \end{equation}
 
-\begin{equation}
-ghk(V, [Ca^{2+}]_{in}, [Ca^{2+}]_{out})=-x\cdot
-(1 - [Ca^{2+}]_{out}/[Ca^{2+}]_{in}) \cdot exp(\frac {V}{x})\cdot f(\frac {V}{x}))
-\end{equation}
+\begin{eqnarray}
+ghk(V,\ [Ca^{2+}]_{in},\ [Ca^{2+}]_{out}) = \nonumber \\
+= -x\cdot (1 - [Ca^{2+}]_{out}/[Ca^{2+}]_{in} \cdot exp(V/x)) \cdot f(V/x)
+\end{eqnarray}
 
 \begin{equation}
 x=\frac{0.0853\cdot (T+degC)}{2}, \\
@@ -260,7 +260,7 @@ f(z) = \begin{cases} 1-\frac {z}{2}, & if \ |z|<10^{-4} \\ \frac z{e^z-1}, & \  
 \end{equation}
 where $[Ca]_{in}$ and $[Ca]_{out}$ are the internal and external calcium concentrations. The HVA R-type Ca2+ current is described by:
 \begin{equation}
-I_{CaR}=\bar g_{CaR}\cdot m^3\cdot h\cdot (V-E_{Ca})
+I_{CaR} = g_{max, CaR}\cdot m^3\cdot h\cdot (V-E_{Ca})
 \end{equation}
 
 \begin{equation}
@@ -310,7 +310,7 @@ Ca_{input flow} = \begin{cases} \frac{-f_e \cdot I_{Ca, sum} }{0.2 \cdot F}, & i
 \subsection{Bistratified cells}
 Дендритные нейроны описывались с помомощью 13-ти компартметной модели. Балансовое уравнение для потенциала для всех компартментов:
 \begin{eqnarray}
-C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr,fast}-I_A-I_{CaL}-I_{CaN} - \nonumber \\ -I_{AHP}-I_C-I_{syn}+I_{ext}
+C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr}-I_A-I_{CaL}-I_{CaN} - \nonumber \\ -I_{AHP}-I_C-I_{syn}+I_{ext}
 \end{eqnarray}
 where \textit{C} is the membrane capacitance, \textit{V} is the membrane potential, \textit{I\textsubscript{L}}
 is the leak current, \textit{I\textsubscript{Na}} is the sodium current, \textit{I\textsubscript{Kdr,fast}} is the fast delayed rectifier K\textsuperscript{+} current, \textit{I}\textit{\textsubscript{A}} is the A-type K\textsuperscript{+} current,\textit{I\textsubscript{CaL}}
@@ -332,19 +332,19 @@ I_{Na}=g_{max, Na} \cdot m^3 \cdot h \cdot (V-E_{Na})
 \alpha_h(V)=\frac{0.23}{exp((V-3)/20)}, \ \  \beta_h(V)=\frac{3.33}{(1+exp((V-55.5)/-10))}\ \ \ 
 \end{equation}
 
-The fast delayed rectifier potassium current, \textit{I}\textit{\textsubscript{Kdr,fast}} is given by:
+The fast delayed rectifier potassium current, \textit{I\textsubscript{Kdr}} is given by:
 \begin{equation}
-I_{Kdr, fast} = g_{max, Kdr, fast} \cdot n_f^4 \cdot (V-E_K)
+I_{Kdr} = g_{max, Kdr} \cdot n^4 \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-\alpha_{n_f}=\frac{-0.07(V-47)}{(1-exp((V-47)/-6))}, \ \  \beta_{n_f}=0.264exp((V-22)/4)
+\alpha_{n}=\frac{-0.07(V-47)}{(1-exp((V-47)/-6))}, \ \  \beta_{n}=0.264exp((V-22)/4)
 \end{equation}
 
 The N-type calcium current, \textit{I}\textit{\textsubscript{CaN}}, is given by
 
 \begin{equation}
-I_{CaN}=g_{max, CaN} \cdot c^2 \cdot d \cdot (V-E_Ca)
+I_{CaN}=g_{max, CaN} \cdot c^2 \cdot d \cdot (V-E_{Ca})
 \end{equation}
 
 \begin{equation}
@@ -362,15 +362,15 @@ I_{AHP} = g_{max, AHP} \cdot q^2 \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-\alpha_q(V)=\frac{0.00246}{exp(12\cdot log_{10}([Ca^{2+}])+28.48)/-4.5)}
+\alpha_q(V)=\frac{0.00246}{exp(12\cdot log_{10}([Ca^{2+}]_{in})+28.48)/-4.5)}
 \end{equation} 
 \begin{equation}
-\beta_q(V)=\frac{0.006}{exp(12\cdot log_{10}([Ca^{2+}])+60.4)/35)}
+\beta_q(V)=\frac{0.006}{exp(12\cdot log_{10}([Ca^{2+}]_{in})+60.4)/35)}
 \end{equation}
 
 \begin{equation}
 \frac{d[Ca^{2+}]_{in}}{dt}=B\sum_{T, N, L}
-I_{Ca}-\frac{[Ca^{2+}]_i-[Ca^{2+}]_0}{\tau}
+I_{Ca}-\frac{[Ca^{2+}]_{in}-[Ca^{2+}]_0}{\tau_{Ca}}
 \end{equation}
 
 where
@@ -378,7 +378,7 @@ where
 B = 5.2\cdot 10^{-6}/(A \cdot d)
 \end{equation}
 in units of mol/(C m\textsuperscript{3}) for a shell of
-surface area \textit{A} and thickness \textit{d} (0.2 $\mu $m) and  $\tau=10$;ms was the calcium removal rate. [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{0}} = 5 $\mu$M was the resting calcium concentration. 
+surface area \textit{A} and thickness \textit{d} (0.2 $\mu $m) and  $\tau_{Ca}=10$ ms was the calcium removal rate. [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{0}} = 5 $\mu$M was the resting calcium concentration. 
 The Ca\textsuperscript{2+} and voltage-dependent K\textsuperscript{+} (BK) current, \textit{I\textsubscript{c}}, is:
 \begin{equation}
 I_C=g_{max, c} \cdot o \cdot (V-E_K)
@@ -398,26 +398,26 @@ I_A=g_{max, A} \cdot a \cdot b  \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-\alpha_a=\frac{0.02(13.1-V)}{exp(\frac{13.1-V}{10}))-1}, \ 
-\beta_a=\frac{0.0175(V-40.1)}{exp(\frac{V-40.1}{10}))-1}
+\alpha_a=\frac{0.02(13.1-V)}{exp(\frac{13.1-V}{10})-1}, \ 
+\beta_a=\frac{0.0175(V-40.1)}{exp(\frac{V-40.1}{10})-1}
 \end{equation}
 
 \begin{equation}
-\alpha_b = 0.0016 \cdot exp(\frac{-13-V}{18})), \  \beta_b=\frac{0.05}{1+exp(\frac{10.1-V}{5}))}
+\alpha_b = 0.0016 \cdot exp(\frac{V + 13}{-18}), \  \beta_b=\frac{0.05}{1+exp(\frac{10.1-V}{5})}
 \end{equation}
 
 The L-type Ca\textsuperscript{2+} current, \textit{I\textsubscript{CaL}}, is described by
 
 
 \begin{equation}
-I_{CaL}=g_{CaL}\cdot s_{\infty }^2\cdot V \cdot
-\frac{1-\frac{exp(2 \cdot F \cdot V/ (k \cdot T)) \cdot [Ca^{2+}]_{in}}{[Ca^{2+}]_{out}}} {1-exp(2 \cdot F \cdot V/(k \cdot T))} 
+I_{CaL}=g_{max, CaL}\cdot s_{\infty }^2\cdot V \cdot
+\frac{1-\frac{exp(2 \cdot F \cdot V/ (k \cdot T)) \cdot [Ca^{2+}]_{in}}{[Ca^{2+}]_{0}}} {1-exp(2 \cdot F \cdot V/(k \cdot T))} 
 \end{equation}
 
 
 where \textit{g}\textit{\textsubscript{CaL}} is the maximal conductance, \textit{s}\textsf{\textit{\textsubscript{∞}}}
 is the steady-state activation variable, \textit{F} is Faraday’s constant, \textit{T} is the temperature, \textit{k} is
-Boltzmann’s constant, [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{out}} \ is the equilibrium calcium concentration and [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{in}} is
+Boltzmann’s constant, [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{0}} \ is the equilibrium calcium concentration and [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{in}} is
 described in equation 49. The activation variable, \textit{s\textsubscript{∞}}, is then
 
 
