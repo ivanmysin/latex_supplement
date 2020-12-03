@@ -778,7 +778,7 @@ x_{\infty}(V) = \alpha(V) \cdot \tau_x(V)
 \end{equation}
 Numerical scheme:
 \begin{equation}
-x_{t + \Delta t} = x_t+\Big(1 + exp \Big(-\frac{\Delta t}{\tau_x} \Big) \Big)\cdot (x_{\infty}-x_t) 
+x_{t + \Delta t} = x_t+\Big(1 - exp \Big(-\frac{\Delta t}{\tau_x} \Big) \Big)\cdot (x_{\infty}-x_t) 
 \end{equation}
 where $\Delta t = 0.1 ms$ is integration step.
 
