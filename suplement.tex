@@ -305,7 +305,7 @@ $[Ca^{2+}]_{0} = 10^{-4} \ mM, \ \tau_{Ca} = 1400 \ ms$
 C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr}-I_A-I_{CaL}-I_{CaN} - \nonumber \\ -I_{AHP}-I_C-I_{syn}+I_{ext}
 \end{eqnarray}
 where \textit{C} is the membrane capacitance, \textit{V} is the membrane potential, \textit{I\textsubscript{L}}
-is the leak current, \textit{I\textsubscript{Na}} is the sodium current, \textit{I\textsubscript{Kdr,fast}} is the fast delayed rectifier K\textsuperscript{+} current, \textit{I}\textit{\textsubscript{A}} is the A-type K\textsuperscript{+} current,\textit{I\textsubscript{CaL}}
+is the leak current, \textit{I\textsubscript{Na}} is the sodium current, \textit{I\textsubscript{Kdr}} is the fast delayed rectifier K\textsuperscript{+} current, \textit{I}\textit{\textsubscript{A}} is the A-type K\textsuperscript{+} current,\textit{I\textsubscript{CaL}}
 is the L-type Ca\textsuperscript{2+} current, \textit{I}\textit{\textsubscript{CaN}} is the N-type
 Ca\textsuperscript{2+} current, \textit{I}\textit{\textsubscript{AHP}} is the Ca\textsuperscript{2+}-dependent
 K\textsuperscript{+} (SK) current, \textit{I}\textit{\textsubscript{C}} is the Ca\textsuperscript{2+} and
@@ -317,11 +317,11 @@ I_{Na}=g_{max, Na} \cdot m^3 \cdot h \cdot (V-E_{Na})
 \end{equation}
 
 \begin{equation}
-\alpha_m(V)=\frac{-0.3(V-25)}{(1-exp((V-25)/-5))}, \ \  \beta_m(V)=\frac{0.3(V-53)}{(1-exp((V-53)/5))} \ 
+\alpha_m(V)=\frac{-0.3\cdot(V-25)}{1-exp(-0.2\cdot(V-25))}, \ \  \beta_m(V)=\frac{0.3\cdot(V-53)}{1-exp(0.2\cdot(V-53))} \ 
 \end{equation}
 
 \begin{equation}
-\alpha_h(V)=\frac{0.23}{exp((V-3)/20)}, \ \  \beta_h(V)=\frac{3.33}{(1+exp((V-55.5)/-10))}\ \ \ 
+\alpha_h(V)=\frac{0.23}{exp((V-3)/20)}, \ \  \beta_h(V)=\frac{3.33}{1+exp(-0.1\cdot(V-55.5))}\ \ \ 
 \end{equation}
 
 The fast delayed rectifier potassium current, \textit{I\textsubscript{Kdr}} is given by:
@@ -330,7 +330,7 @@ I_{Kdr} = g_{max, Kdr} \cdot n^4 \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-\alpha_{n}=\frac{-0.07(V-47)}{(1-exp((V-47)/-6))}, \ \  \beta_{n}=0.264exp((V-22)/4)
+\alpha_{n}=\frac{-0.07\cdot(V-47)}{1-exp((V-47)/-6)}, \ \  \beta_{n}=0.264\cdot exp((V-22)/4)
 \end{equation}
 
 The N-type calcium current, \textit{I}\textit{\textsubscript{CaN}}, is given by
@@ -340,11 +340,11 @@ I_{CaN}=g_{max, CaN} \cdot c^2 \cdot d \cdot (V-E_{Ca})
 \end{equation}
 
 \begin{equation}
-\alpha_c(V)=\frac{0.19\cdot(19.88-V)}{(exp(19.88-V)/10)-1)}, \  \beta_c(V)=0.046 \cdot exp(-V/20.73)
+\alpha_c(V)=\frac{0.19\cdot(19.88-V)}{ exp(0.1 \cdot(19.88-V))-1}, \  \beta_c(V)=0.046 \cdot exp(-V/20.73)
 \end{equation}
 
 \begin{equation}
-\alpha_d=1.6\cdot10^{-4}exp(-V/48.4) , \  \beta_d=\frac 1{(1+exp(39-V)/10))}
+\alpha_d=1.6\cdot10^{-4}\cdot exp(-V/48.4) , \  \beta_d=\frac 1{1+exp(0.1 \cdot (39-V))}
 \end{equation}
 
 The Ca\textsuperscript{2+}-dependent K\textsuperscript{+} (SK) current, \textit{I\textsubscript{AHP}}, is described by
@@ -354,10 +354,10 @@ I_{AHP} = g_{max, AHP} \cdot q^2 \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-\alpha_q(V)=\frac{0.00246}{exp(12\cdot log_{10}([Ca^{2+}]_{in})+28.48)/-4.5)}
+\alpha_q(V)=\frac{0.00246}{exp((12\cdot log_{10}([Ca^{2+}]_{in})+28.48)/-4.5)}
 \end{equation} 
 \begin{equation}
-\beta_q(V)=\frac{0.006}{exp(12\cdot log_{10}([Ca^{2+}]_{in})+60.4)/35)}
+\beta_q(V)=\frac{0.006}{exp((12\cdot log_{10}([Ca^{2+}]_{in})+60.4)/35)}
 \end{equation}
 
 \begin{equation}
@@ -391,12 +391,12 @@ I_A=g_{max, A} \cdot a \cdot b  \cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-\alpha_a=\frac{0.02(13.1-V)}{exp(\frac{13.1-V}{10})-1}, \ 
-\beta_a=\frac{0.0175(V-40.1)}{exp(\frac{V-40.1}{10})-1}
+\alpha_a=\frac{0.02\cdot (13.1-V)}{exp(\frac{13.1-V}{10})-1}, \ 
+\beta_a=\frac{0.0175  \cdot(V-40.1)}{exp(\frac{V-40.1}{10})-1}
 \end{equation}
 
 \begin{equation}
-\alpha_b = 0.0016 \cdot exp(\frac{V + 13}{-18}), \  \beta_b=\frac{0.05}{1+exp(\frac{10.1-V}{5})}
+\alpha_b = 0.0016 \cdot exp \Big(\frac{V + 13}{-18} \Big), \  \beta_b=\frac{0.05}{1+exp(\frac{10.1-V}{5})}
 \end{equation}
 
 The L-type Ca\textsuperscript{2+} current, \textit{I\textsubscript{CaL}}, is described by
@@ -415,7 +415,7 @@ described in equation (\ref{eq:CaDynamics}). The activation variable, \textit{s\
 
 
 \begin{equation}
-\alpha_s(V) = \frac{15.69(-V+81.5)}{exp(\frac{-V+81.5}{10})-1} , \ \  
+\alpha_s(V) = \frac{15.69\cdot(-V+81.5)}{exp(\frac{-V+81.5}{10})-1} , \ \  
 \beta_s(V )= 0.29\cdot exp(-V/10.86)
 \end{equation}
 
@@ -435,8 +435,8 @@ described in equation (\ref{eq:CaDynamics}). The activation variable, \textit{s\
 \subsection{PV basket cells}
 PV basket cells were described with 17-compartment model, 1 - soma and 16 - dendrites. Balace equation for all compartments:
 \begin{eqnarray}
-C\frac{dV}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CaL}-I_{CaN}-I_{KvCaB}- \nonumber \\ 
--I_{KCaS}-I_{KvA} -I_{syn} + I_{ext}
+C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}-I_{KCaB}- \nonumber \\ 
+-I_{KCaS}-I_{KA} -I_{syn} + I_{ext}
 \end{eqnarray}
 
 Sodium current for spike generation is:
@@ -463,7 +463,7 @@ Delayed rectification potassium current is
 I_{Kdr} = g_{max, Kdr} \cdot n^4 \cdot (V - E_K)
 \end{equation}
 \begin{equation}
-\alpha_n = \frac{-0.07(V + 18)}{exp(\frac{V + 18}{-6}) - 1}
+\alpha_n = \frac{-0.07 \cdot(V + 18)}{exp(\frac{V + 18}{-6}) - 1}
 \end{equation}
 
 \begin{equation}
@@ -473,7 +473,7 @@ I_{Kdr} = g_{max, Kdr} \cdot n^4 \cdot (V - E_K)
 L-type of calcium current is: 
 \begin{equation}
 \label{eq:CavL}
-I_{CavL} = g_{max, CavL} \cdot m^2 \cdot h \cdot ghk(V, [Ca_{2+}]_{in}, [Ca_{2+}]_{out} )
+I_{CaL} = g_{max, CaL} \cdot m^2 \cdot h \cdot ghk(V, [Ca_{2+}]_{in}, [Ca_{2+}]_{out} )
 \end{equation}
 
 \begin{equation}
@@ -489,16 +489,16 @@ h = \frac{0.001}{0.001 +[Ca^{2+}]_{in} }
 \end{equation}
 
 \begin{equation}
-ghk = -f \cdot \Big(1 - \Big(\frac{[Ca_{2+}]_{in}}{[Ca_{2+}]_{out}} \Big) \cdot exp \Big(\frac{V}{f}\Big) \Big) \frac{V}{f \cdot exp(V/f) -1 }
+ghk = -x \cdot \Big(1 - \Big(\frac{[Ca_{2+}]_{in}}{[Ca_{2+}]_{out}} \Big) \cdot exp \Big(\frac{V}{x}\Big) \Big) \frac{V}{x \cdot exp(V/x) -1 }
 \end{equation}
 where
 \begin{equation}
-f = 0.04259 \cdot T
+x = 0.04259 \cdot T
 \end{equation}
 Calcium current N-type is given by following equation: 
 \begin{equation}
 \label{eq:CavN}
-I_{CavN} = g_{max, CavN} \cdot c^2 \cdot d \cdot (V - E_{Ca})
+I_{CaN} = g_{max, CaN} \cdot c^2 \cdot d \cdot (V - E_{Ca})
 \end{equation}
 
 \begin{equation}
@@ -514,7 +514,7 @@ I_{CavN} = g_{max, CavN} \cdot c^2 \cdot d \cdot (V - E_{Ca})
 \end{equation}
 
 \begin{equation}
-\beta_{d} = \frac{1}{exp(0.1(39 - V)) + 1}
+\beta_{d} = \frac{1}{exp(0.1 \cdot (39 - V)) + 1}
 \end{equation}
 
 
@@ -524,10 +524,10 @@ I_{KCaB} = g_{max, KCaB} \cdot n \cdot (V - E_K)
 \label{eq:KvCaB}
 \end{equation}
 \begin{equation}
-\alpha_n = \frac{0.28 \cdot [Ca_{2+}]_{in} }{ [Ca_{2+}]_{in} + 0.00048 \cdot exp(\frac{-1.68 \cdot F \cdot V}{RT})  } 
+\alpha_n = \frac{0.28 \cdot [Ca^{2+}]_{in} }{ [Ca^{2+}]_{in} + 0.00048 \cdot exp(\frac{-1.68 \cdot F \cdot V}{R \cdot T})  } 
 \end{equation}
 \begin{equation}
-\beta_n = \frac{0.48}{1 + 130000 \cdot [Ca_{2+}]_{in} \cdot exp(\frac{2 \cdot F \cdot V}{RT})}
+\beta_n = \frac{0.48}{1 + 130000 \cdot [Ca^{2+}]_{in} \cdot exp(\frac{2 \cdot F \cdot V}{R \cdot T})}
 \end{equation}
 
 Calcium-dependent potassium current S:
@@ -538,6 +538,9 @@ I_{KCaS} = g_{max, KCaS} \cdot q^2 \cdot (V - E_K)
 \begin{equation}
 \alpha_q = q_{10} \cdot 15 \cdot ([Ca^{2+}]_{in})^2 , \  \beta_q = q_{10} \cdot 0.00025
 \end{equation}
+\begin{equation}
+q10 = 3^{0.1\cdot (T - 307) } 
+\end{equation}
 
 A-type of potassium current is:
 \begin{equation}
@@ -545,27 +548,32 @@ A-type of potassium current is:
 I_{KA} = g_{max, KA} \cdot n \cdot l \cdot (V - E_K)
 \end{equation}
 \begin{equation}
-n_{\infty} = \frac{1}{1 + exp(-21(V + 33.6)/T)}
+n_{\infty} = \frac{1}{1 + exp(-21 \cdot (V + 33.6)/T)}
 \end{equation}
 \begin{equation}
-\tau_n = \frac{exp(-21(V + 33.6)/T) }
-{q_{10} \cdot 0.02 \cdot (1 + exp(-21(V + 33.6)/T))}
+\tau_n = \frac{exp(-21 \cdot (V + 33.6)/T) }
+{q_{10} \cdot 0.02 \cdot (1 + exp(-21 \cdot (V + 33.6)/T))}
 \end{equation}
 
 \begin{equation}
-l_{\infty} = \frac{1}{1 + exp(46.41(V + 83)/T)}
+l_{\infty} = \frac{1}{1 + exp(46.41 \cdot  (V + 83)/T)}
 \end{equation}
 
 \begin{equation}
-\tau_l = \frac{exp(46.41(V + 83)/T) }
-{q_{10} \cdot 0.08 \cdot (1 + exp(46.41(V + 83)/T))}
+\tau_l = \frac{exp(46.41 \cdot  (V + 83)/T) }
+{q_{10} \cdot 0.08 \cdot (1 + exp(46.41 \cdot  (V + 83)/T))}
 \end{equation}
+
+\begin{equation}
+q10 = 3^{0.1\cdot (T - 303) } 
+\end{equation}
+
 
 \subsection{CCK basket cells}
 Холецистокенин-содержащие корзинчатые нейроны так же как и парвальбумин-содержащие описывались моделью из 17 компартментов, 1 - тело и 16 компартментов дендриты. Потенциал всех компарментов описывался следующим уравнением:
 \begin{eqnarray}
-C\frac{dV}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CaL}-I_{CaN}-I_{HCN}-I_{KCaS}- \nonumber \\
--I_{KvA}-I_{KvCaB}-I_{KvGroup}-I_{syn} + I_{ext}
+C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}-I_{HCN}-I_{KCaS}- \nonumber \\
+-I_{KA}-I_{KCaB}-I_{KGroup}-I_{syn} + I_{ext}
 \end{eqnarray}
 
 Sodium current is:
@@ -595,21 +603,25 @@ I_{Na} = g_{max, Na} \cdot m^3 \cdot h \cdot s \cdot (V - E_{Na})
 H-current is:
 \begin{equation}
 \label{eq:HCN}
-I_{H} = g_{max, H} \cdot h^2 \cdot (V - E_{H})
+I_{H} = g_{max, H} \cdot H^2 \cdot (V - E_{H})
 \end{equation}
 
 \begin{equation}
-\tau_{h} = \frac{1}{q_{10}} \cdot \Bigg(120 + \frac{129.5}{1 + exp(1.2 \ (V + 59.3))} \Bigg)
+\tau_{H} = \frac{1}{q_{10}} \cdot \Bigg(120 + \frac{129.5}{1 + exp(1.2 \ (V + 59.3))} \Bigg)
 \end{equation}
 
 \begin{equation}
-h_{\infty} =  \frac{1}{1 + exp(0.1 \ (V + 91))}
+H_{\infty} =  \frac{1}{1 + exp(0.1 \ (V + 91))}
+\end{equation}
+
+\begin{equation}
+q10 = 3^{0.1\cdot (T - 307) } 
 \end{equation}
 
 Potassium current:
 \begin{equation}
 \label{eq:KvGroup}
-I_{KvGroup} = g_{max, KvGroup} \cdot n \cdot (V - E_K)
+I_{KGroup} = g_{max, KGroup} \cdot n \cdot (V - E_K)
 \end{equation}
 \begin{equation}
 \alpha_n(V) = \frac{-0.0189324 \cdot (V - 4.18371) }{exp(-0.15562\cdot (V - 4.18371)) - 1}
@@ -625,33 +637,33 @@ $ I_{Kdr}, I_{CaL}, I_{CaN},I_{KCaS}, I_{KCaB}, I_{KA}$ were same as PV basket c
 \subsection{OLM cells}
 OLM нейроны моделировались с помощью 4 компартментов - 1 тело, 1 аксон и 2 дендритных компартмента. Уравнение потенциала для тела нейрона:
 \begin{eqnarray}
-C\frac{dV_s}{dt} = -I_L - I_{Na} - I_{kdr} - I_{HCN} - I_{KA}-
+C\frac{dV_s}{dt} = -I_L - I_{Na} - I_{Kdr} - I_{H} - I_{KA}-
  \nonumber \\
 -I_{syn} + I_{ext}
 \end{eqnarray}
 Уравнение для дендритов
 \begin{eqnarray}
-C\frac{dV_d}{dt} = -I_L - I_{Na} - I_{kdr} - I_{KA}-
+C\frac{dV_d}{dt} = -I_L - I_{Na} - I_{Kdr} - I_{KA}-
 \nonumber \\
 -I_{syn} + I_{ext}
 \end{eqnarray}
 Уравнение для аксона
 \begin{eqnarray}
-C\frac{dV_a}{dt} = -I_L - I_{Na} - I_{kdr} - I_{syn}
+C\frac{dV_a}{dt} = -I_L - I_{Na} - I_{Kdr} - I_{syn}
 \end{eqnarray}
 Натриевые токи, калиевые токи выпрямления моделировались также как и у PV корзинчатых нейронов, уравнения (\ref{eq:Nav}) и (\ref{eq:Kdrfast}) соответственно.
 H-каналы:
 \begin{equation}
 \label{eq:HCNolm}
-I_{H} = g_{max, H} \cdot r \cdot (V - E_{H})
+I_{H} = g_{max, H} \cdot H \cdot (V - E_{H})
 \end{equation}
 
 \begin{equation}
-r_{\infty} =  \frac{1}{1 + exp(0.98 \cdot(V + 84.1))}
+H_{\infty} =  \frac{1}{1 + exp(0.98 \cdot(V + 84.1))}
 \end{equation}
 
 \begin{equation}
-\tau_{r} = 100 + \frac{1}{exp(-(17.9+0.116\cdot V)) + exp(0.09 \cdot V-1.84)   }
+\tau_{H} = 100 + \frac{1}{exp(-(17.9+0.116\cdot V)) + exp(0.09 \cdot V-1.84)   }
 \end{equation}
 
 Калиевый ток A-типа:
@@ -673,8 +685,8 @@ b_{\infty} = \frac{1}{1 + exp(\frac{V + 71}{7.3})  }
 \subsection{Axo-axonic cells}
 Аксо-аксональные интернейроны моделировались с помощью 17 компартментной модели: 1 сома и 16 компартментов для дендритов. Все компартменты описывались одинаковым набором каналов:
 \begin{eqnarray}
-C\frac{dV}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CaL}-I_{CaN}- \nonumber \\ 
--I_{KCaS}-I_{KvA}-I_{KvCaB}-I_{syn} + I_{ext}
+C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}- \nonumber \\ 
+-I_{KCaS}-I_{KA}-I_{KCaB}-I_{syn} + I_{ext}
 \end{eqnarray}
 
 Описание всех токов аналогично тем, что использовались выше для других нейронов, см. уравнения (\ref{eq:Nav}, \ref{eq:Kdrfast}, \ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvA})
@@ -683,7 +695,7 @@ C\frac{dV}{dt}=-I_L-I_{Na}-I_{kdr}-I_{CaL}-I_{CaN}- \nonumber \\
 Ivy и нейроглиаформные описывались с помощью 17 компартментов: 1 сома и 16 дендритных компартментов. Все компартметны в обоих типах нейронов имели одинаковый набор каналов:
 \begin{eqnarray}
 C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr} - I_{CaL}-I_{CaN}- \nonumber \\
--I_{KCaS} -I_{KvAngf}-I_{KvCaB}-I_{syn} + I_{ext}
+-I_{KCaS} -I_{KA}-I_{KCaB}-I_{syn} + I_{ext}
 \end{eqnarray}
 Натриевые каналы:
 \begin{equation}
@@ -706,7 +718,7 @@ I_{Na} = g_{max, Na} \cdot m^3 \cdot h \cdot (V - E_{Na})
 Калиевые каналы выпрямления:
 \begin{equation}
 \label{eq:Kdrfastngf}
-I_{Kdrfastngf} = g_{max, Kdrfastngf} \cdot n^4 \cdot (V - E_K)
+I_{Kdr} = g_{max, Kdr} \cdot n^4 \cdot (V - E_K)
 \end{equation}
 \begin{equation}
 \alpha_n = \frac{-0.07(V + 8)}{exp(\frac{V + 8}{-6}) - 1}
@@ -737,15 +749,19 @@ l_{\infty} = \frac{1}{1 + exp \cdot (46.41\cdot (V + 83)/T)}
 {0.08 \cdot q_{10} \cdot (1 + exp(46.41\cdot (V + 83)/T))}
 \end{equation}
 
+\begin{equation}
+q10 = 3^{0.1\cdot (T - 303) } 
+\end{equation}
+
 Описание всех остальных токов аналогично тем, что использовались выше для других нейронов, см. уравнения (\ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvCaB})
 
 \subsection{Schaffer collateral associated cells}
 SCA cells описывались 17 компартмментами, 1 - сома и 16 дендриты. Все компарменты описывались с помощью следующего уравнения баланса:
 \begin{eqnarray}
-C\frac{dV_s}{dt}=-I_L-I_{Navcck}-I_{kdr}-I_{CaL}-I_{CaN}-I_{HCN}-I_{KCaS}- \nonumber \\ -I_{KvA}-I_{KvCaB}-I_{KvGroup}-I_{syn} + I_{ext}
+C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}-I_{H}-I_{KCaS}- \nonumber \\ -I_{KA}-I_{KCaB}-I_{KGroup}-I_{syn} + I_{ext}
 \end{eqnarray}
 
-Натриевый ток, $I_{KvGroup}$ and $I_{HCN}$ описывались также как и для CCK basket cells - equation  (\ref{eq:Navcck}, \ref{eq:KvGroup}, \ref{eq:HCN}), уравнения для других каналов были аналогичны PV basket cells  (\ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvA})
+Натриевый ток, $I_{KGroup}$ and $I_{H}$ описывались также как и для CCK basket cells - equation  (\ref{eq:Navcck}, \ref{eq:KvGroup}, \ref{eq:HCN}), уравнения для других каналов были аналогичны PV basket cells  (\ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvA})
 
 
 
