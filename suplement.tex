@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[a4paper,12pt]{article}
 \usepackage{ucs}
 \usepackage[utf8x]{inputenc}
 \usepackage[russian]{babel}  
@@ -15,7 +15,7 @@
 Пирамидные нейроны описывались с помощью 19-ти компартментной модели. В модели принимались во внимание сома, базальные дендриты, проксимальная и дистальная часть апикального дендрита. \par
 Уравнение баланса для соматического компартмента:
 \begin{eqnarray}
-C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{kdr}-I_A-I_M-I_h-I_{sAHP}-I_{mAHP}-I_{CaL}- \nonumber \\ -I_{CaT}-I_{CaR}-I_{buff}-I_{syn} + I_{ext}
+C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{kdr}-I_A-I_M-I_H-I_{sAHP}-I_{mAHP}-I_{CaL}- \nonumber \\ -I_{CaT}-I_{CaR}-I_{buff}-I_{syn} + I_{ext}
 \end{eqnarray}
 
 Уравнение баланса для аксона:
@@ -25,14 +25,14 @@ C\frac{dV_a}{dt}=-I_L-I_{Na}-I_{kdr}-I_M-I_{syn}
 
 Уравнение баланса для базальных дендритов и проксимальной части апикального дендрита:
 \begin{eqnarray}
-C\frac{dV_{rad,ori}}{dt} =-I_L-I_{Na}-I_{kdr}-I_A-I_M-I_h-I_{sAHP}-I_{mAHP}- \nonumber \\-I_{CaL}-I_{CaT}-I_{CaR}-I_{buff}-I_{syn}+I_{ext}
+C\frac{dV_{rad,ori}}{dt} =-I_L-I_{Na}-I_{kdr}-I_A-I_M-I_H-I_{sAHP}-I_{mAHP}- \nonumber \\-I_{CaL}-I_{CaT}-I_{CaR}-I_{buff}-I_{syn}+I_{ext}
 \end{eqnarray}
 Уравнение баланса дистальной части апикального дендрита:
 \begin{equation}
 C\frac{dV_{LM}}{dt}=-I_L-I_{Na}-I_{kdr}-I_A-I_{syn}+I_{ext}
 \end{equation}
 where \textit{I\textsubscript{L}} is the leak current,  \textit{I\textsubscript{Na}} is the fast sodium current, \textit{I\textsubscript{kdr}} is the delayed rectifier potassium current, \textit{I\textsubscript{A}} is the A-type potassium current, \textit{I\textsubscript{M}}
-is the M-typepotassium current, \textit{I\textsubscript{h}} is a hyperpolarizing h-type current,
+is the M-typepotassium current, \textit{I\textsubscript{H}} is a hyperpolarizing H-type current,
 \textit{I\textsubscript{CaL}}, \textit{I\textsubscript{CaT}} and
 \textit{I\textsubscript{CaR}} are the L-, T- and R-type \textit{Ca\textsuperscript{2+}} currents, respectively,
 \textit{I\textsubscript{sAHP}} and \textit{I\textsubscript{mAHP}} are
@@ -63,14 +63,15 @@ s_{\infty}=\frac{1+Na_{att}\cdot exp(\frac{V+60}{2})}{1+exp(\frac{V+60}{2})}
 		Q(degC))}{1+exp(0.0012 \cdot (V+60)\cdot Q(degC))}
 \end{equation}
 
-The function \textit{Q}(\textit{degC}) is given by:
+The function \textit{Q(T)} is given by:
 \begin{equation}
-Q(degC)= \frac{F}{ R \cdot (T+degC) }
+\label{eq:QT}
+Q(degC)= \frac{F}{ R \cdot T }
 \end{equation}
 where \textit{R }=\textit{ }8.315\textit{ joule/degC}, \textit{F }=\textit{ }9.648 $\cdot 10^4 \ Coul$,
 \textit{T }=\textit{273.16}~in degrees Kelvin and \textit{degC}~is the temperature in degrees celsius.~variable represents the degree of sodium current
 attenuation and varies linearly from soma to distal trunk
-Na\textsubscript{att} $\eta \in$~[0, 1]: 1 -maximum 0 - zero attenuation. The delayed rectifier current is given by:
+Na\textsubscript{att}$\in$~[0, 1]: 1 -maximum 0 - zero attenuation (Table \ref{table:ca1_pyramidal_cell_parameters}). The delayed rectifier current is given by:
 
 \begin{equation}
 I_{Kdr} = g_{Kdr} \cdot m^2 \cdot (V-E_K)
@@ -129,41 +130,40 @@ I_H=g_{max, H} \cdot H \cdot (V-E_H)
 \end{equation}
 
 \begin{equation}
-H_{\infty }=\frac {1}{1+exp(-(V-V_{half})/k_l)}  
+H_{\infty }=\frac {1}{1+exp((V-V_{half})/8)}  
 \end{equation}
 
 \begin{equation}
-\tau_{H}=\frac{exp( 0.0378\cdot \zeta \cdot gmt\cdot
-	(V-V_{halft})}{qtl \cdot q10^{(T-33)/10}\cdot a0t \cdot
+\tau_{H}=\frac{exp( 0.003364\cdot
+	(V-V_{halft})}{0.05 \cdot q10^{(T-33)/10} \cdot
 	(1+a_{H})}
 \end{equation}
 
 
 \begin{equation}
-a_{H}=exp( 0.00378\cdot \zeta\cdot (V-V_{halft}))
+a_{H}=exp( 0.008316 \cdot (V-V_{halft}))
 \end{equation}
-where $\zeta$ {\textit{gmt}}{, }{\textit{q10}}{ and }{\textit{qtl}}{ are 2.2, 0.4, 4.5 and 1,respectively, }{\textit{a0t}}{ is 0.0111 1/ms,}{\textit{V}}{\textit{\textsubscript{halft}}}{ = -75mV and }{\textit{k}}{\textit{\textsubscript{l}}}{ = -8.}
+where \textit{q10} =  0.4, \textit{V\textsubscript{halft}}
+see in Table \ref{table:ca1_pyramidal_cell_parameters}.
+
 The slowly activating voltage‑dependent potassium current, \textit{I}\textit{\textsubscript{M}},~is given by the
 equations:
 
 
 \begin{equation}
-I_m=10^{-4}\cdot T_{adj}(degC)\cdot g_m\cdot m\cdot
+I_m=10^{-4}\cdot T_{adj}(T)\cdot g_m\cdot m\cdot
 (V-E_K)
 \end{equation}
 
 
-
-
-
 \begin{equation}
-\alpha_m =  \frac{10^{-3}\cdot(V+30)}{(1-exp(-(V+30)/9))T_{adj}(degC)} 
+\alpha_m =  \frac{10^{-3}\cdot(V+30)}{(1-exp(-(V+30)/9))T_{adj}(T)} 
 \end{equation}
 \begin{equation}
-\beta_m = \frac{ -10^{-3}\cdot(V+30)}{(1-exp((V+30)/9))T_{adj}(degC)}
+\beta_m = \frac{ -10^{-3}\cdot(V+30)}{(1-exp((V+30)/9))T_{adj}(T)}
 \end{equation}
 \begin{equation}
-T_{adj}(degC)=2.3^{(degC-23)/10}
+T_{adj}(T)=2.3^{(T - 287)/10}
 \end{equation}
 
 
@@ -180,7 +180,7 @@ I_{sAHP}= g_{max, sAHP} \cdot m^3 \cdot (V-E_K)
 \tau_m=max \Big(\frac {1}{0.003 \cdot (1+Cac)\cdot 3^{(\text{deg}C-22)/10}}, \ 0.5 \Big)
 \end{equation}
 where 
-$Cac=([Ca^{2+}]_{in}/0.025)^2$.
+$Cac=(40 \cdot [Ca^{2+}]_{in})^2$.
 
 The medium after-hyperpolarizing current, I\textsubscript{mAHP} (Moczydlowski and Latorre, 1983), is given by:
 
@@ -189,15 +189,14 @@ I_{mAHP}= g_{max, mAHP}\cdot m\cdot (V-E_K)
 \end{equation}
 
 \begin{equation}
-\alpha_m(V)=\frac{0.48}{1+\frac{0.18}{[Ca^{2+}]_{in}}\cdot
-	exp(-1.68\cdot V\cdot Q(degC))}
+\alpha_m(V)=\frac{0.48}{1+\frac{0.18}{[Ca^{2+}]_{in}}\cdot exp(-1.68\cdot V\cdot Q(T))}
 \end{equation}
 
 \begin{equation}
-\beta_m(V)=\frac{0.28}{1+\frac{[Ca^{2+}]_{in}}{0.011\cdot
-		exp(-2\cdot V\cdot Q(degC))}}
+\beta_m(V)=\frac{0.28}{1+\frac{[Ca^{2+}]_{in}}{0.011\cdot exp(-2\cdot V\cdot Q(T))}}
 \end{equation}
 
+Q(T) see formula (\ref{eq:QT}). \par
 The somatic high-voltage activated (HVA) L-type Ca\textsuperscript{2+} current is given by
 
 
@@ -206,11 +205,11 @@ I_{CaL}^s= g_{max, CaL}^s\cdot m\cdot \frac{0.001 \cdot ghk(V, [Ca^{2+}]_{in}, [
 \end{equation}
 
 \begin{equation}
-\alpha_m(V)=-0.055 \cdot 5 \cdot \frac{(V+27.01)}{exp(-(V+27.01)/3.8)-1}
+\alpha_m(V)= \frac{-0.275 \cdot (V+27.01)}{exp(-(V+27.01)/3.8)-1}
 \end{equation}
 
 \begin{equation}
- \beta_m(V)=0.94 \cdot 5 \cdot exp(-(V+63.01)/17)
+ \beta_m(V)= 4.7 \cdot exp(-(V+63.01)/17)
 \end{equation}
 
 
@@ -240,7 +239,7 @@ ghk(V,\ [Ca^{2+}]_{in},\ [Ca^{2+}]_{out}) = \nonumber \\
 \end{eqnarray}
 
 \begin{equation}
-x=\frac{0.0853\cdot (T+degC)}{2}, \\
+x=\frac{0.0853\cdot T}{2}, \\
 f(z) = \begin{cases} 1-\frac {z}{2}, & if \ |z|<10^{-4} \\ \frac z{e^z-1}, & \  otherwise \ \end{cases}
 \end{equation}
 
@@ -253,21 +252,14 @@ f(z) = \begin{cases} 1-\frac {z}{2}, & if \ |z|<10^{-4} \\ \frac z{e^z-1}, & \  
 \end{equation}
 
 \begin{equation}
-\alpha_h(V)=0.68 * 0.00016\cdot exp(-(V+57)/19)
+\alpha_h(V)= 0.00011\cdot exp(-(V+57)/19)
 \end{equation}
 \begin{equation}
 \beta_h(V)=\frac {0.68}{exp(-(V-15)/10)+1}
 \end{equation}
-where $[Ca]_{in}$ and $[Ca]_{out}$ are the internal and external calcium concentrations. The HVA R-type Ca2+ current is described by:
+where $[Ca^{2+}]_{in}$ and $[Ca^{2+}]_{out}$ are the internal and external calcium concentrations. The HVA R-type Ca2+ current is described by:
 \begin{equation}
 I_{CaR} = g_{max, CaR}\cdot m^3\cdot h\cdot (V-E_{Ca})
-\end{equation}
-
-\begin{equation}
-m_{t+dt}=m_t+(1+exp(-\frac{dt}{\tau_m})\cdot (\alpha(V)-m_t)
-\end{equation}
-\begin{equation}
-h_{t+dt}=h_t+(1-exp(-\frac{dt}{\tau_h}))\cdot (\beta(V) - h_t)
 \end{equation}
 
 The difference between somatic and dendritic CaR currents lies in the $\alpha(V)$, $\beta(V)$ and $\tau$ ~parameter
@@ -291,7 +283,7 @@ h_{\infty}(V)=\frac {1}{1+exp(V+62)}
 
 Finally, a calcium pump/buffering mechanism is inserted at the cell body and along the apical and basal trunk. The
 mechanism is taken from~(Destexhe, Mainen, \& Sejnowski, 1994). The factor for
-$Ca_{2+}$ entry was changed from
+$Ca^{2+}$ entry was changed from
 \textit{f\textsubscript{e}} = 10,000~to \textit{f\textsubscript{e}} = 10,000/18~and the rate of calcium removal was made 7 times faster. The kinetic equations are given by:
 
 \begin{equation}
@@ -299,10 +291,10 @@ Ca_{input flow} = \begin{cases} \frac{-f_e \cdot I_{Ca, sum} }{0.2 \cdot F}, & i
 \end{equation}
 
 \begin{equation}
-\frac{d[Ca^{2+}]_{in}}{dt}=Ca_{input flow} +\frac{10^{-4}-[Ca^{2+}]_{in}}{1400}
+\frac{d[Ca^{2+}]_{in}}{dt}=Ca_{input flow} +\frac{[Ca^{2+}]_{0}-[Ca^{2+}]_{in}}{\tau_{Ca}}
 \end{equation}
 
-
+$[Ca^{2+}]_{0} = 10^{-4} \ mM, \ \tau_{Ca} = 1400 \ ms$
 
 
 \bigskip
