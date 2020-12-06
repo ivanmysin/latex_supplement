@@ -15,8 +15,58 @@
 \maketitle
 
 \section{Neurons models}
+\subsection{General notes on neuron models}
+All neurons were multicompartments. Potential of each compartment is: 
+\begin{eqnarray}
+\label{eq:comon_potential}
+C\frac{dV}{dt}=-\sum{I_{ch}}-I_{syn} + I_{ext}
+\end{eqnarray}
+where C is capacity in $\mu F/ cm^2$, V is potetial in mV, t is time in ms, I is current in $\mu A/cm^2$. $I_{ch}$ are transmembrane currents, they are described in following sections, and tables with parameters are given in \ref{tables_of_neurons}. Common equation for transmemrane currents is
+\begin{equation}
+I_{ch}= g_{max, ch}\cdot x_1^N\cdot x_2^M \cdot x_3^K \cdot (V-E_{ch})
+\end{equation}
+where $ g_{max, ch}$ maximal coduntance in $mS/ cm^2$, $E_{ch}$ is reversal potantial for this channel in $mV$. $x_1,\ x_2, \ x_3$ are gate variables. All compartments have leak current:
+\begin{equation}
+I_{L}= g_{L} \cdot (V - E_{L})
+\end{equation}
+$g_{L}$ and $E_{L}$ are given in tables \ref{tables_of_neurons}.
+
+All gate variables were described with classical equation: 
+\begin{equation}
+\frac{dx}{dt} = \frac{x_{\infty}(V) - x}{\tau_x(V)}
+\end{equation}
+The equations for $x_{\infty}(V)$ and $\tau_x(V)$ are given in the corresponding sections in in explicit form or they can be given in form of functions  $\alpha(V)$ and $\beta(V)$
+\begin{equation}
+\tau_x(V) =  \frac{1}{\alpha(V) + \beta(V)} \ \ \ 
+x_{\infty}(V) = \alpha(V) \cdot \tau_x(V)
+\end{equation}
+Numerical scheme:
+\begin{equation}
+x_{t + \Delta t} = x_t+\Big(1 - exp \Big(-\frac{\Delta t}{\tau_x} \Big) \Big)\cdot (x_{\infty}-x_t) 
+\end{equation}
+where $\Delta t = 0.1 ms$ is integration step.
+
+There is the function \textit{Q(T)} in description of some currents, it is given by:
+\begin{equation}
+\label{eq:QT}
+Q(T)= \frac{F}{ R \cdot T }
+\end{equation}
+where \textit{R = 8.315\ joule/deg}, \textit{F = 9.648} $\cdot 10^4 \ Coul$,
+\textit{T} is the temperature in degrees Kelvin. In all simulations \textit{T=310 deg}.
+
+
+$I_{syn}$ in equation (\ref{eq:comon_potential}) is sum of synaptic current, which deascibed in section \ref{synapse_models}. 
+
+External current ($I_{ext}$) in equation (\ref{eq:comon_potential}) simulates noise and influence of very long currents:
+\begin{equation}
+I_{ext} = I_{ext, mean} + \eta \cdot \sigma_{ext}
+\end{equation}
+where $I_{ext, mean}$ is constant value,  $ \eta$ is random value from normal disribution with nean equals 0 and standart deviation equals 1, $\sigma_{ext}=0.005 \mu A/cm^2/\sqrt{ms}$ is std of noise.
+
+
+
 \subsection{CA1 Pyramidal cell}
-Пирамидные нейроны описывались с помощью 19-ти компартментной модели. В модели принимались во внимание сома, базальные дендриты, проксимальная и дистальная часть апикального дендрита. \par
+Пирамидные нейроны описывались с помощью 15-ти компартментной модели. В модели принимались во внимание сома, базальные дендриты, проксимальная и дистальная часть апикального дендрита. \par
 Уравнение баланса для соматического компартмента:
 \begin{eqnarray}
 C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{kdr}-I_A-I_M-I_H-I_{sAHP}-I_{mAHP}-I_{CaL}- \nonumber \\ -I_{CaT}-I_{CaR}-I_{buff}-I_{syn} + I_{ext}
@@ -64,18 +114,12 @@ s_{\infty}=\frac{1+Na_{att}\cdot exp(\frac{V+60}{2})}{1+exp(\frac{V+60}{2})}
 
 \begin{equation}
 \tau_s=\frac{0.00333\cdot  exp(0.0024 \cdot (V+60)\cdot
-		Q(degC))}{1+exp(0.0012 \cdot (V+60)\cdot Q(degC))}
+		Q(T))}{1+exp(0.0012 \cdot (V+60)\cdot Q(T))}
 \end{equation}
 
-The function \textit{Q(T)} is given by:
-\begin{equation}
-\label{eq:QT}
-Q(degC)= \frac{F}{ R \cdot T }
-\end{equation}
-where \textit{R }=\textit{ }8.315\textit{ joule/degC}, \textit{F }=\textit{ }9.648 $\cdot 10^4 \ Coul$,
-\textit{T }=\textit{273.16}~in degrees Kelvin and \textit{degC}~is the temperature in degrees celsius.~variable represents the degree of sodium current
+\textit{Na\textsubscript{att}} variable represents the degree of sodium current
 attenuation and varies linearly from soma to distal trunk
-Na\textsubscript{att}$\in$~[0, 1]: 1 -maximum 0 - zero attenuation (Table \ref{table:ca1_pyramidal_cell_parameters}). The delayed rectifier current is given by:
+\textit{Na\textsubscript{att}} $\in$~[0, 1]: 1 -maximum 0 - zero attenuation (Table \ref{table:ca1_pyramidal_cell_parameters}). The delayed rectifier current is given by:
 
 \begin{equation}
 I_{Kdr} = g_{Kdr} \cdot m^2 \cdot (V-E_K)
@@ -755,26 +799,7 @@ C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}-I_{H}-I_{KCaS}- \nonumber \
 
 Натриевый ток, $I_{KGroup}$ and $I_{H}$ описывались также как и для CCK basket cells - equation  (\ref{eq:Navcck}, \ref{eq:KvGroup}, \ref{eq:HCN}), уравнения для других каналов были аналогичны PV basket cells  (\ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvA})
 
-
-
-
-\section{Description and numerical ingration of gate variables}
-All gate variables were described with classical equation: 
-\begin{equation}
-\frac{dx}{dt} = \frac{x_{\infty}(V) - x}{\tau_x(V)}
-\end{equation}
-The equations for $x_{\infty}(V)$ and $\tau_x(V)$ are given in the corresponding sections in in explicit form or they can be given in form of functions  $\alpha(V)$ and $\beta(V)$
-\begin{equation}
-\tau_x(V) =  \frac{1}{\alpha(V) + \beta(V)} \ \ \ 
-x_{\infty}(V) = \alpha(V) \cdot \tau_x(V)
-\end{equation}
-Numerical scheme:
-\begin{equation}
-x_{t + \Delta t} = x_t+\Big(1 - exp \Big(-\frac{\Delta t}{\tau_x} \Big) \Big)\cdot (x_{\infty}-x_t) 
-\end{equation}
-where $\Delta t = 0.1 ms$ is integration step.
-
-\section{Tables}
+\subsection{Tables of neuronal parameters} \label{tables_of_neurons}
 \input{pyrtable.tex}
 \input{pvbastable.tex}
 \input{aactable.tex}
@@ -784,6 +809,17 @@ where $\Delta t = 0.1 ms$ is integration step.
 \input{ivytable.tex}
 \input{scatable.tex}
 \input{bistable.tex}
+
+
+
+
+\section{Synapses models} \label{synapse_models}
+\section{Simulation of field potetial} \label{field_potetial_model}
+
+
+
+
+
 \end{document}
 
 
