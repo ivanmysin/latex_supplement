@@ -14,6 +14,10 @@
 \begin{document}
 \maketitle
 
+\section{Models of artifitial spike generators}
+Тут будут модели генераторов импульсов
+
+
 \section{Neurons models}
 \subsection{General notes on neuron models}
 All neurons were multicompartments. Potential of each compartment is: 
@@ -61,9 +65,7 @@ External current ($I_{ext}$) in equation (\ref{eq:comon_potential}) simulates no
 \begin{equation}
 I_{ext} = I_{ext, mean} + \eta \cdot \sigma_{ext}
 \end{equation}
-where $I_{ext, mean}$ is constant value,  $ \eta$ is random value from normal disribution with nean equals 0 and standart deviation equals 1, $\sigma_{ext}=0.005 \mu A/cm^2/\sqrt{ms}$ is std of noise.
-
-
+where $I_{ext, mean}$ is constant value,  $ \eta$ is random value from normal disribution with nean equals 0 and standart deviation equals 1, $\sigma_{ext}=0.005 \mu A/cm^2/\sqrt{ms}$ is std of noise. To simulate heterogeineously $I_{ext, mean}$ for each neuron is chosen from lognormal distribution, mean and std are given below. 
 
 \subsection{CA1 Pyramidal cell}
 Пирамидные нейроны описывались с помощью 15-ти компартментной модели. В модели принимались во внимание сома, базальные дендриты, проксимальная и дистальная часть апикального дендрита. \par
@@ -810,14 +812,55 @@ C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}-I_{H}-I_{KCaS}- \nonumber \
 \input{scatable.tex}
 \input{bistable.tex}
 
+\section{Synapse models} 
+\subsection{General description of synapse models} \label{synapse_models}
+We simulate connections  via  gap junctions and chemichal synapses with AMPAR, NMDAR and GABA-A receptors. Model of gap junctions is described in  section (\ref{gap_junctions_models}).
+Current trough all synaptic channels is simulated as:
+\begin{equation}
+I_{syn} = g_{max, syn} \cdot g \cdot (V - E_{syn})
+\end{equation}
+where $ g_{max, syn}$ is maximal synaptic conduntance in $mS/cm^2$, $g$ is analog of gate variable for synaptic current. $E_{syn}$ is reversal potential in $mV$, for excitatory synapses with AMPA and NMDA receptors $E_{syn} = 0\ mV$, for GABA-A channels $E_{GABA} = -75\ mV$.
+Dynamic of $g$ is simulated with double exponetial model: 
+\begin{equation}
+\label{eq:gsyn}
+g = exp \Big( \frac{t - t_0}{\tau_{rise}} \Big) - exp \Big( \frac{t - t_0}{\tau_{decay}} \Big)
+\end{equation}
+where $t_0$ is time of spike on presynaptic neuron with delay.
+NMDAR simulated with equation:
+\begin{equation}
+I_{NMDA} = g_{max, NMDA} \cdot g \cdot s \cdot (V - E_{NMDA})
+\end{equation}
+\begin{equation}
+s = \frac{1.50265}{1 + 0.33 \cdot exp(-0.0625 \cdot V) }
+\end{equation}
+where $g$ described by the same equation as AMPAR and GABA-A (\ref{eq:gsyn}).
+Parameters $\tau_{rise},\ \tau_{decay}$ for synapses between each group of neurons are described in following sections. For each individual sinapses $g_{max, syn}$ and delay are chosen from lognormal distribution, mean and std are given below.  
+
+\subsection{Synapses from pyramidal cells}
+Тут табличка с параметрами синапсов от пирамид.
+
+\section{Gap junction models} \label{gap_junctions_models}
+\subsection{General description of gap junction models}
+Gap junction between two neurons (1 and 2) is described by simple equation:
+\begin{equation}
+I_{gap} = \frac{V_{1} - V_{2}}{R_{gap}}
+\end{equation}
+where $I_{gap}$ is current for neuron 1, $V_{1}$ and $V_{2}$ are potentials of neuron 1 and 2 respectivly. Gap junctions are always simmetrical, in equation of neuron 2 same current is added. $R_{gap}$ is resistance of contact, it is chosen randomly from normal disrtibuntion for each contact, parameters see below.
+
+
+\subsection{Gap junctions between PV basket cells}
+
+\subsection{Gap junctions between neurogliaform cells}
 
 
 
-\section{Synapses models} \label{synapse_models}
-\section{Simulation of field potetial} \label{field_potetial_model}
-
-
-
+\section{Simulation of local field potetial} \label{field_potetial_model}
+LFP simulated with LFPsim tools, we have used line aproximation:
+\begin{equation} 
+\Phi_{LFP} = \sum^{n}_{i=1}{ \frac{I_i}{2\pi \sigma}log \Big(\frac{\sqrt{h_i^2 + r_i^2}-h_i}{\sqrt{l_i^2 + r_i^2}-l_i} } \Big)
+\end{equation}
+$\Phi_{LFP}$ is simulated LFP, $I$ is transmemrane current.
+In simulation of LFP only comratmments of pyramidal neurons were taken into account. $\sigma$ is conductance of extracellular medium. h, r, l - ?????
 
 
 \end{document}
