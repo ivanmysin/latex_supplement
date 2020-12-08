@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{longtable}
+\usepackage[unicode, pdftex]{hyperref}
 \usepackage{rotating}
 \usepackage{tabularborder}
 \title{Supplement materials}
@@ -14,11 +15,52 @@
 \begin{document}
 \maketitle
 
-\section{Programm instruments for simulation and data processing}
-
+\section{Programm instruments}
+We have used simulator Neuron runned from Python. We have used the code of the models described in the articles by Bezaire and Koutsouridis. Pyramidal and bistratifired neurons were taken from the Kusturidis and Poirazi models, the source code of the models was taken from the repository \url{https://github.com/ModelDBRepository/181967}. The remaining neurons are taken from model of the Bezaire  with co-authors, the source code for the neuron models is taken from \url{https://github.com/ModelDBRepository/187604}. The source code of our model is available at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}. \par
+We have used libraries to process the simulated signals: numpy, scipy, elephant (ССЫЛКИ). Graphs were plotted with Matplotlib (ССЫЛКИ). The code of processing is also avalible at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}.
 
 \section{Models of artifitial spike generators}
-Тут будут модели генераторов импульсов
+External inputs to the CA1 field are simulated with artifitial spike generators. Almost all neurons in hippocampal formation are modulated by rhythms, therefore we have used von Misses disribution to take phase modulated spike trains:
+\begin{equation}
+f(\phi) = \frac{exp(\kappa \cdot cos(\phi - \mu) )  }{2\pi \cdot I_0(\kappa) }
+\end{equation}
+where $I_0(\kappa)$ is the modified Bessel function of order 0. The parameters $\mu$ and $1/\kappa$  are analogous to the mean and variance in the normal distribution. Degree of neuron firing coupling to phase of thythm typicaly is described with parameter $R$ - ray length. Parameter $\kappa$ can be taken from $R$ by following equations: 
+\begin{equation}
+\begin{matrix}
+\kappa & = & \left\{
+	\begin{matrix}
+	2 \cdot R + R^3 + 5/6 \cdot R^5 & \mbox{if } R < 0.53 \\
+	-0.4 + 1.39 \cdot R + 0.43 / (1 - R) & \mbox{if } 0.53 \leq   R < 0.85  \\
+	1 / (3\cdot R - 4\cdot R^2 + R^3) & \mbox{if } R \geq 0.85 \\
+	\end{matrix} \right.
+\end{matrix}
+\end{equation}
+Simple model of spike generator can be presented with equations:
+\begin{equation}
+\label{eq:spike_prob_phases}
+p_{sp} = \int_\phi^{\phi + \Delta \phi} f(\phi) d \phi
+\end{equation}
+where $p_{sp}$ is probabilty of spike generation during $\Delta \phi$.from phases, we can go to the time with frequency ($\omega$)
+\begin{equation}
+\frac{d \phi}{dt} = 2 \pi \omega, \ \phi(t)=2\pi t \omega, \ d\phi=2 \pi \omega dt
+\end{equation}
+we can join these equations:
+\begin{equation}
+p_{sp} = S \cdot \int_t^{t + \Delta t} f(2\pi t \omega) 2 \pi \omega dt
+\end{equation}
+$S$ is normalization coefficient to get given spike rate. Each generator is characterizeted by prefered phase ($\mu$), frequency ($\omega$), ray length ($R=0$ is mean that there is no coupling to phase, $R=1$ is full coupling to phase $\mu$) and spike rate (regulated by $S$). We add also latency for generator model, it is period after spike generation with zero probability of new spike. We have used such model for inpus from medial septum and (LEC !!!!!). \par
+Neurons of medial entorhynal cortex modulated by theta and gamma rhythms. We have simulated neuron of the MEC as grid cells. It means that they show slow periodic activity. It can be simulated as product of probabilities simple oscillators:  
+\begin{equation}
+p_{grid} = S \cdot p_{sp}(\omega_{\theta}, \mu_{\theta}, R_{\theta}) \cdot  p_{sp}(\omega_{\gamma}, \mu_{\gamma}, R_{\gamma}) \cdot  p_{sp}(\omega_{grid}, \mu_{grid}, R_{grid})
+\end{equation}
+All parameters are given below.
+Input from the CA3 field is simulated with simple generators and with place cells. The CA3 neurons without place field activity are modulated only by theta rhythm. Place cells are modulated by theta and gamma rhythms, place field is simulated with gaussian:  
+\begin{equation}
+p_{grid} = S \cdot p_{sp}(\omega_{\theta}, \mu_{\theta}, R_{\theta}) \cdot  p_{sp}(\omega_{\gamma}, \mu_{\gamma}, R_{\gamma}) \cdot 
+\frac{exp \Big( \frac{-(t - t_{place})^2}{2 \cdot r_{place}^2}  \Big)}{2 \pi r_{place}}  
+\end{equation}
+where $t_{place}$ and $r_{place}$ are the center and radius of the place field in time domain.
+
 
 
 \section{Neurons models}
@@ -26,13 +68,13 @@
 All neurons were multicompartments. Potential of each compartment is: 
 \begin{eqnarray}
 \label{eq:comon_potential}
-C\frac{dV}{dt}=-\sum{I_{ch}}-I_{syn} + I_{ext}
+C\frac{dV}{dt}=-\sum{I_{tm}}-I_{syn} + I_{ext}
 \end{eqnarray}
-where C is capacity in $\mu F/ cm^2$, V is potetial in mV, t is time in ms, I is current in $\mu A/cm^2$. $I_{ch}$ are transmembrane currents, they are described in following sections, and tables with parameters are given in \ref{tables_of_neurons}. Common equation for transmemrane currents is
+where C is capacity in $\mu F/ cm^2$, V is potetial in mV, t is time in ms, I is current in $\mu A/cm^2$. $I_{tm}$ are transmembrane currents, they are described in following sections, and tables with parameters are given in \ref{tables_of_neurons}. Common equation for transmemrane currents is
 \begin{equation}
-I_{ch}= g_{max, ch}\cdot x_1^N\cdot x_2^M \cdot x_3^K \cdot (V-E_{ch})
+I_{tm}= g_{max}\cdot x_1^N\cdot x_2^M \cdot x_3^K \cdot (V-E)
 \end{equation}
-where $ g_{max, ch}$ maximal coduntance in $mS/ cm^2$, $E_{ch}$ is reversal potantial for this channel in $mV$. $x_1,\ x_2, \ x_3$ are gate variables. All compartments have leak current:
+where $ g_{max}$ maximal coduntance in $mS/ cm^2$, $E$ is reversal potantial for this channel in $mV$. $x_1,\ x_2, \ x_3$ are gate variables. All compartments have leak current:
 \begin{equation}
 I_{L}= g_{L} \cdot (V - E_{L})
 \end{equation}
