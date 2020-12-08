@@ -14,6 +14,9 @@
 \begin{document}
 \maketitle
 
+\section{Programm instruments for simulation and data processing}
+
+
 \section{Models of artifitial spike generators}
 Тут будут модели генераторов импульсов
 
@@ -860,9 +863,13 @@ LFP simulated with LFPsim tools, we have used line aproximation:
 \Phi_{LFP} = \sum^{n}_{i=1}{ \frac{I_i}{2\pi \sigma}log \Big(\frac{\sqrt{h_i^2 + r_i^2}-h_i}{\sqrt{l_i^2 + r_i^2}-l_i} } \Big)
 \end{equation}
 $\Phi_{LFP}$ is simulated LFP, $I$ is transmemrane current.
-In simulation of LFP only comratmments of pyramidal neurons were taken into account. $\sigma$ is conductance of extracellular medium. h, r, l - ?????
-
-
+In simulation of LFP only comratmments of pyramidal neurons were taken into account. $\sigma$ denotes
+the conductivity of the medium. $r$ is the distance from
+source to the point of measurement, $h$ is the distance from end of segment to point of measurement, $l$ is the length of secgment. All the pyramid neurons were arranged in an orderly fashion. The soma of all the cells were on the same level ($z=0$). The $x$ and $y$ coordinates for each neuron were chosen randomly from the circe with radius $R_{x, y}$ specified by the formula:
+\begin{equation} 
+R_{x, y} = \frac{\sqrt{\frac{N_{pyr}}{\rho_{pyr}} }} {\pi}
+\end{equation}
+where $N_{pyr}$ is the number of pyramidal cells in model, $\rho_{pyr} = 0.2 \ cell/\mu m^2$ is the dencity of cells in pyramidal layer of the CA1 field.
 \end{document}
 
 
