@@ -8,6 +8,9 @@
 \usepackage[unicode, pdftex]{hyperref}
 \usepackage{rotating}
 \usepackage{tabularborder}
+\usepackage{graphicx}
+
+\graphicspath{ {./figures/} } 
 \title{Supplement materials}
 \author{Mysin I.E.}
 \date{}
@@ -61,7 +64,11 @@ p_{grid} = S \cdot p_{sp}(\omega_{\theta}, \mu_{\theta}, R_{\theta}) \cdot  p_{s
 \end{equation}
 where $t_{place}$ and $r_{place}$ are the center and radius of the place field in time domain.
 
+\input{ArtifitialCell_parameters.tex}
 
+\input{ArtifitialGridCell_parameters.tex}
+
+\input{ArtifitialPlaceCell_parameters.tex}
 
 \section{Neurons models}
 \subsection{General notes on neuron models}
@@ -856,6 +863,36 @@ C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}-I_{H}-I_{KCaS}- \nonumber \
 \input{ivytable.tex}
 \input{scatable.tex}
 \input{bistable.tex}
+
+\begin{figure}[h]
+	 \centering
+\includegraphics{interneuron_structures.png}
+	\caption{Scheme of compartments of sca, ivy, ngf, pvbas, cckbas, aac cells}
+	\label{fig:interneuron_structures}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+\includegraphics{olm_structure.png}
+\caption{Scheme of compartments of olm cell}
+\label{fig:olm_structures}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics{bis_structure.png}
+	\caption{Scheme of compartments of bis cell}
+	\label{fig:bis_structures}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+\includegraphics{pyramide_structures.png}
+\caption{Scheme of compartments of pyramidal cell}
+\label{fig:pyr_structures}
+\end{figure}
 
 \section{Synapse models} 
 \subsection{General description of synapse models} \label{synapse_models}
