@@ -21,7 +21,7 @@
 \date{}
 
 \begin{document}
-\selectlanguage{russian}
+\selectlanguage{english}
 \maketitle
 
 \section{Programm instruments}
@@ -897,27 +897,27 @@ Sodium current, $I_{KGroup}$ and $I_{H}$ are described by same way as for CCK ba
 
 \section{Synapse models} 
 \subsection{General description of synapse models} \label{synapse_models}
-We simulate connections  via  gap junctions and chemichal synapses with AMPAR, NMDAR and GABA-A receptors. Model of gap junctions is described in  section (\ref{gap_junctions_models}).
-Current trough all synaptic channels is simulated as:
+We simulate connections via gap junctions and chemical synapses with
+AMPAR, NMDAR and GABA-A receptors. The model of gap junctions is described in section (\ref{gap_junctions_models}). Current through all synaptic channels is simulated as:
 \begin{equation}
 I_{syn} = g_{max, syn} \cdot g \cdot (V - E_{syn})
 \end{equation}
-where $ g_{max, syn}$ is maximal synaptic conduntance in $mS/cm^2$, $g$ is analog of gate variable for synaptic current. $E_{syn}$ is reversal potential in $mV$, for excitatory synapses with AMPA and NMDA receptors $E_{syn} = 0\ mV$, for GABA-A channels $E_{GABA} = -75\ mV$.
-Dynamic of $g$ is simulated with double exponetial model: 
+where $ g_{max, syn}$ is maximal synaptic conductance $mS/cm^2$, $g$ is analog
+of gate variable for synaptic current. $E_{syn}$ is reversal potential in $mV$, for excitatory synapses with AMPA and NMDA receptors $E_{syn} = 0\ mV$, for GABA-A channels $E_{GABA} = -75\ mV$.
+Dynamic of $g$ is simulated with the double exponential model:
 \begin{equation}
 \label{eq:gsyn}
 g = exp \Big( \frac{t - t_0}{\tau_{rise}} \Big) - exp \Big( \frac{t - t_0}{\tau_{decay}} \Big)
 \end{equation}
-where $t_0$ is time of spike on presynaptic neuron with delay.
-NMDAR simulated with equation:
+where $t_0$ is a time of spike on presynaptic neuron with delay. NMDAR simulated with the equation::
 \begin{equation}
 I_{NMDA} = g_{max, NMDA} \cdot g \cdot s \cdot (V - E_{NMDA})
 \end{equation}
 \begin{equation}
 s = \frac{1.50265}{1 + 0.33 \cdot exp(-0.0625 \cdot V) }
 \end{equation}
-where $g$ described by the same equation as AMPAR and GABA-A (\ref{eq:gsyn}).
-Parameters $\tau_{rise},\ \tau_{decay}$ for synapses between each group of neurons are described in following sections. For each individual sinapses $g_{max, syn}$ and delay are chosen from lognormal distribution, mean and std are given below.  
+where $g$ is described by the same equation as AMPAR and GABA-A (\ref{eq:gsyn}).
+Parameters $\tau_{rise},\ \tau_{decay}$ for synapses between each group of neurons are described in the following sections. For each synapse $g_{max, syn}$ and delay are chosen from a lognormal distribution, mean and std are given below.  
 
 \subsection{Synapses from pyramidal cells}
 \input{aac_synapses.tex}
@@ -934,33 +934,30 @@ Parameters $\tau_{rise},\ \tau_{decay}$ for synapses between each group of neuro
 
 \section{Gap junction models} \label{gap_junctions_models}
 \subsection{General description of gap junction models}
-Gap junction between two neurons (1 and 2) is described by simple equation:
+Gap junction between two neurons (1 and 2) is described by a simple equation:
 \begin{equation}
 I_{gap} = \frac{V_{1} - V_{2}}{R_{gap}}
 \end{equation}
-where $I_{gap}$ is current for neuron 1, $V_{1}$ and $V_{2}$ are potentials of neuron 1 and 2 respectivly. Gap junctions are always simmetrical, in equation of neuron 2 same current is added. $R_{gap}$ is resistance of contact, it is chosen randomly from normal disrtibuntion for each contact, parameters see below.
-
+where $I_{gap}$is current for neuron 1, $V_{1}$ and $V_{2}$ are potentials of neuron 1 and 2 respectively. Gap junctions are always symmetrical, in the equation of neuron 2 the same current is added. $R_{gap}$ is the resistance of contact, it is chosen randomly from a normal distribution for each contact, parameters see below.
 
 \input{gap_junctions_parameters.tex}
 
 
 
 \section{Simulation of local field potetial} \label{field_potetial_model}
-LFP simulated with LFPsim tools, we have used line aproximation:
+LFP is simulated with LFPsim tools \cite{parasuram_computational_2016}, we have used line approximation:
 \begin{equation} 
 \Phi_{LFP} = \sum^{n}_{i=1}{ \frac{I_i}{2\pi \sigma}log \Big(\frac{\sqrt{h_i^2 + r_i^2}-h_i}{\sqrt{l_i^2 + r_i^2}-l_i} } \Big)
 \end{equation}
-$\Phi_{LFP}$ is simulated LFP, $I$ is transmemrane current.
-In simulation of LFP only comratmments of pyramidal neurons were taken into account. $\sigma$ denotes
-the conductivity of the medium. $r$ is the distance from
-source to the point of measurement, $h$ is the distance from end of segment to point of measurement, $l$ is the length of secgment. All the pyramid neurons were arranged in an orderly fashion. The soma of all the cells were on the same level ($z=0$). The $x$ and $y$ coordinates for each neuron were chosen randomly from the circe with radius $R_{x, y}$ specified by the formula:
+$\Phi_{LFP}$ is simulated LFP, $I$ is transmembrane current. In the simulation of LFP, only compartments of pyramidal neurons were taken into account. $\sigma$ denotes the conductivity of the medium. $r$ is the distance from the source to the point of measurement, $h$  is the distance from the end of a segment to point of measurement, $l$ is the length of a segment. All the pyramid neurons were arranged in an orderly fashion. TAll the pyramid neurons were arranged in an
+orderly fashion. The soma of all the cells was on the same level ($z = 0$). The x and y coordinates for each neuron were chosen randomly from the circle with radius $R_{x, y}$ specified by the formula:
 \begin{equation} 
 R_{x, y} = \frac{\sqrt{\frac{N_{pyr}}{\rho_{pyr}} }} {\pi}
 \end{equation}
-where $N_{pyr}$ is the number of pyramidal cells in model, $\rho_{pyr} = 0.2 \ cell/\mu m^2$ is the dencity of cells in pyramidal layer of the CA1 field.
+where $N_{pyr}$ is the number of pyramidal cells in the model, $\rho_{pyr} = 0.2 \ cell/\mu m^2$ is the density of cells in the pyramidal layer of the CA1 field.
 
 
-%\bibliography{bibliography}
+\bibliography{bibliography}
 \end{document}
 
 
