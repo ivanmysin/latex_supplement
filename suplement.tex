@@ -1,7 +1,7 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage{ucs}
 \usepackage[utf8x]{inputenc}
-\usepackage[russian]{babel}  
+\usepackage[russian, english]{babel}  
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -11,23 +11,29 @@
 \usepackage{graphicx}
 
 \graphicspath{ {./figures/} } 
+
+\usepackage[square,numbers]{natbib}
+\bibliographystyle{unsrtnat}
+
+
 \title{Supplement materials}
 \author{Mysin I.E.}
 \date{}
 
 \begin{document}
+\selectlanguage{russian}
 \maketitle
 
 \section{Programm instruments}
-We have used simulator Neuron runned from Python. We have used the code of the models described in the articles by Bezaire and Koutsouridis. Pyramidal and bistratifired neurons were taken from the Kusturidis and Poirazi models, the source code of the models was taken from the repository \url{https://github.com/ModelDBRepository/181967}. The remaining neurons are taken from model of the Bezaire  with co-authors, the source code for the neuron models is taken from \url{https://github.com/ModelDBRepository/187604}. The source code of our model is available at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}. \par
-We have used libraries to process the simulated signals: numpy, scipy, elephant (ССЫЛКИ). Graphs were plotted with Matplotlib (ССЫЛКИ). The code of processing is also avalible at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}.
+We have used the simulator Neuron from Python. We have used the code of the models described in the article by Bezaire with coauthors \cite{bezaire_interneuronal_2016} and in Cutsuridis and Poirazi \cite{cutsuridis_computational_2015}. Pyramidal and bistratified neurons were taken from the model of Cutsuridis and Poirazi, the source code of the models was taken from the repository \url{https://github.com/ModelDBRepository/181967}. The remaining neurons are taken from the model of Bezaire, the source code for the neuron models is taken from \url{https://github.com/ModelDBRepository/187604}. The source code of our model is available at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}. \par
+%We have used libraries to process the simulated signals: NumPy \cite{2020NumPy-Array}, Scipy \cite{2020SciPy-NMeth}, Elephant \cite{elephant18}. Graphs were plotted with Matplotlib \cite{Hunter:2007}. The code of processing is also available at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}. 
 
 \section{Models of artifitial spike generators}
-External inputs to the CA1 field are simulated with artifitial spike generators. Almost all neurons in hippocampal formation are modulated by rhythms, therefore we have used von Misses disribution to take phase modulated spike trains:
+External inputs to the CA1 field are simulated with artificial spike generators. Almost all neurons in hippocampal formation are modulated by rhythms, therefore we have used von Misses distribution to take phase modulated spike trains:
 \begin{equation}
 f(\phi) = \frac{exp(\kappa \cdot cos(\phi - \mu) )  }{2\pi \cdot I_0(\kappa) }
 \end{equation}
-where $I_0(\kappa)$ is the modified Bessel function of order 0. The parameters $\mu$ and $1/\kappa$  are analogous to the mean and variance in the normal distribution. Degree of neuron firing coupling to phase of thythm typicaly is described with parameter $R$ - ray length. Parameter $\kappa$ can be taken from $R$ by following equations: 
+where $I_0(\kappa)$ is the modified Bessel function of order 0. The parameters $\mu$ and $1/\kappa$  are analogous to the mean and variance in the normal distribution. Degree of neuron firing coupling to phase of thythm typicaly is described with parameter $R$ - ray length. Parameter $\kappa$ can be taken from $R$ by following equations \cite{mardia_directional_1999}: 
 \begin{equation}
 \begin{matrix}
 \kappa & = & \left\{
@@ -38,12 +44,12 @@ where $I_0(\kappa)$ is the modified Bessel function of order 0. The parameters $
 	\end{matrix} \right.
 \end{matrix}
 \end{equation}
-Simple model of spike generator can be presented with equations:
+A simple model of spike generator can be presented with an equation:
 \begin{equation}
 \label{eq:spike_prob_phases}
 p_{sp} = \int_\phi^{\phi + \Delta \phi} f(\phi) d \phi
 \end{equation}
-where $p_{sp}$ is probabilty of spike generation during $\Delta \phi$.from phases, we can go to the time with frequency ($\omega$)
+where $p_{sp}$ is the probabilty of spike generation during $\Delta \phi$. From phases we can go to the time with frequency ($\omega$):
 \begin{equation}
 \frac{d \phi}{dt} = 2 \pi \omega, \ \phi(t)=2\pi t \omega, \ d\phi=2 \pi \omega dt
 \end{equation}
@@ -51,8 +57,17 @@ we can join these equations:
 \begin{equation}
 p_{sp} = S \cdot \int_t^{t + \Delta t} f(2\pi t \omega) 2 \pi \omega dt
 \end{equation}
-$S$ is normalization coefficient to get given spike rate. Each generator is characterizeted by prefered phase ($\mu$), frequency ($\omega$), ray length ($R=0$ is mean that there is no coupling to phase, $R=1$ is full coupling to phase $\mu$) and spike rate (regulated by $S$). We add also latency for generator model, it is period after spike generation with zero probability of new spike. We have used such model for inpus from medial septum and (LEC !!!!!). \par
-Neurons of medial entorhynal cortex modulated by theta and gamma rhythms. We have simulated neuron of the MEC as grid cells. It means that they show slow periodic activity. It can be simulated as product of probabilities simple oscillators:  
+$S$ is a normalization coefficient to get the given spike rate. Each generator is
+characterized by the preferred phase ($\mu$), frequency ($\omega$), ray length ($R=0$
+is mean that there is no coupling to phase, $R = 1$ is full coupling to phase $\mu$)
+and spike rate (regulated by $S$). We add also latency for the generator model, it
+is the period after spike generation with zero probability of new spike. We have
+used such models for inputs from the medial septum, the lateral entorhinal cortex, and the CA3 field. \par
+Neurons of medial entorhinal cortex modulated by theta and gamma
+rhythms. We have simulated neurons of the MEC as grid cells. It means
+that they show slow periodic activity. It can be simulated as a product of
+probabilities simple oscillators:
+
 \begin{equation}
 p_{grid} = S \cdot p_{sp}(\omega_{\theta}, \mu_{\theta}, R_{\theta}) \cdot  p_{sp}(\omega_{\gamma}, \mu_{\gamma}, R_{\gamma}) \cdot  p_{sp}(\omega_{grid}, \mu_{grid}, R_{grid})
 \end{equation}
@@ -62,7 +77,7 @@ Input from the CA3 field is simulated with simple generators and with place cell
 p_{grid} = S \cdot p_{sp}(\omega_{\theta}, \mu_{\theta}, R_{\theta}) \cdot  p_{sp}(\omega_{\gamma}, \mu_{\gamma}, R_{\gamma}) \cdot 
 \frac{exp \Big( \frac{-(t - t_{place})^2}{2 \cdot r_{place}^2}  \Big)}{2 \pi r_{place}}  
 \end{equation}
-where $t_{place}$ and $r_{place}$ are the center and radius of the place field in time domain.
+where $t_{place}$ and $r_{place}$ are the center and the radius of a place field in time domain.
 
 \input{ArtifitialCell_parameters.tex}
 
@@ -72,26 +87,26 @@ where $t_{place}$ and $r_{place}$ are the center and radius of the place field i
 
 \section{Neurons models}
 \subsection{General notes on neuron models}
-All neurons were multicompartments. Potential of each compartment is: 
+All neurons were multi compartments. The potential of each compartment is: 
 \begin{eqnarray}
 \label{eq:comon_potential}
 C\frac{dV}{dt}=-\sum{I_{tm}}-I_{syn} + I_{ext}
 \end{eqnarray}
-where C is capacity in $\mu F/ cm^2$, V is potetial in mV, t is time in ms, I is current in $\mu A/cm^2$. $I_{tm}$ are transmembrane currents, they are described in following sections, and tables with parameters are given in \ref{tables_of_neurons}. Common equation for transmemrane currents is
+where $C$ is capacity in $\mu F/ cm^2$, $V$ is potential in mV, $t$ is time in ms, $I$ is current in $\mu A/cm^2$. $I_{tm}$ are transmembrane currents, they are described in the following sections, and tables with parameters are given in \ref{tables_of_neurons}. The common equation for transmembrane currents is:
 \begin{equation}
 I_{tm}= g_{max}\cdot x_1^N\cdot x_2^M \cdot x_3^K \cdot (V-E)
 \end{equation}
-where $ g_{max}$ maximal coduntance in $mS/ cm^2$, $E$ is reversal potantial for this channel in $mV$. $x_1,\ x_2, \ x_3$ are gate variables. All compartments have leak current:
+where $ g_{max}$ is maximal coduntance in $mS/ cm^2$, $E$ is reversal potantial for this channel in $mV$. $x_1,\ x_2, \ x_3$ are the gate variables. All compartments have leak current:
 \begin{equation}
 I_{L}= g_{L} \cdot (V - E_{L})
 \end{equation}
 $g_{L}$ and $E_{L}$ are given in tables \ref{tables_of_neurons}.
 
-All gate variables were described with classical equation: 
+All gate variables were described with the classical equation: 
 \begin{equation}
 \frac{dx}{dt} = \frac{x_{\infty}(V) - x}{\tau_x(V)}
 \end{equation}
-The equations for $x_{\infty}(V)$ and $\tau_x(V)$ are given in the corresponding sections in in explicit form or they can be given in form of functions  $\alpha(V)$ and $\beta(V)$
+The equations for $x_{\infty}(V)$ and $\tau_x(V)$ are given in the corresponding sections in explicit form or they can be given in form of functions  $\alpha(V)$ and $\beta(V)$
 \begin{equation}
 \tau_x(V) =  \frac{1}{\alpha(V) + \beta(V)} \ \ \ 
 x_{\infty}(V) = \alpha(V) \cdot \tau_x(V)
@@ -100,7 +115,7 @@ Numerical scheme:
 \begin{equation}
 x_{t + \Delta t} = x_t+\Big(1 - exp \Big(-\frac{\Delta t}{\tau_x} \Big) \Big)\cdot (x_{\infty}-x_t) 
 \end{equation}
-where $\Delta t = 0.1 ms$ is integration step.
+where $\Delta t = 0.1\ ms$ is integration step.
 
 There is the function \textit{Q(T)} in description of some currents, it is given by:
 \begin{equation}
@@ -111,31 +126,32 @@ where \textit{R = 8.315\ joule/deg}, \textit{F = 9.648} $\cdot 10^4 \ Coul$,
 \textit{T} is the temperature in degrees Kelvin. In all simulations \textit{T=310 deg}.
 
 
-$I_{syn}$ in equation (\ref{eq:comon_potential}) is sum of synaptic current, which deascibed in section \ref{synapse_models}. 
+$I_{syn}$ in equation (\ref{eq:comon_potential}) is a sum of synaptic current, which described in section \ref{synapse_models}. 
 
 External current ($I_{ext}$) in equation (\ref{eq:comon_potential}) simulates noise and influence of very long currents:
 \begin{equation}
 I_{ext} = I_{ext, mean} + \eta \cdot \sigma_{ext}
 \end{equation}
-where $I_{ext, mean}$ is constant value,  $ \eta$ is random value from normal disribution with nean equals 0 and standart deviation equals 1, $\sigma_{ext}=0.005 \mu A/cm^2/\sqrt{ms}$ is std of noise. To simulate heterogeineously $I_{ext, mean}$ for each neuron is chosen from lognormal distribution, mean and std are given below. 
+where $I_{ext, mean}$ is a constant value,  $ \eta$ is a random value from normal distribution with mean equals 0 and standard deviation equals 1, $\sigma_{ext}=0.005 \mu A/cm^2/\sqrt{ms}$ is std of noise. To simulate heterogeneously $I_{ext, mean}$ for each neuron is chosen from a lognormal distribution, a mean and std are given below. 
 
 \subsection{CA1 Pyramidal cell}
-Пирамидные нейроны описывались с помощью 15-ти компартментной модели. В модели принимались во внимание сома, базальные дендриты, проксимальная и дистальная часть апикального дендрита. \par
-Уравнение баланса для соматического компартмента:
+Pyramid neurons were described using a 15-compartment model (figure \ref{fig:pyr_structures}). The model took into account soma, basal dendrites, and the proximal and distal parts of the apical dendrite. \par
+Balance equation for the somatic compartment:
 \begin{eqnarray}
 C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{kdr}-I_A-I_M-I_H-I_{sAHP}-I_{mAHP}-I_{CaL}- \nonumber \\ -I_{CaT}-I_{CaR}-I_{buff}-I_{syn} + I_{ext}
 \end{eqnarray}
 
-Уравнение баланса для аксона:
+Balance equation for the axon:
 \begin{equation}
 C\frac{dV_a}{dt}=-I_L-I_{Na}-I_{kdr}-I_M-I_{syn}
 \end{equation}
 
-Уравнение баланса для базальных дендритов и проксимальной части апикального дендрита:
+Balance equation for the basal dendrites and the proximal part of the apical dendrite:
 \begin{eqnarray}
 C\frac{dV_{rad,ori}}{dt} =-I_L-I_{Na}-I_{kdr}-I_A-I_M-I_H-I_{sAHP}-I_{mAHP}- \nonumber \\-I_{CaL}-I_{CaT}-I_{CaR}-I_{buff}-I_{syn}+I_{ext}
 \end{eqnarray}
-Уравнение баланса дистальной части апикального дендрита:
+
+Balance equation for the distal part of the apical dendrite:
 \begin{equation}
 C\frac{dV_{LM}}{dt}=-I_L-I_{Na}-I_{kdr}-I_A-I_{syn}+I_{ext}
 \end{equation}
@@ -146,13 +162,12 @@ is the M-typepotassium current, \textit{I\textsubscript{H}} is a hyperpolarizing
 \textit{I\textsubscript{sAHP}} and \textit{I\textsubscript{mAHP}} are
 slow and medium Ca\textsuperscript{2+} activated K\textsuperscript{+} currents,\textit{ I\textsubscript{buff}}
 is a calcium pump/buffering mechanism and \textit{I\textsubscript{syn}} is the synaptic current. \textit{ I\textsubscript{ext}} is the tonic current and noise. The
-parameters for all ionic currents are listed in Table \ref{table:ca1_pyramidal_cell_parameters}. \par
+parameters for all ionic currents are listed in Table \ref{tabel:ca1_pyramidal_cell_parameters}. \par
 The sodium current is described by:
 \begin{equation}
 I_{Na}= g_{max, Na}\cdot m^2\cdot h\cdot s\cdot (V-E_{Na})
 \end{equation}
-an variable \textit{s} is introduced to account for dendritic location‑dependent slow attenuation of the sodium current (Poirazzi et al., 2003a, b). Activation and inactivation kinetics for ${I_{Na}}$ are given by:
-
+Activation and inactivation kinetics for ${I_{Na}}$ are given by:
 \begin{equation}
 m_{\infty}=\frac {1}{1+exp(-\frac{V+40} {3})} , \ \ \tau_m=0.05 \ ms
 \end{equation}
@@ -173,7 +188,7 @@ s_{\infty}=\frac{1+Na_{att}\cdot exp(\frac{V+60}{2})}{1+exp(\frac{V+60}{2})}
 
 \textit{Na\textsubscript{att}} variable represents the degree of sodium current
 attenuation and varies linearly from soma to distal trunk
-\textit{Na\textsubscript{att}} $\in$~[0, 1]: 1 -maximum 0 - zero attenuation (Table \ref{table:ca1_pyramidal_cell_parameters}). The delayed rectifier current is given by:
+\textit{Na\textsubscript{att}} $\in$~[0, 1]: 1 -maximum 0 - zero attenuation (Table \ref{tabel:ca1_pyramidal_cell_parameters}). The delayed rectifier current is given by:
 
 \begin{equation}
 I_{Kdr} = g_{Kdr} \cdot m^2 \cdot (V-E_K)
@@ -183,10 +198,8 @@ I_{Kdr} = g_{Kdr} \cdot m^2 \cdot (V-E_K)
 m_{\infty}=\frac{1}{1+exp(-\frac{V+42}{2})}, \tau_m = 2.2 \ ms
 \end{equation}
 
-The sodium and delayed rectifier channel properties are slightly different in the soma, axis and dendritic arbor. To fit
-experimental data regarding the backpropagation of spike trains, soma and axon compartments have a lower threshold for
-Na\textsuperscript{+} spike initiation (-57 mV) than dendritic ones -50 mV. Thus, the $m_{\infty}$ and $h_{\infty}$
-somatic/axonic HH channel kinetics as well as the time constants for both $I_{Na}^{sa}$ and $I_{Kdr}^{sa}$, are modified as follows. For the sodium
+The sodium and delayed rectifier channel properties are slightly different in the soma, axis and dendritic arbor. The $m_{\infty}$ and $h_{\infty}$
+somatic/axonic HH channel kinetics as well as the time constants for both $I_{Na}^{sa}$ and $I_{Kdr}^{sa}$, are modified as follows. For the sodium:
 
 \begin{equation}
 m_{\infty}^{sa}=\frac {1}{1+exp(-\frac{V+44}{3})} ,\ \ 
@@ -199,9 +212,9 @@ while for the potassium delayed rectifier
 m_{\infty}^{sa}=\frac {1}{1+exp(-\frac{V+46.3}{3})}
 \end{equation}
 
-The somatic time constant for somatic/axonic \textit{Na}\textit{\textsuperscript{+}}~channel activation is kept the
+The time constant for somatic and axonic \textit{Na\textsuperscript{+}}~channel activation is kept the
 same $\tau$\textsubscript{m} = 0.05 ms while for inactivation is set to $\tau$\textsubscript{h}= 1 ms. The $\tau$-value for the delayed rectifier channel activation is set to $\tau_{m}= 3.5 ms$.
-The fast inactivating A-type K\textsuperscript{+ }current is described by
+The fast inactivating A-type K\textsuperscript{+} current is described by
 \begin{equation}
 I_A = g_{max, A} \cdot n \cdot l \cdot (V - E_K)
 \end{equation}
@@ -226,7 +239,7 @@ l_{\infty} = \frac{\frac{-0.01(V+58)}{exp( (V+58)/8.2)-1}}{\frac{-0.01(V+58)}{ex
 \end{equation}
 
 
-The hyperpolarizing h-current is given by
+The hyperpolarizing H-current is:
 \begin{equation}
 I_H=g_{max, H} \cdot H \cdot (V-E_H)
 \end{equation}
@@ -246,7 +259,7 @@ H_{\infty }=\frac {1}{1+exp((V-V_{half})/8)}
 a_{H}=exp( 0.008316 \cdot (V-V_{halft}))
 \end{equation}
 where \textit{q10} =  0.4, \textit{V\textsubscript{halft}}
-see in Table \ref{table:ca1_pyramidal_cell_parameters}.
+see in Table \ref{tabel:ca1_pyramidal_cell_parameters}.
 
 The slowly activating voltage‑dependent potassium current, \textit{I}\textit{\textsubscript{M}},~is given by the
 equations:
@@ -269,7 +282,7 @@ T_{adj}(T)=2.3^{(T - 287)/10}
 \end{equation}
 
 
-The slow after-hyperpolarizing current, is given by:
+The slow after-hyperpolarizing current, is given by equations:
 \begin{equation}
 I_{sAHP}= g_{max, sAHP} \cdot m^3 \cdot (V-E_K)
 \end{equation}
@@ -284,7 +297,7 @@ I_{sAHP}= g_{max, sAHP} \cdot m^3 \cdot (V-E_K)
 where 
 $Cac=(40 \cdot [Ca^{2+}]_{in})^2$.
 
-The medium after-hyperpolarizing current, I\textsubscript{mAHP} (Moczydlowski and Latorre, 1983), is given by:
+The medium after-hyperpolarizing current, I\textsubscript{mAHP} is:
 
 \begin{equation}
 I_{mAHP}= g_{max, mAHP}\cdot m\cdot (V-E_K)
@@ -330,7 +343,7 @@ m_{\infty}(V)=\frac {1}{1+exp(-(V+37))}
 h_{\infty}(V)=\frac {1}{1+exp( (V+41)/0.5)}
 \end{equation}
 
-Their time constants are equal to $\tau_m$ = 3.6\textit{ms} and $\tau_h$=29\textit{ms}. The low-voltage activated (LVA) T-type Ca\textsuperscript{2+} channel kinetics are given by:
+Their time constants are equal to $\tau_m$ = 3.6 \textit{ms} and $\tau_h$=29 \textit{ms}. The low-voltage activated (LVA) T-type Ca\textsuperscript{2+} channel kinetics are given by equations:
 \begin{equation}
 I_{CaT} = g_{max, CaT}\cdot m^2\cdot h \cdot \frac{0.001 \cdot ghk(V,[Ca^{2+}]_{in},[Ca^{2+}]_{out})}{0.001+[Ca^{2+}]_{in} }
 \end{equation}
@@ -364,10 +377,7 @@ where $[Ca^{2+}]_{in}$ and $[Ca^{2+}]_{out}$ are the internal and external calci
 I_{CaR} = g_{max, CaR}\cdot m^3\cdot h\cdot (V-E_{Ca})
 \end{equation}
 
-The difference between somatic and dendritic CaR currents lies in the $\alpha(V)$, $\beta(V)$ and $\tau$ ~parameter
-values. For the somatic current, $\tau_m$ = 100\textit{ms} and
-$\tau_h$ = 5\textit{ms} while for the dendritic current $\tau_m$ = 50\textit{ms} and $\tau_h$=5 \textit{ ms}. The $\alpha(V)$ and $\beta(V)$ equations for dendritic CaR channels are:
-
+ There is the difference between somatic and dendritic CaR currents in the $\alpha(V)$, $\beta(V)$ and $\tau$ ~parameter values. For the somatic current, $\tau_m$ = 100 \textit{ms} and $\tau_h$ = 5\textit{ms} while for the dendritic current $\tau_m$ = 50 \textit{ms} and $\tau_h$=5 \textit{ ms}. The $\alpha(V)$ and $\beta(V)$ equations for dendritic CaR channels are:
 
 \begin{equation}
 m_{\infty}(V)=\frac {1}{1+exp(-(V+48.5)/3)}
@@ -375,7 +385,7 @@ m_{\infty}(V)=\frac {1}{1+exp(-(V+48.5)/3)}
 \begin{equation}
 h_{\infty}(V)=\frac {1}{1+exp(V+53)}
 \end{equation}
-while for the somatic CaR channels:
+while for the CaR channels of the soma:
 \begin{equation}
 m_{\infty}(V)=\frac {1}{1+exp(-(V+60)/3)}
 \end{equation}
@@ -383,10 +393,7 @@ m_{\infty}(V)=\frac {1}{1+exp(-(V+60)/3)}
 h_{\infty}(V)=\frac {1}{1+exp(V+62)}
 \end{equation}
 
-Finally, a calcium pump/buffering mechanism is inserted at the cell body and along the apical and basal trunk. The
-mechanism is taken from~(Destexhe, Mainen, \& Sejnowski, 1994). The factor for
-$Ca^{2+}$ entry was changed from
-\textit{f\textsubscript{e}} = 10,000~to \textit{f\textsubscript{e}} = 10,000/18~and the rate of calcium removal was made 7 times faster. The kinetic equations are given by:
+There is a calcium pump/buffering mechanism in the cell body and along the apical and basal trunk. The factor for $Ca^{2+}$ entry was changed from \textit{f\textsubscript{e}} = 10,000~to \textit{f\textsubscript{e}} = 556 ~and the rate of calcium removal was made 7 times faster. The kinetic equations are given by:
 
 \begin{equation}
 Ca_{input flow} = \begin{cases} \frac{-f_e \cdot I_{Ca, sum} }{0.2 \cdot F}, & if \ Ca_{input flow} > 0  \\ 0, & \  otherwise \ \end{cases}
@@ -402,17 +409,16 @@ $[Ca^{2+}]_{0} = 10^{-4} \ mM, \ \tau_{Ca} = 1400 \ ms$
 \bigskip
 
 \subsection{Bistratified cells}
-Дендритные нейроны описывались с помомощью 13-ти компартметной модели. Балансовое уравнение для потенциала для всех компартментов:
+Bistratified cells were described using a 13-compartment model. Balance equation for all compartments:
 \begin{eqnarray}
 C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr}-I_A-I_{CaL}-I_{CaN} - \nonumber \\ -I_{AHP}-I_C-I_{syn}+I_{ext}
 \end{eqnarray}
-where \textit{C} is the membrane capacitance, \textit{V} is the membrane potential, \textit{I\textsubscript{L}}
-is the leak current, \textit{I\textsubscript{Na}} is the sodium current, \textit{I\textsubscript{Kdr}} is the fast delayed rectifier K\textsuperscript{+} current, \textit{I}\textit{\textsubscript{A}} is the A-type K\textsuperscript{+} current,\textit{I\textsubscript{CaL}}
+where \textit{I}\textit{\textsubscript{A}} is the A-type K\textsuperscript{+} current,\textit{I\textsubscript{CaL}}
 is the L-type Ca\textsuperscript{2+} current, \textit{I}\textit{\textsubscript{CaN}} is the N-type
 Ca\textsuperscript{2+} current, \textit{I}\textit{\textsubscript{AHP}} is the Ca\textsuperscript{2+}-dependent
 K\textsuperscript{+} (SK) current, \textit{I}\textit{\textsubscript{C}} is the Ca\textsuperscript{2+} and
 voltage-dependent K\textsuperscript{+} (BK) current and \textit{I}\textit{\textsubscript{syn}} is the synaptic current.
-The conductance and reversal potential values of all ionic currents are listed in Table ... .
+The conductances and reversal potentials of all ionic currents are listed in Table \ref{tabel:ca1_bis_cell_parameters}.
 The sodium current and its kinetics are described by:
 \begin{equation}
 I_{Na}=g_{max, Na} \cdot m^3 \cdot h \cdot (V-E_{Na})
@@ -449,7 +455,7 @@ I_{CaN}=g_{max, CaN} \cdot c^2 \cdot d \cdot (V-E_{Ca})
 \alpha_d=1.6\cdot10^{-4}\cdot exp(-V/48.4) , \  \beta_d=\frac 1{1+exp(0.1 \cdot (39-V))}
 \end{equation}
 
-The Ca\textsuperscript{2+}-dependent K\textsuperscript{+} (SK) current, \textit{I\textsubscript{AHP}}, is described by
+The Ca\textsuperscript{2+}-dependent K\textsuperscript{+} (SK) current, \textit{I\textsubscript{AHP}}, is described by:
 
 \begin{equation}
 I_{AHP} = g_{max, AHP} \cdot q^2 \cdot (V-E_K)
@@ -472,7 +478,7 @@ where
 \begin{equation}
 B = 5.2\cdot 10^{-6}/(A \cdot d)
 \end{equation}
-in units of mol/(C m\textsuperscript{3}) for a shell of
+in units of $mol/(C m^3)$ for a shell of
 surface area \textit{A} and thickness \textit{d} (0.2 $\mu $m) and  $\tau_{Ca}=10$ ms was the calcium removal rate. [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{0}} = 5 $\mu$M was the resting calcium concentration. 
 The Ca\textsuperscript{2+} and voltage-dependent K\textsuperscript{+} (BK) current, \textit{I\textsubscript{c}}, is:
 \begin{equation}
@@ -486,8 +492,7 @@ I_C=g_{max, c} \cdot o \cdot (V-E_K)
 \beta_{o} = \frac{0.48}{1 + [Ca^{2+}]_{in} / (0.13 \cdot 10^{-6} \cdot exp(-2 \cdot F \cdot V/ (R \cdot T))) )}
 \end{equation}
 
-The A-type K\textsuperscript{+} current,
-\textit{I}\textit{\textsubscript{A}}, is described by\ \ 
+The A-type K\textsuperscript{+} current,\textit{I\textsubscript{A}}, is described by 
 \begin{equation}
 I_A=g_{max, A} \cdot a \cdot b  \cdot (V-E_K)
 \end{equation}
@@ -501,17 +506,12 @@ I_A=g_{max, A} \cdot a \cdot b  \cdot (V-E_K)
 \alpha_b = 0.0016 \cdot exp \Big(\frac{V + 13}{-18} \Big), \  \beta_b=\frac{0.05}{1+exp(\frac{10.1-V}{5})}
 \end{equation}
 
-The L-type Ca\textsuperscript{2+} current, \textit{I\textsubscript{CaL}}, is described by
-
-
+The L-type Ca\textsuperscript{2+} current, \textit{I\textsubscript{CaL}}, is given by
 \begin{equation}
 I_{CaL}=g_{max, CaL}\cdot s_{\infty }^2\cdot V \cdot
 \frac{1-\frac{exp(2 \cdot F \cdot V/ (k \cdot T)) \cdot [Ca^{2+}]_{in}}{[Ca^{2+}]_{0}}} {1-exp(2 \cdot F \cdot V/(k \cdot T))} 
 \end{equation}
-
-
-where \textit{g}\textit{\textsubscript{CaL}} is the maximal conductance, \textit{s}\textsf{\textit{\textsubscript{∞}}}
-is the steady-state activation variable, \textit{F} is Faraday’s constant, \textit{T} is the temperature, \textit{k} is
+where \textit{F} is Faraday’s constant, \textit{T} is the temperature, \textit{k} is
 Boltzmann’s constant, [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{0}} \ is the equilibrium calcium concentration and [\textit{Ca\textsuperscript{2+}}]\textit{\textsubscript{in}} is
 described in equation (\ref{eq:CaDynamics}). The activation variable, \textit{s\textsubscript{∞}}, is then
 
@@ -523,7 +523,7 @@ described in equation (\ref{eq:CaDynamics}). The activation variable, \textit{s\
 
 
 \subsection{PV basket cells}
-PV basket cells were described with 17-compartment model, 1 - soma and 16 - dendrites. Balace equation for all compartments:
+PV basket cells were described with the 17-compartment model, 1 - soma, and 16 - dendrites (figure \ref{fig:interneuron_structures}). Balance equation for all compartments:
 \begin{eqnarray}
 C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}-I_{KCaB}- \nonumber \\ 
 -I_{KCaS}-I_{KA} -I_{syn} + I_{ext}
@@ -660,9 +660,9 @@ q10 = 3^{0.1\cdot (T - 303) }
 
 
 \subsection{CCK basket cells}
-Холецистокенин-содержащие корзинчатые нейроны так же как и парвальбумин-содержащие описывались моделью из 17 компартментов, 1 - тело и 16 компартментов дендриты. Потенциал всех компарментов описывался следующим уравнением:
+CCK basket neurons as well as parvalbumin-containing ones were described by a model of 17 compartments, 1-soma, and 16 compartments of dendrites (figure \ref{fig:interneuron_structures}). The potential of all compartments was described by the following equation:
 \begin{eqnarray}
-C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}-I_{HCN}-I_{KCaS}- \nonumber \\
+C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}-I_{H}-I_{KCaS}- \nonumber \\
 -I_{KA}-I_{KCaB}-I_{KGroup}-I_{syn} + I_{ext}
 \end{eqnarray}
 
@@ -708,7 +708,7 @@ H_{\infty} =  \frac{1}{1 + exp(0.1 \ (V + 91))}
 q10 = 3^{0.1\cdot (T - 307) } 
 \end{equation}
 
-Potassium current:
+Group potassium current:
 \begin{equation}
 \label{eq:KvGroup}
 I_{KGroup} = g_{max, KGroup} \cdot n \cdot (V - E_K)
@@ -725,24 +725,24 @@ I_{KGroup} = g_{max, KGroup} \cdot n \cdot (V - E_K)
 $ I_{Kdr}, I_{CaL}, I_{CaN},I_{KCaS}, I_{KCaB}, I_{KA}$ were same as PV basket cells and described equations (\ref{eq:Kdrfast}, \ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvCaB}, \ref{eq:KvA}) respectivly.
 
 \subsection{OLM cells}
-OLM нейроны моделировались с помощью 4 компартментов - 1 тело, 1 аксон и 2 дендритных компартмента. Уравнение потенциала для тела нейрона:
+OLM neurons were modeled using 4 compartments - 1 soma, 1 axon, and 2 dendritic compartments (figure \ref{fig:olm_structures}). Potential equation for the neuron soma:
 \begin{eqnarray}
 C\frac{dV_s}{dt} = -I_L - I_{Na} - I_{Kdr} - I_{H} - I_{KA}-
  \nonumber \\
 -I_{syn} + I_{ext}
 \end{eqnarray}
-Уравнение для дендритов
+The equation for the dendrites:
 \begin{eqnarray}
 C\frac{dV_d}{dt} = -I_L - I_{Na} - I_{Kdr} - I_{KA}-
 \nonumber \\
 -I_{syn} + I_{ext}
 \end{eqnarray}
-Уравнение для аксона
+The equation for the axon:
 \begin{eqnarray}
 C\frac{dV_a}{dt} = -I_L - I_{Na} - I_{Kdr} - I_{syn}
 \end{eqnarray}
-Натриевые токи, калиевые токи выпрямления моделировались также как и у PV корзинчатых нейронов, уравнения (\ref{eq:Nav}) и (\ref{eq:Kdrfast}) соответственно.
-H-каналы:
+Sodium currents and potassium delayed rectification currents were modeled in the same way as in PV basket neurons, see equations (\ref{eq:Nav}) and (\ref{eq:Kdrfast}) respectively. \par
+H-current is:
 \begin{equation}
 \label{eq:HCNolm}
 I_{H} = g_{max, H} \cdot H \cdot (V - E_{H})
@@ -756,7 +756,7 @@ H_{\infty} =  \frac{1}{1 + exp(0.98 \cdot(V + 84.1))}
 \tau_{H} = 100 + \frac{1}{exp(-(17.9+0.116\cdot V)) + exp(0.09 \cdot V-1.84)   }
 \end{equation}
 
-Калиевый ток A-типа:
+Potassium current A-type is:
 \begin{equation}
 \label{eq:KvAolm}
 I_{KA} = g_{max, KA} \cdot a \cdot b \cdot (V - E_K)
@@ -773,21 +773,22 @@ b_{\infty} = \frac{1}{1 + exp(\frac{V + 71}{7.3})  }
 
 
 \subsection{Axo-axonic cells}
-Аксо-аксональные интернейроны моделировались с помощью 17 компартментной модели: 1 сома и 16 компартментов для дендритов. Все компартменты описывались одинаковым набором каналов:
+Axo-axonal interneurons were modeled using a 17-compartment model: 1 soma and 16 compartments for dendrites (figure \ref{fig:interneuron_structures}). All compartments were described by the same set of channels:
 \begin{eqnarray}
 C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}- \nonumber \\ 
 -I_{KCaS}-I_{KA}-I_{KCaB}-I_{syn} + I_{ext}
 \end{eqnarray}
 
-Описание всех токов аналогично тем, что использовались выше для других нейронов, см. уравнения (\ref{eq:Nav}, \ref{eq:Kdrfast}, \ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvA})
+The description of all currents is similar to those used above for other neurons, see equations (\ref{eq:Nav}, \ref{eq:Kdrfast}, \ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvA})
 
 \subsection{Ivy and neurogiaform cells}
-Ivy и нейроглиаформные описывались с помощью 17 компартментов: 1 сома и 16 дендритных компартментов. Все компартметны в обоих типах нейронов имели одинаковый набор каналов:
+Ivy and neurogliaformes were described using 17 compartments: 1 soma and 16 dendritic compartments (figure \ref{fig:interneuron_structures}). All the compartments in both types of neurons had the same set of channels:
 \begin{eqnarray}
 C\frac{dV}{dt}=-I_L-I_{Na}-I_{Kdr} - I_{CaL}-I_{CaN}- \nonumber \\
 -I_{KCaS} -I_{KA}-I_{KCaB}-I_{syn} + I_{ext}
 \end{eqnarray}
-Натриевые каналы:
+
+Sodium channels:
 \begin{equation}
 \label{eq:Navngf}
 I_{Na} = g_{max, Na} \cdot m^3 \cdot h \cdot (V - E_{Na})
@@ -805,7 +806,7 @@ I_{Na} = g_{max, Na} \cdot m^3 \cdot h \cdot (V - E_{Na})
 \beta_h = \frac{3.0931}{exp(-0.1\cdot(V+12.1463)) + 1}
 \end{equation}
 
-Калиевые каналы выпрямления:
+$I_{Kdr}$:
 \begin{equation}
 \label{eq:Kdrfastngf}
 I_{Kdr} = g_{max, Kdr} \cdot n^4 \cdot (V - E_K)
@@ -818,7 +819,7 @@ I_{Kdr} = g_{max, Kdr} \cdot n^4 \cdot (V - E_K)
 \beta_n = 0.264 \cdot exp \Big( \frac{V + 33}{40} \Big)
 \end{equation}
 
-Калиевые токи А-типа:
+A-type of potassium current:
 \begin{equation}
 I_{KA} = g_{max, KA} \cdot n \cdot l \cdot (V - E_K)
 \end{equation}
@@ -843,15 +844,15 @@ l_{\infty} = \frac{1}{1 + exp \cdot (46.41\cdot (V + 83)/T)}
 q10 = 3^{0.1\cdot (T - 303) } 
 \end{equation}
 
-Описание всех остальных токов аналогично тем, что использовались выше для других нейронов, см. уравнения (\ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvCaB})
+The description of all other currents is similar to those used above for other neurons, see equations (\ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvCaB})
 
 \subsection{Schaffer collateral associated cells}
-SCA cells описывались 17 компартмментами, 1 - сома и 16 дендриты. Все компарменты описывались с помощью следующего уравнения баланса:
+SCA cells were described using 17 compartments: 1 soma and 16 dendritic compartments (figure \ref{fig:interneuron_structures}). All the compartments were described using the following balance equation:
 \begin{eqnarray}
 C\frac{dV_s}{dt}=-I_L-I_{Na}-I_{Kdr}-I_{CaL}-I_{CaN}-I_{H}-I_{KCaS}- \nonumber \\ -I_{KA}-I_{KCaB}-I_{KGroup}-I_{syn} + I_{ext}
 \end{eqnarray}
 
-Натриевый ток, $I_{KGroup}$ and $I_{H}$ описывались также как и для CCK basket cells - equation  (\ref{eq:Navcck}, \ref{eq:KvGroup}, \ref{eq:HCN}), уравнения для других каналов были аналогичны PV basket cells  (\ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvA})
+Sodium current, $I_{KGroup}$ and $I_{H}$ are described by same way as for CCK basket cells - equation  (\ref{eq:Navcck}, \ref{eq:KvGroup}, \ref{eq:HCN}), equations for another currents are identical equations for PV basket cells  (\ref{eq:CavL}, \ref{eq:CavN}, \ref{eq:KvCaS}, \ref{eq:KvA})
 
 \subsection{Tables of neuronal parameters} \label{tables_of_neurons}
 \input{pyrtable.tex}
@@ -957,6 +958,9 @@ source to the point of measurement, $h$ is the distance from end of segment to p
 R_{x, y} = \frac{\sqrt{\frac{N_{pyr}}{\rho_{pyr}} }} {\pi}
 \end{equation}
 where $N_{pyr}$ is the number of pyramidal cells in model, $\rho_{pyr} = 0.2 \ cell/\mu m^2$ is the dencity of cells in pyramidal layer of the CA1 field.
+
+
+%\bibliography{bibliography}
 \end{document}
 
 
