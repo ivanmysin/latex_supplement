@@ -16,7 +16,9 @@
 \bibliographystyle{unsrtnat}
 
 
-\title{Supplement materials}
+\title{Supplement materials \\[1ex] \large A model of the CA1 field rhythms}
+
+
 \author{Mysin I.E.}
 \date{}
 
@@ -26,7 +28,14 @@
 
 \section{Programm instruments}
 We have used the simulator Neuron from Python. We have used the code of the models described in the article by Bezaire with coauthors \cite{bezaire_interneuronal_2016} and in Cutsuridis and Poirazi \cite{cutsuridis_computational_2015}. Pyramidal and bistratified neurons were taken from the model of Cutsuridis and Poirazi, the source code of the models was taken from the repository \url{https://github.com/ModelDBRepository/181967}. The remaining neurons are taken from the model of Bezaire, the source code for the neuron models is taken from \url{https://github.com/ModelDBRepository/187604}. The source code of our model is available at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}. \par
-%We have used libraries to process the simulated signals: NumPy \cite{2020NumPy-Array}, Scipy \cite{2020SciPy-NMeth}, Elephant \cite{elephant18}. Graphs were plotted with Matplotlib \cite{Hunter:2007}. The code of processing is also available at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}. 
+We have used libraries to process the simulated signals: NumPy \cite{2020NumPy-Array}, Scipy \cite{2020SciPy-NMeth}, Elephant \cite{elephant18}. Graphs were plotted with Matplotlib \cite{Hunter:2007}. The code of processing is also available at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}. 
+
+\section{Signal processing}
+We have processed the data using algorithms that are often used in experimental works. The filtration into frequency bands was carried out using a second-order Butterworth filter. The phase analysis of signals for finding the phase coupling of neurons was carried out using the Hilbert transform.
+Cross-rhythm phase-amplitude and phase-phase analysis has been performed in the same way as in the work (Belluscio et al. 2012) For phase-amplitude analysis, the phase of the theta rhythm was computed by filtering the signal in the theta range, Hilbert transform was followed by it. The power at gamma frequencies was found using the wavelet transform. The Morlet wavelet was used as the mother function, central frequency is 8 Hz. The phase-phase analysis of the coupling of theta and gamma rhythms was carried out by finding the signal phases in the theta and gamma ranges. Next, the phase of the signal from the theta band was multiplied by a series of coefficients, after which the phase difference was computed. After that, the phase array is averaged and the ray length is calculated. The modulation index was calculated using the Kullback-Leibler distance as described in (Tort et al. 2008). The amplitudes and phases for the modulation index were calculated using the wavelet transform.
+Phase precession analysis was performed using linear-circular linear regression (Kempter et al. 2012).
+
+
 
 \section{Models of artifitial spike generators}
 External inputs to the CA1 field are simulated with artificial spike generators. Almost all neurons in hippocampal formation are modulated by rhythms, therefore we have used von Misses distribution to take phase modulated spike trains:
@@ -898,25 +907,28 @@ Sodium current, $I_{KGroup}$ and $I_{H}$ are described by same way as for CCK ba
 \section{Synapse models} 
 \subsection{General description of synapse models} \label{synapse_models}
 We simulate connections via gap junctions and chemical synapses with
-AMPAR, NMDAR and GABA-A receptors. The model of gap junctions is described in section (\ref{gap_junctions_models}). Current through all synaptic channels is simulated as:
+AMPAR, nicotinic and GABA-A receptors. The model of gap junctions is described in section (\ref{gap_junctions_models}). Current through all synaptic channels is simulated as:
 \begin{equation}
 I_{syn} = g_{max, syn} \cdot g \cdot (V - E_{syn})
 \end{equation}
 where $ g_{max, syn}$ is maximal synaptic conductance $mS/cm^2$, $g$ is analog
-of gate variable for synaptic current. $E_{syn}$ is reversal potential in $mV$, for excitatory synapses with AMPA and NMDA receptors $E_{syn} = 0\ mV$, for GABA-A channels $E_{GABA} = -75\ mV$.
+of gate variable for synaptic current. $E_{syn}$ is reversal potential in $mV$, for excitatory synapses with AMPA and nicotinic receptors $E_{syn} = 0\ mV$, for GABA-A channels $E_{GABA} = -75\ mV$.
 Dynamic of $g$ is simulated with the double exponential model:
 \begin{equation}
 \label{eq:gsyn}
 g = exp \Big( \frac{t - t_0}{\tau_{rise}} \Big) - exp \Big( \frac{t - t_0}{\tau_{decay}} \Big)
 \end{equation}
-where $t_0$ is a time of spike on presynaptic neuron with delay. NMDAR simulated with the equation::
-\begin{equation}
-I_{NMDA} = g_{max, NMDA} \cdot g \cdot s \cdot (V - E_{NMDA})
-\end{equation}
-\begin{equation}
-s = \frac{1.50265}{1 + 0.33 \cdot exp(-0.0625 \cdot V) }
-\end{equation}
-where $g$ is described by the same equation as AMPAR and GABA-A (\ref{eq:gsyn}).
+where $t_0$ is a time of spike on presynaptic neuron with delay. 
+
+% NMDAR simulated with the equation::
+% \begin{equation}
+% I_{NMDA} = g_{max, NMDA} \cdot g \cdot s \cdot (V - E_{NMDA})
+% \end{equation}
+% \begin{equation}
+% s = \frac{1.50265}{1 + 0.33 \cdot exp(-0.0625 \cdot V) }
+% \end{equation}
+%  where $g$ is described by the same equation as AMPAR and GABA-A (\ref{eq:gsyn}).
+
 Parameters $\tau_{rise},\ \tau_{decay}$ for synapses between each group of neurons are described in the following sections. For each synapse $g_{max, syn}$ and delay are chosen from a lognormal distribution, mean and std are given below.  
 
 \subsection{Synapses from pyramidal cells}
@@ -930,7 +942,7 @@ Parameters $\tau_{rise},\ \tau_{decay}$ for synapses between each group of neuro
 \input{pyr_synapses.tex}
 \input{sca_synapses.tex}
 
-\input{nmda_parameters}
+% \input{nmda_parameters}
 
 \section{Gap junction models} \label{gap_junctions_models}
 \subsection{General description of gap junction models}
