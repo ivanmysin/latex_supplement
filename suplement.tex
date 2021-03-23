@@ -945,6 +945,24 @@ Parameters $\tau_{rise},\ \tau_{decay}$ for synapses between each group of neuro
 
 % \input{nmda_parameters}
 
+
+The weights of connections from the ca3\_spatial and mec generators and PV basket neurons to pyramidal cells and from pyramidal neurons and ca3\_spatial generators to PV basket neurons were computed by the Gaussian function
+\begin{equation}
+\begin{aligned}
+\label{eq:gaussian}
+g = g_{max, conn} exp \Big( -0.5 \cdot \frac{D_{conn}^2}{\sigma_{conn}^2} \Big) \cdot \frac{1}{\sigma_{conn} \cdot \sqrt{2 \pi}} \\
+D_{ca3\_spatial->pyr,\ pyr->pvbas} = x_{pre} - x_{post} \\
+D_{mec->pyr} = x_{pre} - x_{post} + 500 \\
+D_{pvbas->pyr} = 1 / (x_{pre} - x_{post})  \\
+\sigma_{ca3\_spatial->pyr,\ pvbas->pyr,\ mec->pyr} = 300 \\
+\sigma_{pyr->pvbas} = 1500 \\
+\end{aligned}
+\end{equation}
+where $x_{pre}$ and $x_{post}$ are the coordinates of pre-and postsynaptic neurons in the connections space. The coordinates for the pyramidal and PV basket neurons were distributed linearly in increments of 3 ms and 50 ms, respectively. Half of the pyramid neurons did not have an x coordinate, and the connections of this population were set randomly, as for all other populations of neurons. For the ca3\_spatial generators, $x$ was equal to their peak firing rate.  For the mec generators,  $x$ is the peak of the discharges closest to the coordinate of the pyramid neuron, the peaks of the mec discharges are calculated based on the frequency and phase of the grid.
+
+
+
+
 \section{Gap junction models} \label{gap_junctions_models}
 \subsection{General description of gap junction models}
 Gap junction between two neurons (1 and 2) is described by a simple equation:
