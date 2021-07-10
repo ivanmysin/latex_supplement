@@ -1,7 +1,7 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage{ucs}
 \usepackage[utf8x]{inputenc}
-\usepackage[russian, english]{babel}  
+\usepackage[english]{babel}  
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -12,8 +12,8 @@
 
 \graphicspath{ {./figures/} } 
 
-\usepackage[square,numbers]{natbib}
-\bibliographystyle{unsrtnat}
+\usepackage{tocbibind}
+\bibliographystyle{acm}
 
 
 \title{Supplement materials \\[1ex] \large A model of the CA1 field rhythms}
@@ -22,20 +22,21 @@
 \author{Mysin I.E.}
 \date{}
 
+
+
+
 \begin{document}
 \selectlanguage{english}
 \maketitle
 
 \section{Programm instruments}
-We have used the simulator Neuron from Python. We have used the code of the models described in the article by Bezaire with coauthors \cite{bezaire_interneuronal_2016} and in Cutsuridis and Poirazi \cite{cutsuridis_computational_2015}. Pyramidal and bistratified neurons were taken from the model of Cutsuridis and Poirazi, the source code of the models was taken from the repository \url{https://github.com/ModelDBRepository/181967}. The remaining neurons are taken from the model of Bezaire, the source code for the neuron models is taken from \url{https://github.com/ModelDBRepository/187604}. The source code of our model is available at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}. \par
-We have used libraries to process the simulated signals: NumPy \cite{2020NumPy-Array}, Scipy \cite{2020SciPy-NMeth}, Elephant \cite{elephant18}. Graphs were plotted with Matplotlib \cite{Hunter:2007}. The code of processing is also available at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}. 
+We have used the simulator Neuron from Python. We have used the code of the models described in the article by Bezaire with coauthors \cite{bezaire_interneuronal_2016} and in Cutsuridis and Poirazi \cite{cutsuridis_computational_2015}. Pyramidal and bistratified neurons were taken from the model of Cutsuridis and Poirazi, the source code of the models was taken from the repository \url{https://github.com/ModelDBRepository/181967}. The remaining neurons are taken from the model of Bezaire, the source code for the neuron models is taken from \url{https://github.com/ModelDBRepository/187604}. The source code of our model is available at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}. LFP was simulated with modificated LFPsimpy \url{https://github.com/ivanmysin/LFPsimpy}. \par
+We have used libraries to process the simulated signals: NumPy \cite{2020NumPyArray}, Scipy \cite{2020SciPy-NMeth}, Elephant \cite{elephant18}. Graphs were plotted with Matplotlib \cite{Hunter_2007}. The code of processing is also available at \url{https://github.com/ivanmysin/CA1\_rhythms\_model}. 
 
 \section{Signal processing}
 We have processed the data using algorithms that are often used in experimental works. The filtration into frequency bands was carried out using a second-order Butterworth filter. The phase analysis of signals for finding the phase coupling of neurons was carried out using the Hilbert transform.
 Cross-rhythm phase-amplitude and phase-phase analysis has been performed in the same way as in the work (Belluscio et al. 2012) For phase-amplitude analysis, the phase of the theta rhythm was computed by filtering the signal in the theta range, Hilbert transform was followed by it. The power at gamma frequencies was found using the wavelet transform. The Morlet wavelet was used as the mother function, central frequency is 8 Hz. The phase-phase analysis of the coupling of theta and gamma rhythms was carried out by finding the signal phases in the theta and gamma ranges. Next, the phase of the signal from the theta band was multiplied by a series of coefficients, after which the phase difference was computed. After that, the phase array is averaged and the ray length is calculated. The modulation index was calculated using the Kullback-Leibler distance as described in (Tort et al. 2008). The amplitudes and phases for the modulation index were calculated using the wavelet transform.
 Phase precession analysis was performed using linear-circular linear regression (Kempter et al. 2012).
-
-
 
 \section{Models of artifitial spike generators}
 External inputs to the CA1 field are simulated with artificial spike generators. Almost all neurons in hippocampal formation are modulated by rhythms, therefore we have used von Misses distribution to take phase modulated spike trains:
@@ -88,11 +89,11 @@ p_{grid} = S \cdot p_{sp}(\omega_{\theta}, \mu_{\theta}, R_{\theta}) \cdot  p_{s
 \end{equation}
 where $t_{place}$ and $r_{place}$ are the center and the radius of a place field in time domain.
 
-\input{ArtifitialCell_parameters.tex}
+\input{ArtifitialCell_parameters}
 
-\input{ArtifitialGridCell_parameters.tex}
+\input{ArtifitialGridCell_parameters}
 
-\input{ArtifitialPlaceCell_parameters.tex}
+\input{ArtifitialPlaceCell_parameters}
 
 \section{Neurons models}
 \subsection{General notes on neuron models}
@@ -141,7 +142,7 @@ External current ($I_{ext}$) in equation (\ref{eq:comon_potential}) simulates no
 \begin{equation}
 I_{ext} = I_{ext, mean} + \eta \cdot \sigma_{ext}
 \end{equation}
-where $I_{ext, mean}$ is a constant value,  $ \eta$ is a random value from normal distribution with mean equals 0 and standard deviation equals 1, $\sigma_{ext}=0.005 \mu A/cm^2/\sqrt{ms}$ is std of noise. To simulate heterogeneously $I_{ext, mean}$ for each neuron is chosen from a lognormal distribution, a mean and std are given below. 
+where $I_{ext, mean}$ is a constant value,  $ \eta$ is a random value from normal distribution with mean equals 0 and standard deviation equals 1, $\sigma_{ext}=0.005 \mu A/cm^2/\sqrt{ms}$ is std of noise. To simulate heterogeneously $I_{ext, mean}$ for each neuron is chosen from a lognormal distribution, a mean and std are given below in table \ref{table:iext_table}. All compartments of cell have same $I_{ext, mean}$ except axon. There is no $I_{ext}$ in axons.
 
 \subsection{CA1 Pyramidal cell}
 Pyramid neurons were described using a 15-compartment model (figure \ref{fig:pyr_structures}). The model took into account soma, basal dendrites, and the proximal and distal parts of the apical dendrite. \par
@@ -171,7 +172,7 @@ is the M-typepotassium current, \textit{I\textsubscript{H}} is a hyperpolarizing
 \textit{I\textsubscript{sAHP}} and \textit{I\textsubscript{mAHP}} are
 slow and medium Ca\textsuperscript{2+} activated K\textsuperscript{+} currents,\textit{ I\textsubscript{buff}}
 is a calcium pump/buffering mechanism and \textit{I\textsubscript{syn}} is the synaptic current. \textit{ I\textsubscript{ext}} is the tonic current and noise. The
-parameters for all ionic currents are listed in Table \ref{tabel:ca1_pyramidal_cell_parameters}. \par
+parameters for all ionic currents are listed in Table \ref{table:ca1_pyramidal_cell_parameters_trhhtgrhf}. \par
 The sodium current is described by:
 \begin{equation}
 I_{Na}= g_{max, Na}\cdot m^2\cdot h\cdot s\cdot (V-E_{Na})
@@ -197,7 +198,7 @@ s_{\infty}=\frac{1+Na_{att}\cdot exp(\frac{V+60}{2})}{1+exp(\frac{V+60}{2})}
 
 \textit{Na\textsubscript{att}} variable represents the degree of sodium current
 attenuation and varies linearly from soma to distal trunk
-\textit{Na\textsubscript{att}} $\in$~[0, 1]: 1 -maximum 0 - zero attenuation (Table \ref{tabel:ca1_pyramidal_cell_parameters}). The delayed rectifier current is given by:
+\textit{Na\textsubscript{att}} $\in$~[0, 1]: 1 -maximum 0 - zero attenuation (Table \ref{ca1_pyramidal_cell_parameters}). The delayed rectifier current is given by:
 
 \begin{equation}
 I_{Kdr} = g_{Kdr} \cdot m^2 \cdot (V-E_K)
@@ -268,7 +269,7 @@ H_{\infty }=\frac {1}{1+exp((V-V_{half})/8)}
 a_{H}=exp( 0.008316 \cdot (V-V_{halft}))
 \end{equation}
 where \textit{q10} =  0.4, \textit{V\textsubscript{halft}}
-see in Table \ref{tabel:ca1_pyramidal_cell_parameters}.
+see in Table \ref{table:ca1_pyramidal_cell_parameters}.
 
 The slowly activating voltage‑dependent potassium current, \textit{I}\textit{\textsubscript{M}},~is given by the
 equations:
@@ -865,15 +866,17 @@ Sodium current, $I_{KGroup}$ and $I_{H}$ are described by same way as for CCK ba
 
 \subsection{Tables of neuronal parameters} \label{tables_of_neurons}
 
-\input{pyrtable.tex}
-\input{pvbastable.tex}
-\input{aactable.tex}
-\input{cckbastable.tex}
-\input{olmtable.tex}
-\input{ngftable.tex}
-\input{ivytable.tex}
-\input{scatable.tex}
-\input{bistable.tex}
+\input{pyrtable}
+\input{pvbastable}
+\input{aactable}
+\input{cckbastable}
+\input{olmtable}
+\input{ngftable}
+\input{ivytable}
+\input{scatable}
+\input{bistable}
+
+\input{iext_table}
 
 \begin{figure}[h]
 	 \centering
@@ -976,7 +979,7 @@ LFP is simulated with LFPsim tools \cite{parasuram_computational_2016}, we have 
 \begin{equation} 
 \Phi_{LFP} = \sum^{n}_{i=1}{ \frac{I_i}{2\pi \sigma}log \Big(\frac{\sqrt{h_i^2 + r_i^2}-h_i}{\sqrt{l_i^2 + r_i^2}-l_i} } \Big)
 \end{equation}
-$\Phi_{LFP}$ is simulated LFP, $I$ is transmembrane current. In the simulation of LFP, only compartments of pyramidal neurons were taken into account. $\sigma$ denotes the conductivity of the medium. $r$ is the distance from the source to the point of measurement, $h$  is the distance from the end of a segment to point of measurement, $l$ is the length of a segment. All the pyramid neurons were arranged in an orderly fashion. TAll the pyramid neurons were arranged in an
+$\Phi_{LFP}$ is simulated LFP, $I$ is transmembrane current. In the simulation of LFP, only compartments of pyramidal neurons were taken into account. $\sigma$ denotes the conductivity of the medium. $r$ is the distance from the source to the point of measurement, $h$  is the distance from the end of a segment to point of measurement, $l$ is the length of a segment. All the pyramid neurons were arranged in an orderly fashion. All the pyramidal neurons were arranged in an
 orderly fashion. The soma of all the cells was on the same level ($z = 0$). The x and y coordinates for each neuron were chosen randomly from the circle with radius $R_{x, y}$ specified by the formula:
 \begin{equation} 
 R_{x, y} = \frac{\sqrt{\frac{N_{pyr}}{\rho_{pyr}} }} {\pi}
@@ -984,7 +987,7 @@ R_{x, y} = \frac{\sqrt{\frac{N_{pyr}}{\rho_{pyr}} }} {\pi}
 where $N_{pyr}$ is the number of pyramidal cells in the model, $\rho_{pyr} = 0.2 \ cell/\mu m^2$ is the density of cells in the pyramidal layer of the CA1 field.
 
 
-\bibliography{bibliography}
+\bibliography{bibliography.bib}
 \end{document}
 
 
